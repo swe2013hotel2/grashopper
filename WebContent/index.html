@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Grashopper</title>
+  <meta name="description" content="website description" />
+  <meta name="keywords" content="website keywords, website keywords" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <!-- modernizr enables HTML5 elements and feature detects -->
+  <script type="text/javascript" src="js/modernizr-1.5.min.js"></script>
+</head>
+
+<body>
+  <div id="main">
+    <header>
+      <div id="logo">
+        <div id="logo_text">
+          <!-- class="logo_colour", allows you to change the colour of the text -->
+          <h1><a href="index.html"> Grashopper </a></h1>
+          <h2>Mit einem Sprung zum besten Urlaub.</h2>
+        </div>
+      </div>
+      <nav>
+        <div id="menu_container">
+          <ul class="sf-menu" id="nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="Teammitglieder.html">Teammitglieder</a></li>
+            <li><a href="page.html">Präsentation</a></li>
+            <li><a href="s.pdf">Dokumentation</a></li>
+            <li><a href="#">Example Drop Down</a>
+              <ul>
+                <li><a href="#">Drop Down One</a></li>
+                <li><a href="#">Drop Down Two</a>
+                  <ul>
+                    <li><a href="#">Sub Drop Down One</a></li>
+                    <li><a href="#">Sub Drop Down Two</a></li>
+                    <li><a href="#">Sub Drop Down Three</a></li>
+                    <li><a href="#">Sub Drop Down Four</a></li>
+                    <li><a href="#">Sub Drop Down Five</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">Drop Down Three</a></li>
+                <li><a href="#">Drop Down Four</a></li>
+                <li><a href="#">Drop Down Five</a></li>
+              </ul>
+             </ul> 
+        </div>
+      </nav>
+    </header>
+    <div id="site_content">
+      <div id="sidebar_container">
+        <div class="sidebar">
+          <h3>Latest News</h3>
+          <h4>New Website Launched</h4>
+          <h5>November 4th, 2013</h5>
+          <p>Neue Homepage zum Projektanfang erstellt.<br /></p>
+        </div>
+        <div class="sidebar">
+          <h3>Useful Links</h3>
+          <ul>
+            <li><a href="https://docs.google.com/spreadsheet/ccc?key=0AmtJOQ9DhchzdHJyaGRUaFpfZE9ydktJZmpzSjI2ZVE#gid=0">Projekt Tagebuch</a></li>
+            <li><a href="https://github.com/swe2013hotel2/grashopper">GitHub</a></li>
+            <li><a href="https://cewebs.cs.univie.ac.at/SWE/ws13/index.php?t=uebung">Cewebs</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="content">
+        <h2>Grashopper - Hotelreservierung Aufgabenstellung</h2>
+        <p>Die Hotelreservierungsplattform soll unterschiedliche Dienste für drei verschiedene 
+        Benutzergruppen anbieten. Privatpersonen soll es z.B. ermöglicht werden Hotelzimmer zu 
+        suchen und zu buchen. </p>
+       <p> Hoteliers soll es z.B. ermöglicht werden ein bestimmtes Kontingent 
+        an Zimmern anzubieten. Analysten (z.B. Tourismusverband) sollen sinnvolle Statistiken 
+        (z.B. zur Preisgestaltung) abrufen können. </p>
+       
+      </div>
+    </div>
+    <footer>
+      <p>Copyright &copy; scenic_photo | <a href="http://www.css3templates.co.uk">design from css3templates.co.uk</a></p>
+    </footer>
+  </div>
+  <p>&nbsp;</p>
+  <!-- javascript at the bottom for fast page loading -->
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript" src="js/jquery.easing-sooper.js"></script>
+  <script type="text/javascript" src="js/jquery.sooperfish.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('ul.sf-menu').sooperfish();
+    });
+  </script>
+</body>
+</html>
