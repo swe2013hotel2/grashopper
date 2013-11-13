@@ -26,7 +26,6 @@ article, aside, figure, footer, header, hgroup, nav, section {
 
 body { 
   font: normal .80em arial, sans-serif;
-  background: #FFF url(../images/back.jpg) no-repeat center fixed;
   color: #DDD;
 }
 
@@ -197,9 +196,6 @@ nav {
   margin: 0 auto 0 auto;
 }
 
-
-  
-
 #site_content { 
   width: 930px;
   overflow: hidden;
@@ -213,7 +209,6 @@ nav {
   width: 224px;
   padding: 20px 5px 0 0;
 }
-
 
 .sidebar { 
   float: right;
@@ -282,27 +277,6 @@ nav {
   line-height: 1.5em;
 }
 
-.register_menu_container { 
-  text-align: left;
-  width: 630px;
-  margin: 0 0 15px 0;
-  float: left;
-  font-size: 120%;
-  padding: 14px 0 0 0;
-}
-  
-
-.register_menu_container ul{
-  margin: 2px 0 22px 0px;
-}
-
-.register_menu_container ul li{
-  list-style-type: none;
-  margin: 0 0 0 0; 
-  padding: 0 0 4px 28px;
-  line-height: 1.5em;
-}
-
 footer { 
   width: 980px;
   font: 170% 'Yanone Kaffeesatz', arial, sans-serif;
@@ -340,13 +314,27 @@ footer a:hover {
 
 .form_settings span { 
   float: left; 
-  width: 200px; 
+  width: 180px; 
   text-align: left;
 }
+
+
   
 .form_settings input, .form_settings textarea { 
   padding: 5px; 
   width: 299px; 
+  font: 100% arial; 
+  border: 1px solid #C6E7F0; 
+  background: #EFF8FB; 
+  color: #47433F;
+  border-radius: 7px 7px 7px 7px;
+  -moz-border-radius: 7px 7px 7px 7px;
+  -webkit-border: 7px 7px 7px 7px;  
+}
+
+.form_settings input.leftside{ 
+  padding: 5px; 
+  width: 150px; 
   font: 100% arial; 
   border: 1px solid #C6E7F0; 
   background: #EFF8FB; 
@@ -541,18 +529,6 @@ ul#nav li a {
   margin-right: 2px;
 }
 
-ul#nav li a.highlighted { 
-  padding:7px 20px 6px 20px;
-  font: 170% 'Yanone Kaffeesatz', arial, sans-serif;
-  text-shadow: 1px 1px #000;
-  text-decoration: none;
-  color: #F67F00;
-  margin-right: 2px;
-}
-
-
-
-
 ul#nav li a:hover,ul#nav li a:focus { 
   color: #0DBBD5;
   text-shadow: none;
@@ -565,48 +541,108 @@ ul#nav ul li a:hover,ul#nav ul li a:focus {
 
 
 
-/* Theming the menu */
-ul#nav2 { 
-  float: left;
+.result_row{
+
+	width: 100%;
+	height: 120px;
+	color: #888;
+	padding: 0px;
+	margin-bottom: 0px;
 }
 
-ul#nav2 ul { 
-  background: #0DBBD5;
-  margin-top: 5px;
-  padding-bottom: 15px;
+.foto img{
+	height: 90px;	
+	width: auto;
+	padding: 5px;
 }
 
-ul#nav2 li a { 
-  padding:7px 20px 6px 20px;
-  font: 170% 'Yanone Kaffeesatz', arial, sans-serif;
-  text-shadow: 1px 1px #000;
-  text-decoration: none;
-  color: #FFF;
-  margin-right: 2px;
+.result_row div{
+	float: left;
+	width: 30%;
+	height: 120px;
+	color: #888;
+	padding: 10px 0;
 }
 
-ul#nav2 li a.highlighted { 
-  padding:7px 20px 6px 20px;
-  font: 170% 'Yanone Kaffeesatz', arial, sans-serif;
-  text-shadow: 1px 1px #000;
-  text-decoration: none;
-  color: #F67F00;
-  margin-right: 2px;
+.result_row ul {
+	height: 50px;
+	width: auto;
+	padding: 0 0 0 0;
 }
 
-.highlighted{
-	color: #F67F00;
+.result_column2 ul {
+	height: 50px;
+	width: 80px;
+	padding: 0 0 0 0;
+	text-align: center;
 }
 
-ul#nav2 li a:hover,ul#nav li a:focus { 
-  color: #0DBBD5;
-  text-shadow: none;
+.result_column2 h2 {
+	font-size: 140%;
+	padding: 0 0 0 0;
+	padding-bottom: 0px;
+	margin-left: 20px;
 }
 
-ul#nav2 ul li a:hover,ul#nav ul li a:focus { 
-  color: #222;
-  text-shadow: none;
+.result_column2 a{
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
 }
 
+.result_column2 ul li{
+	text-decoration: none;
+	list-style: none;
+	witdh: 30px;
+	height: 15px;
+	color: #b97801;
+	border-style: solid;
+	border-color: orange;
+	border-radius: 3px;
+	background-color: orange;
+}
 
+#detail_foto{
+	float: left;
+	height: 240px;
+	width: 350px;
+	padding: 0 0 0 0 ;
+	margin: px;
+	margin-top: 20px;
+}
 
+#detail_foto img{
+	height: 180px;	
+	width: auto;
+	padding: 5px;
+}
+
+#detail_summary{
+	float: left;
+	height: 240px;
+	margin-top: 20px;
+}
+
+#hotel_detail{
+	float: left;
+	width: 90%;
+	margin: 20px;
+	margin-top: 20px;
+}
+
+#buchenbutton{
+	text-decoration: none;
+	float: right;
+	padding: 5px;
+	background-color: orange;
+	margin: 10px;
+	color: black;
+	border-radius: 3px;
+}
+
+#description_container{
+	float: left;
+	width: 95%;
+	margin-top: 20px;
+	margin-left: 20px;
+}
