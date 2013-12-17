@@ -1,0 +1,43 @@
+package Servlet;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class Hotelsuche
+ */
+@WebServlet("/Hotelsuche")
+public class Hotelsuche extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Hotelsuche() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		 <p><span>Von</span><input type="text" name="von" value="" /></p>
+		 <p><span>Bis</span><input type="text" name="bis" value="" /></p>
+       	 <p><span>Land</span><input type="text" name="land" value="" /></p>
+      	 <p><span>Ort</span><input type="text" name="ort" value="" /></p>
+      	 <p><span>Erwachsene</span><input type="text" name="name" value="" /></p>
+         <p><span>Kinder</span><input type="text" name="name" value="" /></p>
+		 <h4>Optional:</h4>
+      	 <p><span>Hotelname</span><input type="text" name="name" value="" /></p>
+      	 
+      	String email = request.getParameter("username");
+		String password = request.getParameter("password");
+	}
+}

@@ -1,0 +1,29 @@
+package location;
+
+import java.util.Date;
+
+import swe2013.location.*;
+
+@SuppressWarnings("unused")
+public class Statistic {
+	Date statisticBeginDate;
+	Date statisticEndDate;
+	int[] bookedOnDay;
+	
+	public Statistic statisticForHotel(Hotel hotel){
+		return null;
+	}
+	
+	public Statistic statisticForCity(City city){
+		return null;
+	}
+	
+	public Statistic statisticForRoom(Room room){
+		return null;
+	}
+	
+	@SuppressWarnings("unused")
+	private void mergeWithStatistic(Statistic statistic){
+		
+	}
+}

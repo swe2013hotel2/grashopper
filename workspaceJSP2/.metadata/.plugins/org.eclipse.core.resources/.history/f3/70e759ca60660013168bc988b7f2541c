@@ -1,0 +1,15 @@
+
+
+ <jsp:include page="header_template.jsp">
+    <jsp:param name="activePage" value="TVBAnsicht" />
+</jsp:include>
+
+
+      <div class="form_settings">
+            <FORM action="TVBAnsicht" METHOD="POST">
+            	<input type=submit name=showstatus id=txtSubmit value=Status />
+            </FORM>
+      </div>
+
+
+<%@include file="footer_template.jsp" %>

@@ -1,0 +1,23 @@
+
+
+ <jsp:include page="header_template.jsp">
+    <jsp:param name="activePage" value="TVBAnsicht" />
+</jsp:include>
+
+
+	<div class="content">
+      <div class="form_settings">
+
+		 <h2>TVB Details:</h2>
+		<p><span>Stadt</span><input type="text" name="cityname" value="${cityname}" /></p>
+		<p><span>Land</span><input type="text" name="countryname" value="${countryname}" /></p>
+		<p><span>Beschreibung</span><input type="text" name="reviewtext" value="${reviewtext}" /></p>
+		
+		<h2>TVB Statistik für die letzten 30 Tage:</h2>
+		<p><span>Hotels in ${cityname}</span><input type="text" name="hotelanzahl" value="${hotelanzahl}" /></p>
+		<p><span>Gebuchte Räume</span><input type="text" name="hotelanzahl" value="${statistic}" /></p>
+		
+      </div>
+  </div>
+
+<%@include file="footer_template.jsp" %>

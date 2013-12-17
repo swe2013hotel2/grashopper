@@ -1,0 +1,182 @@
+package swe2013.location;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+import swe2013.location.*;
+
+public class Statistic {
+	String nameOfLocation;
+	Date statisticBeginDate;
+	Date statisticEndDate;
+	Date[] dateBookings;
+	public int[]  amountBookings;
+	public int bookingscounter=0;
+	
+	public Statistic (City city, Date beginDate, Date endDate){
+		this.setStatisticBeginDate(beginDate);
+		this.setStatisticEndDate(endDate);
+		this.setNameOfLocation(city.getName());  // <<< - CITY hat noch keinen Namen im Objekt
+		
+		ArrayList<Hotel> hotelList = city.getHotels();
+		if (hotelList==null || hotelList.size()==0)
+			throw new IllegalArgumentException("No Hotels in that city");
+		
+		for (Hotel hotel : hotelList){
+			this.mergeWithStatistic(new Statistic(hotel, beginDate, endDate));
+		}
+	}
+	
+	public Statistic(Hotel hotel, Date beginDate, Date endDate)
+	{
+		this.setStatisticBeginDate(beginDate);
+		this.setStatisticEndDate(endDate);
+		this.setNameOfLocation(hotel.getName());
+		
+		ArrayList<Room> roomList=hotel.getRooms();
+		if (roomList==null || roomList.size()==0)
+			throw new IllegalArgumentException("No Rooms in that hotel");
+		
+		for (Room room : roomList){
+			this.mergeWithStatistic(new Statistic(room, beginDate, endDate));
+		}
+	}
+	
+	public Statistic(Room room, Date beginDate, Date endDate){
+		this.setStatisticBeginDate(beginDate);
+		this.setStatisticEndDate(endDate);
+		this.setNameOfLocation(String.valueOf(room.getRoomNumber()));
+
+		ArrayList<Date[]> dateList= this.getDayList(statisticBeginDate, statisticEndDate);
+		int i=0;
+		dateBookings	= new Date[dateList.size()];
+		amountBookings	= new int[dateList.size()];
+		for(Date[] day : dateList){
+			dateBookings[i]=day[0];
+			if (!room.getBookings().freeForTimeFrame(day[0], day[1]))
+				amountBookings[i]=1;
+			else
+				amountBookings[i]=0;
+			i++;
+		}
+	}
+	
+	private void mergeWithStatistic(Statistic statistic){
+		if (this.getStatisticBeginDate() != statistic.getStatisticBeginDate() 
+				|| this.getStatisticEndDate()!= statistic.getStatisticEndDate()){
+			throw new IllegalArgumentException("Timeframes do not match");
+		}
+		if (this.amountBookings==null){
+			dateBookings	= new Date[statistic.dateBookings.length];
+			amountBookings	= new int[statistic.amountBookings.length];
+		}
+		for(int i=0; i<this.dateBookings.length; i++){
+			this.dateBookings[i]=statistic.dateBookings[i];
+			this.amountBookings[i]+=statistic.getAmountBookingsByID(i);
+		}	
+	}
+	
+	
+	private ArrayList<Date[]> getDayList(Date beginDate, Date endDate){ 
+		ArrayList<Date[]> dateList = new ArrayList<Date[]>();
+		Date[] curDate = new Date[2];
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(beginDate);
+		do {
+			curDate = new Date[2];
+		    cal.add(Calendar.DATE, 1);
+	        curDate[0]=cal.getTime();
+	        cal.add(Calendar.HOUR_OF_DAY, 23);
+			curDate[1]=cal.getTime();
+	        cal.add(Calendar.HOUR_OF_DAY, -23);
+			dateList.add(curDate);
+		}while(curDate[1].before(endDate));
+
+		return dateList;
+	}
+
+	public String toString(){
+		String outputString="Booking Statistics:\n";
+		for(int i=0; i<dateBookings.length;i++){
+			outputString+= dateBookings[i] + ": " + amountBookings[i] + "\n";
+		}
+		return outputString;
+	}
+	
+	/**
+	 * @return the statisticBeginDate
+	 */
+	public final Date getStatisticBeginDate() {
+		return statisticBeginDate;
+	}
+
+	/**
+	 * @param statisticBeginDate the statisticBeginDate to set
+	 */
+	private final void setStatisticBeginDate(Date statisticBeginDate) {
+		this.statisticBeginDate = statisticBeginDate;
+	}
+
+	/**
+	 * @return the statisticEndDate
+	 */
+	public final Date getStatisticEndDate() {
+		return statisticEndDate;
+	}
+
+	/**
+	 * @param statisticEndDate the statisticEndDate to set
+	 */
+	private final void setStatisticEndDate(Date statisticEndDate) {
+		this.statisticEndDate = statisticEndDate;
+	}
+
+	/**
+	 * @return the dateBookings
+	 */
+	public final Date[] getDateBookings() {
+		return dateBookings;
+	}
+
+	/**
+	 * @param dateBookings the dateBookings to set
+	 */
+	private final void setDateBookings(Date[] dateBookings) {
+		this.dateBookings = dateBookings;
+	}
+
+	/**
+	 * @return the amountBookings
+	 */
+	public final int[] getAmountBookings() {
+		return amountBookings;
+	}
+	
+	public final int getAmountBookingsByID(int ID) {
+		return amountBookings[ID];
+	}
+
+	/**
+	 * @param amountBookings the amountBookings to set
+	 */
+	private final void setAmountBookings(int[] amountBookings) {
+		this.amountBookings = amountBookings;
+	}
+
+	/**
+	 * @return the nameOfLocation
+	 */
+	public final String getNameOfLocation() {
+		return nameOfLocation;
+	}
+
+	/**
+	 * @param nameOfLocation the nameOfLocation to set
+	 */
+	private final void setNameOfLocation(String nameOfLocation) {
+		this.nameOfLocation = nameOfLocation;
+	}
+}
