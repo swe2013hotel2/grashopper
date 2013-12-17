@@ -1,0 +1,16 @@
+<%@include file="header_template.jsp" %>
+
+response.sendRedirect("SearchResults?von="+von+"&bis="+bis+"&maxkosten="+maxkosten+"&personen="+personen);
+
+ <form action="SearchResults" action="SearchResults" method="post">
+
+         <p><span>Von</span><input type="text" name="von" value="" /></p>
+		 <p><span>Bis</span><input type="text" name="bis" value="" /></p>
+       	 <p><span>Maxkosten</span><input type="text" name="maxkosten" value="" /></p>
+      	 <p><span>Personen</span><input type="text" name="personen" value="" /></p>
+
+        <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="name" value="Suchen" onclick="redirect()"></p>
+     
+    </form>      
+
+<%@include file="footer_template.jsp" %>

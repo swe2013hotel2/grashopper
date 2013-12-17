@@ -1,0 +1,34 @@
+
+
+ <jsp:include page="header_template.jsp">
+    <jsp:param name="activePage" value="TVBAnsicht" />
+</jsp:include>
+
+<c:set var="now" value="<%=new java.util.Date()%>" />
+
+<s:textfield name="fromTransactionDate" label="fromTransactionDate" readonly="true" title="dd/mm/yyyy format" onclick="ds_sh(this);" value="${now}"/>
+
+	<div class="content">
+      <div class="form_settings">
+
+		 <h2>TVB Details:</h2>
+		<p><span>Stadt</span><input type="text" name="cityname" value="${cityname}" /></p>
+		<p><span>Land</span><input type="text" name="countryname" value="${countryname}" /></p>
+		<p><span>Beschreibung</span><input type="text" name="reviewtext" value="${reviewtext}" /></p>
+		
+		<h2>TVB Statistik:</h2>
+		<p><span>Hotels in ${cityname}</span><input type="text" name="hotelanzahl" value="${hotelanzahl}" /></p>
+		
+	<form name="TVBAnsicht" action="TVBAnsicht" method="post">
+		<h3>Raum Buchungen für gewünschten Zeitraum anzeigen:</h3>
+		<p><span>Anfangs Datum</span><input type="text" name="bd" value="13.12.2013" /></p>
+		<p><span>End Datum</span><input type="text" name="ed" value="25.12.2013" /></p>
+
+        <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="name" value="Anzeigen" /></p>
+		<p>${statistic}</p>
+	</form>	
+	
+      </div>
+  </div>
+
+<%@include file="footer_template.jsp" %>

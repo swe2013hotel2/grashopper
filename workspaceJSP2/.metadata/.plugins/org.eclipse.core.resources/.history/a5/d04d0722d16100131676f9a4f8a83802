@@ -1,0 +1,24 @@
+ <jsp:include page="header_template.jsp">
+    <jsp:param name="activePage" value="Hotelsuche" />
+</jsp:include>
+
+ <div class="content">
+ 
+   <form action="Hotelsuche" action="Hotelsuche" method="post">
+      <div class="form_settings">
+
+         <p><span>Von</span><input type="text" name="von" value="" /></p>
+		 <p><span>Bis</span><input type="text" name="bis" value="" /></p>
+       	 <p><span>Land</span><input type="text" name="land" value="" /></p>
+      	 <p><span>Ort</span><input type="text" name="ort" value="" /></p>
+      	 <p><span>Erwachsene</span><input type="text" name="name" value="" /></p>
+         <p><span>Kinder</span><input type="text" name="name" value="" /></p>
+		 <h4>Optional:</h4>
+      	 <p><span>Hotelname</span><input type="text" name="name" value="" /></p>
+
+        <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="name" value="Suchen" onclick="redirect()"></p>
+      </div>
+    </form>      
+ </div>
+    
+    <%@include file="footer_template.jsp" %>

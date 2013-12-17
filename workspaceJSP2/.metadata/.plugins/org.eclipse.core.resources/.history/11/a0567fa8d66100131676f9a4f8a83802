@@ -1,0 +1,74 @@
+package Servlet;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import swe2013.dao.LocationDAO;
+import swe2013.dao.SqlLocationDAO;
+import swe2013.location.Hotel;
+
+/**
+ * Servlet implementation class Hotelsuche
+ */
+@WebServlet("/Hotelsuche")
+public class Hotelsuche extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Hotelsuche() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		try{
+			String hotelname = request.getParameter("hotelname");
+			String von = request.getParameter("von");
+			String bis = request.getParameter("bis");
+			String land = request.getParameter("land");
+			String ort = request.getParameter("ort");
+			String personen = request.getParameter("personen");
+			String maxkosten = request.getParameter("maxkosten");
+			
+			LocationDAO locationDao = new SqlLocationDAO();
+			SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+			
+			Date bd;
+			Date ed;
+			
+			bd = formatter.parse(von);
+			ed = formatter.parse(bis);
+			
+			
+			long[] hotelids = locationDao.hotelsWithFreeRooms(bd , ed, Integer.parseInt(personen), Integer.parseInt(maxkosten));
+			ArrayList<Hotel> hotels = new ArrayList<Hotel>();
+			
+			for(int i=0; i<hotelids.length; i++){
+				hotels.add(locationDao.getHotelByID(hotelids[i]));
+			}
+			
+			
+			
+		}	
+		catch (Throwable theException) 	    
+		{
+			System.out.println(theException); 
+		}
+	
+	}
+}

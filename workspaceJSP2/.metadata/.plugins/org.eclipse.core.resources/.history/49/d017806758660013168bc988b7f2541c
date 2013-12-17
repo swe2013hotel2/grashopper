@@ -1,0 +1,139 @@
+
+
+<%String activePage = (String)request.getParameter("activePage"); %>
+
+     <!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Grashopper</title>
+  <meta name="description" content="website description" />
+  <meta name="keywords" content="website keywords, website keywords" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" type="text/css" href="./css/style.css" />
+  <!-- modernizr enables HTML5 elements and feature detects -->
+  <script type="text/javascript" src="js/modernizr-1.5.min.js"></script>
+
+</head>
+
+<body>
+  <div id="main">
+    <header>
+      <div id="logo">
+        <div id="logo_text">
+          <!-- class="logo_colour", allows you to change the colour of the text -->
+          <h1><a href="index.jsp"> Grashopper </a></h1>
+          <h2>Mit einem Sprung zum besten Urlaub.</h2>
+        </div>
+      </div>
+      <nav>
+        <div id="menu_container">
+          <ul class="sf-menu" id="nav">
+
+            <%if(activePage!=null && activePage.equals("index")) {%> 
+            	 <li><a href="index.jsp"  class="highlighted">Home</a></li>
+            <%}
+            else{ %>
+             	<li><a href="index.jsp"  >Home</a></li>
+            <%} %>
+            
+<%-- ------------------------------------------------------------------------------------------------------ --%>
+
+            <%if(activePage!=null && activePage.equals("Registrierung")) {%> 
+            	<li><a href="Registrierung.jsp" class="highlighted">Registrierung</a></li>
+            <%}
+            else{ %>
+             	<li><a href="Registrierung.jsp" >Registrierung</a></li>
+            <%} %>
+<%-- ------------------------------------------------------------------------------------------------------ --%>
+            
+            <%if(activePage!=null && activePage.equals("Hotellieransicht")) {%> 
+            	  <li><a href="Hotellieransicht.jsp" class="highlighted" >Hotellier Ansicht</a></li>
+            <%}
+            else{ %>
+             	 <li><a href="Hotellieransicht.jsp" >Hotellier Ansicht</a></li>
+            <%} %>
+ <%-- ------------------------------------------------------------------------------------------------------ --%>
+            
+            <%if(activePage!=null && activePage.equals("TVBAnsicht")) {%> 
+            	  <li><a href="TVBansicht.java" class="highlighted" >TVB-Ansicht</a></li>
+            <%}
+            else{ %>
+             	 <li><a href="TVBansicht.java" >TVB-Ansicht</a></li>
+            <%} %>
+ <%-- ------------------------------------------------------------------------------------------------------ --%>
+            
+            <%if(activePage!=null && activePage.equals("Hotelsuche")) {%> 
+            	  <li><a href="Hotelsuche.jsp"  >Hotelsuche</a></li>
+            <%}
+            else{ %>
+             	 <li><a href="Hotelsuche.jsp"  >Hotelsuche</a></li>
+            <%} %>
+ <%-- ------------------------------------------------------------------------------------------------------ --%>
+            
+            
+            
+            <li><a href="#">Dokumentation</a>
+              <ul>
+                <li><a href="Projektplanung.pdf" target="_blank" >Projekt Planung</a></li>
+                <li><a href="#">Projekt Details</a>
+                  <ul>
+                    <li><a href="Usecase_Diagramm.png">Use Case Diagramm</a></li>
+                    <li><a href="Anforderungsanalyse.pdf">Anforderungsanalyse</a></li>
+
+                    <li><a href="designmodell.pdf">Designmodell</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">Präsentationen</a>
+                  <ul>
+                    <li><a href="Presentation1.pdf">Präsentation 1</a></li>
+                    <li><a href="Presentation2.pdf">Präsentation 2</a></li>
+                    <li><a href="Presentation3.pdf">Präsentation 3</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">JDoc</a></li>
+              </ul>
+ <%-- ------------------------------------------------------------------------------------------------------ --%>
+            
+            <%if(activePage!=null && activePage.equals("Teammitglieder")) {%> 
+            	  <li><a href="Teammitglieder.jsp" class="highlighted" >Team Mitglieder</a></li>
+            <%}
+            else{ %>
+             	 <li><a href="Teammitglieder.jsp" >Team Mitglieder</a></li>
+            <%} %>
+ <%-- ------------------------------------------------------------------------------------------------------ --%>
+            
+             </ul> 
+        </div>
+      </nav>
+     
+    </header>
+    <div id="site_content">
+      <div id="sidebar_container">
+        <div class="sidebar">
+     		<%
+     		String username=(String)session.getAttribute("username");
+			if (username==null) {
+			%>
+				<jsp:include page="LoginForm.jsp" />
+			<%
+			} else { %>
+				<jsp:include page="LogoutForm.jsp" />
+			<%}
+			%>
+   		 
+        </div>
+        <div class="sidebar">
+          <h2>Useful Links</h2>
+          <ul>
+            <li><a href="https://docs.google.com/spreadsheet/ccc?key=0AmtJOQ9DhchzdHJyaGRUaFpfZE9ydktJZmpzSjI2ZVE#gid=0">Projekt Tagebuch</a></li>
+            <li><a href="https://github.com/swe2013hotel2/grashopper">GitHub</a></li>
+            <li><a href="https://cewebs.cs.univie.ac.at/SWE/ws13/index.php?t=uebung">Cewebs</a></li>
+          </ul>
+        </div>
+      </div>
+     
+     
+     
+    
+      

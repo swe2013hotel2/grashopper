@@ -1,0 +1,61 @@
+/**
+ * 
+ */
+package swe2013.dao;
+
+import java.util.Calendar;
+import java.util.Date;
+
+import swe2013.location.City;
+import swe2013.location.Hotel;
+import swe2013.location.Room;
+import swe2013.user.*;
+import swe2013.management.*;
+
+/**
+ * DAO TEST - Class for implementing and Testing the Location and UserDAO
+ * @author Andreas Kocman (0302840)
+ *
+ */
+public class DAOTest {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		/*UserDAO userDAO = new SqlUserDAO();
+		
+		User testUser = new Customer("kjfkjshf", "Hugo", "Peterson", "bert@gmx.at", "123456789", 1234, "Hugostraﬂe 29a", "St. Poelten", "Austria", true, "Supersecret");
+		Hotel hotel = new Hotel("SIMOON");
+		City city = new City("Linz","Oesterreich");
+		int userId = 7;
+		
+		RoomDAO roomDAO = new SqlRoomDAO();
+		Room room = new  Room(1, 200, 2);
+		//roomDAO.saveRoom(7, room.getRoomNumber(), room.getSize(),(int)room.getCostPerNight());
+		
+		BookingDAO bookingDAO = new SqlBookingDAO();
+		 Calendar now = Calendar.getInstance();
+		 Date beginDate = now.getTime();
+		 now.set(Calendar.DATE, 20);
+		 Date endDate = now.getTime();
+		 
+		 System.out.println(bookingDAO.getBookingsForRoom(7, 1).toString());
+		LocationDAO locationDAO = new SqlLocationDAO();
+*/
+		
+		TourismAssociation h = new TourismAssociation("taeeLinz", "Franz", "Franzinand", "taLeenz@gmail.com", "123456789", 4545, "Blastrasse", "Linz", "Oesterreich", true, "123456789");
+		UserDAO userDAO = new SqlUserDAO();
+		userDAO.saveUser(h);
+		
+		
+		userDAO.getUserbyEmail("rider@gmail.com");
+		
+		//HotellierManagement hm = new HotellierManagement(h);
+		//int[] rooms = {1,2};
+		//double[] costPerNight = {200,300};
+		
+		//hm.createHotel("geileHüttn", rooms, costPerNight, "Stadt","Land");
+	}
+
+}
