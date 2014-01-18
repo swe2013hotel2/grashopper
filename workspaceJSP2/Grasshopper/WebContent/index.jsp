@@ -3,7 +3,6 @@
     <jsp:param name="activePage" value="index" />
 </jsp:include>
 
-      <div class="content">
       
         <h2>Grashopper - Hotelreservierung Aufgabenstellung</h2>
         <p>Die Hotelreservierungsplattform soll unterschiedliche Dienste für drei verschiedene 
@@ -12,6 +11,5 @@
        <p> Hoteliers soll es z.B. ermöglicht werden ein bestimmtes Kontingent 
         an Zimmern anzubieten. Analysten (z.B. Tourismusverband) sollen sinnvolle Statistiken 
         (z.B. zur Preisgestaltung) abrufen können. </p>
-      </div>
       
   <%@include file="footer_template.jsp" %>

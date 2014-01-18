@@ -1,15 +1,12 @@
-
-
  <jsp:include page="header_template.jsp">
-    <jsp:param name="activePage" value="Hotellieransicht" />
+    <jsp:param name="activePage" value="MyAccount" />
 </jsp:include>
 
 
-
-    <form name="Hotellieransicht" action="Hotellieransicht" method="post">
+    <h2>Mein Account</h2>
+    <form action="MyAccount" method="post">
       <div class="form_settings">
-		
-		<h2>Ihre Daten ändern</h2>
+		<h2>Ihre Daten</h2>
 
         <p><span>Ihr Username</span><input type="text" name="username" value="${username}" /></p>
         <p><span>Ihr Vorname</span><input type="text" name="vorname" value="${vorname}" /></p>
@@ -30,16 +27,6 @@
         <p><span>neues Passwort:</span><input type="text" name="newPW" value="" /></p>
         <p><span>Passwort wiederholen:</span><input type="text" name="repeatPW" value="" /></p>
      
-        <p><h2>Hoteldaten Ändern</h2></p>
-        <p><span>Hotelname</span><input type="text" name="hotelname" value="${hotelname}" /></p>
-
-        <p><span>Zimmeranzahl 1 Bett</span><input type="text" name="oneBedRoom" value="${oneBedRoom}" readonly /></p>
-        <p><span>Zimmeranzahl 2 Bett</span><input type="text" name="twoBedRoom" value="${twoBedRoom}" readonly/></p>
-		
-		<p><span>Preis 1 Bett Zimmer</span><input type="text" name="priceOneBedRoom" value="${priceOneBedRoom}" readonly/></p>
-        <p><span>Preis 2 Bett Zimmer</span><input type="text" name="priceTwoBedRoom" value="${priceTwoBedRoom}" readonly/></p>
-
-
         <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="name" value="Speichern" /></p>
       </div>
     </form>

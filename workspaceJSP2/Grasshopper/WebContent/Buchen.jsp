@@ -10,7 +10,7 @@ String begindate = (request.getParameter("begindate")==null ? "":(String)request
 String enddate = (request.getParameter("enddate")==null ? "":(String)request.getParameter("enddate"));
 
 %>
-  <div class="content">
+
     <h2>Buchung</h2>
     <h2>Buchungsdeteils überprüfen</h2>
     <form action="#" method="post">
@@ -26,7 +26,7 @@ String enddate = (request.getParameter("enddate")==null ? "":(String)request.get
       </form>
       <a id="buchenbutton" href="Booking?hotelid=<%=request.getParameter("hotelid") %>&hotelname=<%=request.getParameter("hotelname") %>&city=<%=request.getParameter("city") %>&country=<%=request.getParameter("country") %>&roomnumber=<%=request.getParameter("roomnumber") %>&roomsize=<%=request.getParameter("roomsize") %>&roomcost=<%=request.getParameter("roomcost") %>&begindate=<%=request.getParameter("begindate") %>&enddate=<%=request.getParameter("enddate") %>">Buchen</a>
   	<a id="buchenbutton" href="Hotelsuche.jsp">Abbrechen</a>
-  </div>
+
 
 <%@include file="footer_template.jsp" %>
 

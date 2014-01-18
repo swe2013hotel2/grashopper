@@ -45,7 +45,6 @@ public class Review {
 			Object[] values = {};
 			SqlDAO.executeQuery(insert_Review_Hotel, values);
 		}
-		
 	}
 	
 	public static void reviewCity(long userID, String reviewText, int stars){
