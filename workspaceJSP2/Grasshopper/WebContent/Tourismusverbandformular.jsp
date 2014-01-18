@@ -1,6 +1,6 @@
 <%@include file="footer_template.jsp" %>
 
-  <div class="content">
+
 <h2>Registrierung</h2>
         <form action="#" method="post">
           <div class="form_settings">
@@ -18,7 +18,7 @@
             <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="name" value="Speichern" /></p>
           </div>
         </form>
-  </div>
+
 
 
 <%@include file="footer_template.jsp" %>

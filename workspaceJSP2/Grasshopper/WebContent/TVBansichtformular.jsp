@@ -1,7 +1,6 @@
 
 <%@include file="header_template.jsp" %>
 
- <div class="content">
 
     
     <form action="#" method="post">
@@ -43,6 +42,5 @@
 
       </div>
     </form>
-  </div>
 
 <%@include file="footer_template.jsp" %>

@@ -5,7 +5,6 @@
 </jsp:include>
 
 
-	<div class="content">
       <div class="form_settings">
 	<form name="TVBStatistik" action="TVBStatistik" method="post">
 		 <h2>TVB Details:</h2>
@@ -23,6 +22,5 @@
 	</form>	
 	
       </div>
-  </div>
 
 <%@include file="footer_template.jsp" %>

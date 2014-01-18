@@ -3,7 +3,6 @@
     <jsp:param name="activePage" value="Registrierung" />
 </jsp:include>
 
-  <div class="content">
 <h2>Registrierung</h2>
         <form action="TVBRegistrierung" method="post">
           <div class="form_settings">
@@ -25,7 +24,7 @@
             <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="name" value="Speichern" /></p>
           </div>
         </form>
-  </div>
+
 
       
       <%@include file="footer_template.jsp" %>
