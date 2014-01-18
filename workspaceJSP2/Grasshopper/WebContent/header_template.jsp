@@ -38,29 +38,50 @@
             <%} %>
             
 <%-- ------------------------------------------------------------------------------------------------------ --%>
+     		<%
+     		Integer UserClass=(Integer)session.getAttribute("UserClass");
+			if (UserClass==null) {
+			%>
+				<%if(activePage!=null && activePage.equals("Registrierung")) {%> 
+	            	<li><a href="Registrierung.jsp" class="highlighted">Registrierung</a></li>
+	            <%}
+	            else{ %>
+	             	<li><a href="Registrierung.jsp" >Registrierung</a></li>
+	            <%} %>
+			<%
+			} else if(UserClass.equals(1)){ %>
+	            <%if(activePage!=null && activePage.equals("MeineBuchungen")) {%> 
+	            	  <li><a href="MeineBuchungen" class="highlighted" >Meine Buchungen</a></li>
+	            <%}
+	            else{ %>
+	             	 <li><a href="MeineBuchungen" >Meine Buchungen</a></li>
+	            <%} %>
+	            <%if(activePage!=null && activePage.equals("MeineRezensionen")) {%> 
+	            	  <li><a href="MeineRezensionen" class="highlighted" >MeineRezensionen</a></li>
+	            <%}
+	            else{ %>
+	             	 <li><a href="MeineRezensionen" >MeineRezensionen</a></li>
+	            <%} %>
+			<%}
+			else if(UserClass.equals(2)){
+			%>
+	            <%if(activePage!=null && activePage.equals("Hotellieransicht")) {%> 
+	            	  <li><a href="Hotellieransicht" class="highlighted" >Mein Hotel</a></li>
+	            <%}
+	            else{ %>
+	             	 <li><a href="Hotellieransicht" >Mein Hotel</a></li>
+	            <%} %>
+			<% }
+			else if(UserClass.equals(3)){
+			%>
+	            <%if(activePage!=null && activePage.equals("TVBAnsicht")) {%> 
+	            	  <li><a href="TVBAnsicht" class="highlighted" >TVB-Ansicht</a></li>
+	            <%}
+	            else{ %>
+	             	 <li><a href="TVBAnsicht" >TVB-Ansicht</a></li>
+	            <%} %>
+			<% } %>
 
-            <%if(activePage!=null && activePage.equals("Registrierung")) {%> 
-            	<li><a href="Registrierung.jsp" class="highlighted">Registrierung</a></li>
-            <%}
-            else{ %>
-             	<li><a href="Registrierung.jsp" >Registrierung</a></li>
-            <%} %>
-<%-- ------------------------------------------------------------------------------------------------------ --%>
-            
-            <%if(activePage!=null && activePage.equals("Hotellieransicht")) {%> 
-            	  <li><a href="Hotellieransicht" class="highlighted" >Hotellier Ansicht</a></li>
-            <%}
-            else{ %>
-             	 <li><a href="Hotellieransicht" >Hotellier Ansicht</a></li>
-            <%} %>
- <%-- ------------------------------------------------------------------------------------------------------ --%>
-            
-            <%if(activePage!=null && activePage.equals("TVBAnsicht")) {%> 
-            	  <li><a href="TVBAnsicht" class="highlighted" >TVB-Ansicht</a></li>
-            <%}
-            else{ %>
-             	 <li><a href="TVBAnsicht" >TVB-Ansicht</a></li>
-            <%} %>
  <%-- ------------------------------------------------------------------------------------------------------ --%>
             
             <%if(activePage!=null && activePage.equals("Hotelsuche")) {%> 
@@ -71,7 +92,15 @@
             <%} %>
  <%-- ------------------------------------------------------------------------------------------------------ --%>
             
-            
+           	<%if (UserClass==null) {
+			%>
+				<%if(activePage!=null && activePage.equals("MyAccount")) {%> 
+	            	<li><a href="MyAccount" class="highlighted">Mein Account</a></li>
+	            <%}
+	            else{ %>
+	             	<li><a href="MyAccount" >MeinAccount</a></li>
+	            <%} %>
+			<%}  %>
             
             <li><a href="#">Dokumentation</a>
               <ul>
@@ -132,6 +161,23 @@
           </ul>
         </div>
       </div>
+      
+      <%if(activePage!=null && activePage.equals("Registrierung")) {%> 
+      	<div class="register_menu_container">
+        <ul class="sf-menu" id="nav2">
+          <li><a href="Kundenregistrierung.jsp">Kunde</a></li>
+          <li><a href="Hotellierregistrierung.jsp">Hotellier</a></li>
+          <li><a href="Tourismusverbandregistrierung.jsp">Tourismusverband</a></li>
+        </ul>
+     	 </div>
+	  <%}%>
+
+
+   <div class="content">
+   
+   <%if(request.getParameter("error")!=null) {%>
+   <h2><%=request.getParameter("error") %> </h2>
+   <%} %>
      
      
      

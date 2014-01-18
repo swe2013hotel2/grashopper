@@ -45,6 +45,12 @@ public class Login extends HttpServlet {
 
 			User user = UserDAO.getUserbyEmail(email);
 			
+			if(user==null)
+			{
+				System.out.print("dsoifhidshgfds");
+				response.sendRedirect("invalidLogin.jsp?error=nouser");
+			}
+			
 			if (user != null && user.checkPassword(password))
 			{
 				HttpSession session = request.getSession();
@@ -59,7 +65,7 @@ public class Login extends HttpServlet {
 			}
 			        
 			else 
-				response.sendRedirect("invalidLogin.jsp"); //error page 
+				response.sendRedirect("invalidLogin.jsp?error=wrongpassword"); //error page 
 			} 
 				
 				

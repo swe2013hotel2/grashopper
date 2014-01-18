@@ -43,7 +43,6 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			String hotelid = request.getParameter("hotelid");
 			String roomid = request.getParameter("roomnumber");
 
-			
 			HttpSession session = request.getSession();
 			Long userid = (Long) session.getAttribute("UserID");
 			
@@ -54,8 +53,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			System.out.println("roomid: "+roomid);
 			
 			if(userid==null|| von==null || bis==null||hotelid==null||roomid==null)
-			{
-				
+			{	
 				response.sendRedirect("Bookingfailed.jsp");
 				return;
 			}

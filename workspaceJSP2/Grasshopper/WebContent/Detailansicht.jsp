@@ -1,7 +1,5 @@
  <%@include file="header_template.jsp" %>
- 
 
-  <div class="content">
     <h2><%=request.getParameter("hotelname") %></h2>
     
     <div id="detail_foto">
@@ -21,10 +19,5 @@
 		Alle 232 Gästezimmer und 43 Executive Apartments des Hotel sind mit einer Klimaanlage ausgestattet und modern eingerichtet. Die luxuriöse Ausstattung umfasst modernste Technologien sowie kostenlosen Internetzugang. Die Executive Zimmer und die Swiss Executive Club Lounge bieten höchsten Komfort und Exklusivität.
 		</h6>
 	</div>
- 
-</div>
-      
-  
-
 
 <%@include file="footer_template.jsp" %>

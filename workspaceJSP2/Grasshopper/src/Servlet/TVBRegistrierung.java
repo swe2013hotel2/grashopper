@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import swe2013.dao.SqlLocationDAO;
 import swe2013.dao.SqlUserDAO;
 import swe2013.location.Review;
 import swe2013.user.TourismAssociation;
@@ -51,6 +52,15 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 			//System.out.print(sex);
 			if(!password.equals(passwordconfirmation)){
 				response.sendRedirect("TVBRegistrierung.jsp");
+			
+			
+			SqlLocationDAO dao = new SqlLocationDAO();
+			Long taID = dao.getTAForCity(city, country);
+			if(taID!=null){
+				response.sendRedirect("citytaexists.jsp");
+				return;
+			}
+				
 			}
 			else{
 			SqlUserDAO userDAO = new SqlUserDAO();

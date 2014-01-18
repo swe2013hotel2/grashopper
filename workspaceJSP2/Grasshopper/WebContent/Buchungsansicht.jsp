@@ -1,7 +1,7 @@
 
 <%@include file="header_template.jsp" %>
 
-  <div class="content">
+
     <h2>Buchung</h2>
     
 
@@ -26,7 +26,6 @@
         <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="name" value="Senden" /></p>
       </div>
     </form>
-  </div>
 
     
     <%@include file="footer_template.jsp" %>

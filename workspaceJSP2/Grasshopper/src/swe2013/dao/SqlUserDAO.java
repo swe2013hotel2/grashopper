@@ -177,6 +177,7 @@ public class SqlUserDAO implements UserDAO {
 		long userID = (Long)result[0];
 		user.setUserID(userID);
 		
+		/*
 		if(user.getUserClass()==3){
 			SqlLocationDAO locationDAO = new SqlLocationDAO();
 	
@@ -193,6 +194,7 @@ public class SqlUserDAO implements UserDAO {
 			City city = new City(user.getCity(),user.getCountry());
 			locationDAO.saveHotel(hotel, city, userID);
 		}
+		*/
 		
 		return userID;
 	}

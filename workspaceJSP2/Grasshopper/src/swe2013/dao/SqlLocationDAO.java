@@ -8,9 +8,12 @@ import swe2013.location.*;
 public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 
 	//--------------------------------------------------------------------------------
-	static String insert_City_SQL = "INSERT INTO a1201759.City"
+	static String insert_City = "INSERT INTO a1201759.City"
 									+ " VALUES(?,?,?,?,?)";
 	static String query_City_begin ="SELECT * FROM a1201759.City ";
+	static String city_for_country_city = "SELECT * FROM a1201759.City WHERE cityname=? AND countryname=? ";
+	static String city_for_TA = "SELECT * FROM a1201759.City WHERE AssignedTA=?";
+	
 	static String delete_City_Query = "DELETE FROM a1201759.City WHERE cityname=? AND countryname=?";
 	static String assign_TA_Query = "UPDATE a1201759.City SET AssignedTA=? WHERE Cityname=? AND countryname=?";
 	
@@ -24,12 +27,13 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 	//--------------------------------------------------------------------------------
 	static String insert_Hotel_SQL = "INSERT INTO a1201759.Hotel "
 									+ " VALUES(?,?,?,?,?)";
-	static String query_Hotel ="SELECT * FROM a1201759.Hotel WHERE HID=?";
-	static String query_Hotel_Owner ="SELECT * FROM a1201759.Hotel WHERE Owner=?";
-	static String query_Hotel_City ="SELECT * FROM a1201759.Hotel WHERE cityname=? AND countryname=?";
+	static String delete_hotel = "DELETE FROM a1201759.Hotel WHERE HID=?";
 	
-	static String delete_Hotel_Query = "DELETE FROM a1201759.Hotel WHERE HID=?";
-	static String update_Hotel = "UPDATE a1201759.Hotel SET HotelName=? WHERE HID=?";
+	static String hotel_for_hotelID_query ="SELECT * FROM a1201759.Hotel WHERE HID=?";
+	static String hotel_for_owner_query ="SELECT * FROM a1201759.Hotel WHERE Owner=?";
+	static String hotel_for_location_query ="SELECT * FROM a1201759.Hotel WHERE cityname=? AND countryname=?";
+	
+	static String update_hotelname = "UPDATE a1201759.Hotel SET HotelName=? WHERE HID=?";
 	
 	static String hotelID = "HID";
 	static String hotelName = "HotelName";
@@ -62,6 +66,8 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 			+"OR b.BeginDate > ?)) "
 			+"GROUP BY HOTEL "
 			+"HAVING MIN(Price)";
+	
+	 
 	
 	
 	static String[] summaryOrder = {"hotelid","hotelname","roomid","cityname","countryname","roomcost","roomsize"};
@@ -103,14 +109,18 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 	public void deleteHotel(long hotelID){
 		Object[] values ={hotelID};
 		
-		SqlDAO.executeQuery(delete_Hotel_Query, values);
+		SqlDAO.executeQuery(delete_hotel, values);
 	}
 	
 	public void updateHotel(Hotel hotel, long hotelID){
-		String queryString = update_Hotel;
-		Object[] values = new Object[2];
-		values[0]=hotel.getName();
-		values[1]=hotelID;
+		Object[] values = {hotel.getName(),hotelID};
+		
+		SqlDAO.executeQuery(update_hotelname, values);
+	}
+	
+	public void updateHotel(String newname, long hotelID){
+		String queryString = update_hotelname;
+		Object[] values = {newname, hotelID};
 		
 		SqlDAO.executeQuery(queryString, values);
 	}
@@ -126,7 +136,7 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 			ArrayList<Object[]>results = SqlDAO.selectRecordsFromTable(queryString, values, cityOrder);
 			if(results.size()==0)	//doesnt exist
 			{
-				queryString = insert_City_SQL;
+				queryString = insert_City;
 				values = new Object[5];
 				values[0]=city.getName();
 				values[1]=city.getCountry();
@@ -149,7 +159,7 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 		Object[] values = {hotelID};
 
 		
-		Object[] hotel = SqlDAO.selectRecordsFromTable(query_Hotel, values, hotelOrder).get(0);
+		Object[] hotel = SqlDAO.selectRecordsFromTable(hotel_for_hotelID_query, values, hotelOrder).get(0);
 		
 		RoomDAO roomDAO = new SqlRoomDAO();
 
@@ -163,7 +173,7 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 	public Hotel getHotelbyOwner(long ownerID) {
 		Object[] values = {ownerID};
 		
-		Object[] hotel = SqlDAO.selectRecordsFromTable(query_Hotel_Owner, values, hotelOrder).get(0);
+		Object[] hotel = SqlDAO.selectRecordsFromTable(hotel_for_owner_query, values, hotelOrder).get(0);
 		RoomDAO roomDAO = new SqlRoomDAO();
 		long hotelID = (Long)hotel[0];
 		
@@ -175,7 +185,7 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 	public ArrayList<Hotel> getHotelsFromCity(String cityname, String countryname){
 		Object[] values = {cityname, countryname};
 		ArrayList<Hotel> result = new ArrayList<Hotel>();		
-		ArrayList<Object[]> hotels = SqlDAO.selectRecordsFromTable(query_Hotel_City, values, hotelOrder);
+		ArrayList<Object[]> hotels = SqlDAO.selectRecordsFromTable(hotel_for_location_query, values, hotelOrder);
 		RoomDAO roomDAO = new SqlRoomDAO();
 		
 		for(int i=0; i<hotels.size();i++){
@@ -192,15 +202,13 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 	
 	public City getCityByAssignedTA(long taID){
 		Object[] values = {taID};
-		String queryString = query_City_begin +"WHERE AssignedTA=?";
 		
-		Object[] city = SqlDAO.selectRecordsFromTable(queryString, values, cityOrder).get(0);
+		Object[] city = SqlDAO.selectRecordsFromTable(city_for_TA, values, cityOrder).get(0);
 		
 		String cityname = (String)city[0];
 		String countryname = (String)city[1];
 		
 		City result = new City(cityname, countryname);
-
 		
 		ArrayList<Hotel> hotels = getHotelsFromCity(cityname, countryname);
 		result.setHotels(hotels);
@@ -228,8 +236,15 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 
 	@Override
 	public void assignTA(String cityname, String countryname, long taID) {
-		Object[] values = {taID, cityname,countryname};
-		SqlDAO.executeQuery(assign_TA_Query, values);	
+		if(getTAForCity(cityname, countryname)==null)
+		{
+			Object[] values = {taID, cityname,countryname};
+			SqlDAO.executeQuery(assign_TA_Query, values);	
+		}
+		else
+		{
+			//return errormessage
+		}
 	}
 
 
@@ -261,6 +276,7 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 		
 		Object[] values = { beds, price, toSQLDate(beginDate), toSQLDate(endDate)};
 		String[] roomsOrder = {"HOTEL"};
+		
 		ArrayList<Object[]> rooms = SqlDAO.selectRecordsFromTable(queryFreeHotels, values, roomsOrder);
 		long[] hotelIDS = new long[rooms.size()];
 		

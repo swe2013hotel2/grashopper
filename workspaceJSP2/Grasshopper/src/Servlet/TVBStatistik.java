@@ -93,6 +93,11 @@ public class TVBStatistik extends HttpServlet {
 		
 		
 		int hotelanzahl = city.getHotels().size();
+		
+		if(hotelanzahl<1){
+			response.sendRedirect("nohotels.jsp");
+			return;
+		}
 	
 		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 		
@@ -107,8 +112,8 @@ public class TVBStatistik extends HttpServlet {
 			e1.printStackTrace();
 		}
 		
-		System.out.println("bd" + bd);
-		System.out.println("ed" + ed);
+		System.out.println("bd " + bd);
+		System.out.println("ed " + ed);
 		//Date anfang = null;
 		//Date ende = null;
 		

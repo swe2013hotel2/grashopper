@@ -4,7 +4,6 @@
 <%@ page import="java.util.ArrayList" %>
 <% ArrayList<String[]> hotels = (ArrayList<String[]>)request.getAttribute("results"); %>
     
-<div class="content">
 	
 	<div id=results>
 		
@@ -23,10 +22,14 @@
 				<h2><%=hotel[1] %></h2>
 			</div>
  
-	  		<div class="resultcolumn3">
-				<h2>ab <%=hotel[6] %> EUR</h2>
-				<a href="Detailansicht.jsp?hotelid=<%=hotel[0] %>&hotelname=<%=hotel[1] %>&city=<%=hotel[2] %>&country=<%=hotel[3] %>&roomnumber=<%=hotel[4] %>&roomsize=<%=hotel[5] %>&roomcost=<%=hotel[6] %>&begindate=<%=hotel[7] %>&enddate=<%=hotel[8] %>">Ansehen</a>
-				<a href="Buchen.jsp?hotelid=<%=hotel[0] %>&hotelname=<%=hotel[1] %>&city=<%=hotel[2] %>&country=<%=hotel[3] %>&roomnumber=<%=hotel[4] %>&roomsize=<%=hotel[5] %>&roomcost=<%=hotel[6] %>&begindate=<%=hotel[7] %>&enddate=<%=hotel[8] %>">Buchen</a>
+	  		<div class="resultcolumn">
+				<h2>ab <%=hotel[6] %> EUR</h2><br>
+				<a class="actionbutton" href="Detailansicht.jsp?hotelid=<%=hotel[0] %>&hotelname=<%=hotel[1] %>&city=<%=hotel[2] %>&country=<%=hotel[3] %>&roomnumber=<%=hotel[4] %>&roomsize=<%=hotel[5] %>&roomcost=<%=hotel[6] %>&begindate=<%=hotel[7] %>&enddate=<%=hotel[8] %>">Ansehen</a>
+				<%if(request.getParameter("UserID")!=null){ %>
+				<a class="actionbutton" href="Buchen.jsp?hotelid=<%=hotel[0] %>&hotelname=<%=hotel[1] %>&city=<%=hotel[2] %>&country=<%=hotel[3] %>&roomnumber=<%=hotel[4] %>&roomsize=<%=hotel[5] %>&roomcost=<%=hotel[6] %>&begindate=<%=hotel[7] %>&enddate=<%=hotel[8] %>">Buchen</a>
+				<%}else{ %>
+				<a class="deactivatedbutton" href="#">Buchen</a>
+				<%} %>
 			</div>
 		</div>
   		<%}
@@ -35,5 +38,5 @@
   		<h2>Keine Ergebnisse gefunden</h2>
   		<%} %>
 	</div>
-</div>
+
   <%@include file="footer_template.jsp" %>

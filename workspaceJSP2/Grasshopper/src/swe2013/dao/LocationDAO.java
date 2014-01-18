@@ -19,6 +19,7 @@ public interface LocationDAO {
 	
 	public void deleteHotel(long hotelID);
 	public void updateHotel(Hotel hotel, long hotelID);
+	public void updateHotel(String newname, long hotelID);
 	
 	public void saveCity(City city) ;
 	public void deleteCity(City city);

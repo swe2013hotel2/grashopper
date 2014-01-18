@@ -1,4 +1,4 @@
-
+</div>
  </div>
     <footer>
       <p>Copyright &copy; scenic_photo | <a href="http://www.css3templates.co.uk">design from css3templates.co.uk</a></p>

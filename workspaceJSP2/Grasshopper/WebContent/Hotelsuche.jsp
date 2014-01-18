@@ -2,7 +2,7 @@
     <jsp:param name="activePage" value="Hotelsuche" />
 </jsp:include>
 
- <div class="content">
+
  	<%if(request.getAttribute("status")!=null){ %>
  	<h2><%= request.getAttribute("status")%></h2>
  	<%} %>
@@ -19,7 +19,7 @@
         <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="name" value="Suchen" ></p>
      </div>
     </form>      
- </div>
+
     <%@include file="footer_template.jsp" %>
     
     

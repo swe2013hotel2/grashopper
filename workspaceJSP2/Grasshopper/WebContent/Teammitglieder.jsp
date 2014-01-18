@@ -3,7 +3,6 @@
 </jsp:include>
 
 
-<div class="content">
         
         <h2>Kontakt Details:</h2>
         
@@ -14,6 +13,5 @@
           <tr><td>Moser Victoria </td><td>a1200628</td><td>vmoser@gmail.com</td></tr>
         </table>
         
-      </div>
 
 <%@include file="footer_template.jsp" %>

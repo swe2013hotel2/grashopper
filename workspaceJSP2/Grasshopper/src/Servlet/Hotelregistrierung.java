@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import swe2013.dao.SqlLocationDAO;
 import swe2013.dao.SqlUserDAO;
+import swe2013.location.City;
 import swe2013.location.Hotel;
 import swe2013.user.Hotellier;
 import swe2013.user.User;
@@ -38,35 +40,49 @@ public class Hotelregistrierung extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		try
-		{	
-			int[] rooms 	= new int[2];
-			double[] cost 	= new double[2];
+		{				
+
 			String 	password= "";
-			String 	name 	= request.getParameter("hotelname");
+			
 			String 	username= request.getParameter("username");
 			String 	vorname	= request.getParameter("vorname");
 			String 	nachname= request.getParameter("nachname");
 			String 	email 	= request.getParameter("email");
 			String 	phone 	= request.getParameter("telephone");
-			rooms[0]= Integer.valueOf(request.getParameter("bed1"));
-			rooms[1]= Integer.valueOf(request.getParameter("bed2"));
-			cost[0]	= Double.valueOf(request.getParameter("cost1"));
-			cost[1]	= Double.valueOf(request.getParameter("cost2"));
 			boolean	sex		= (Integer.valueOf(request.getParameter("sex"))==1? true:false);
 			String 	street	= request.getParameter("street");
 			int 	zipCode	= Integer.valueOf(request.getParameter("zip"));
 			String 	city	= request.getParameter("city");
 			String 	country	= request.getParameter("country");
+			
 			if (request.getParameter("password1").equals(request.getParameter("password2"))){
 				password = request.getParameter("password1");
 			}
 			
+			
+			int[] rooms 	= new int[2];
+			double[] cost 	= new double[2];
+			
+			String 	hotelname 	= request.getParameter("hotelname");
+			rooms[0]= Integer.valueOf(request.getParameter("bed1"));
+			rooms[1]= Integer.valueOf(request.getParameter("bed2"));
+			cost[0]	= Double.valueOf(request.getParameter("cost1"));
+			cost[1]	= Double.valueOf(request.getParameter("cost2"));
+			String 	hotelcity	= request.getParameter("city");
+			String 	hotelcountry	= request.getParameter("country");
+			
+			
 			SqlUserDAO UserDAO = new SqlUserDAO();
+			SqlLocationDAO locationDAO = new SqlLocationDAO();
 
-			Hotel newHotel	= new Hotel(name, rooms, cost);
+			Hotel newHotel	= new Hotel(hotelname, rooms, cost);
+			City hotellocation = new City(hotelcity, hotelcountry);
+			
 			Hotellier user	= new Hotellier(username, vorname, nachname, email, phone, zipCode, street, city, country, sex, password, newHotel);
-			user.setAssignedHotel(newHotel);
+			
 			UserDAO.saveUser(user);
+			locationDAO.saveHotel(newHotel, hotellocation, user.getUserID());
+			
 			
 			if (user != null)
 			{

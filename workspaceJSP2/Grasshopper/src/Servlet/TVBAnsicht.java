@@ -86,8 +86,6 @@ public class TVBAnsicht extends HttpServlet {
 		String countryname = city.getCountry();
 		System.out.println(countryname);
 		
-		
-		
 		Review review = Review.getReviewsForCity(cityname, countryname);
 		//System.out.println(review);
 		String reviewtext = review.getReviewText();
@@ -95,12 +93,23 @@ public class TVBAnsicht extends HttpServlet {
 		
 		
 		int hotelanzahl = city.getHotels().size();
-	
+		System.out.println(hotelanzahl);
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+		
+		String statistic = null;
+		Date bd = null;
+		Date ed = null;
+		int bookings = 0;
 		
 		request.setAttribute("cityname", cityname);
 		request.setAttribute("countryname", countryname);
 		request.setAttribute("reviewtext", reviewtext);
 		request.setAttribute("hotelanzahl", hotelanzahl);
+		request.setAttribute("bookings", bookings);
+		request.setAttribute("bd", bd);
+		request.setAttribute("ed", ed);
+		request.setAttribute("statistic", statistic);
 		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/TVBansichtdetail.jsp");
 		dispatcher.forward(request, response);
 		}
@@ -111,61 +120,8 @@ public class TVBAnsicht extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
 		
-		if(session.getAttribute("UserID")==null){
-			response.sendRedirect("notvb.jsp");
-			return;
-		}
-		
-		int userclass=0;
-		if(session.getAttribute("UserClass")==null){
-			response.sendRedirect("notvb.jsp");
-			return;
-		}
-		else
-		{
-			userclass = (Integer) session.getAttribute("UserClass");
-		}
-		
-		if(userclass!=3){
-			response.sendRedirect("notvb.jsp");
-			return;
-		}
-		else
-		{
-		System.out.println(userclass);
-		
-		long taID = (Long) session.getAttribute("UserID");
-		System.out.println(taID);
-			
-		LocationDAO dao = new SqlLocationDAO();
-		
-		City city = dao.getCityByAssignedTA(taID);
-		System.out.println(city);
-		String cityname = city.getName();
-		System.out.println(cityname);
-		String countryname = city.getCountry();
-		System.out.println(countryname);
-		
-		
-		
-		Review review = Review.getReviewsForCity(cityname, countryname);
-		//System.out.println(review);
-		String reviewtext = review.getReviewText();
-		System.out.println(reviewtext);
-		
-		
-		int hotelanzahl = city.getHotels().size();
 	
-		
-		request.setAttribute("cityname", cityname);
-		request.setAttribute("countryname", countryname);
-		request.setAttribute("reviewtext", reviewtext);
-		request.setAttribute("hotelanzahl", hotelanzahl);
-		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/TVBansichtdetail.jsp");
-		dispatcher.forward(request, response);
-		}
 	}
 	
 }

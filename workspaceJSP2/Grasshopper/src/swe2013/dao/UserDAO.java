@@ -18,6 +18,9 @@ public interface UserDAO {
 	void deleteUser(User user) throws IllegalArgumentException;
 	
 
-	void updateUser(User user) throws IllegalArgumentException;
+	void updateUser(long userid, String username, String firstName,
+			String lastName, String email, String telephoneNumber, int zipCode,
+			String street, String city, String country, boolean sex,
+			String password) throws IllegalArgumentException;
 
 }

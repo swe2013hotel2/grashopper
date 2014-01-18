@@ -523,7 +523,7 @@ ul ul span.sf-arrow {
 
 /* Theming the menu */
 ul#nav { 
-  float: right;
+  float: left;
 }
 
 ul#nav ul { 
@@ -620,10 +620,16 @@ div#result_row{
 	margin-bottom: 0px;
 }
 
-div#result_row .foto img{
+.resultcolumn img{
 	height: 90px;	
 	width: auto;
 	padding: 5px;
+}
+div.resultcolumn{
+	float: left;
+	height: 100px;	
+	width: 30%;
+	padding: 10px;
 }
 
 div#result_row div{
@@ -640,27 +646,27 @@ div#result_row ul {
 	padding: 0 0 0 0;
 }
 
-.result_column2 ul {
+.result_column ul {
 	height: 50px;
 	width: 80px;
 	padding: 0 0 0 0;
 	text-align: center;
 }
 
-.result_column2 h2 {
+.result_column h2 {
 	font-size: 140%;
 	padding: 0 0 0 0;
 	padding-bottom: 0px;
 	margin-left: 20px;
 }
 
-.result_column2 a{
+.result_column a{
 	text-decoration: none;
 	color: black;
 	font-weight: bold;
 }
 
-.result_column2 ul li{
+.result_column ul li{
 	text-decoration: none;
 	list-style: none;
 	witdh: 30px;
@@ -700,7 +706,7 @@ div#result_row ul {
 	margin-top: 20px;
 }
 
-#buchenbutton{
+a.actionbutton{
 	text-decoration: none;
 	float: right;
 	padding: 5px;
@@ -709,6 +715,25 @@ div#result_row ul {
 	color: black;
 	border-radius: 3px;
 }
+a.actionbutton{
+	text-decoration: none;
+	float: left;
+	padding: 5px;
+	background-color: orange;
+	margin: 10px;
+	color: black;
+	border-radius: 3px;
+}
+a.deactivatedbutton{
+	text-decoration: none;
+	float: left;
+	padding: 5px;
+	background-color: lightgrey;
+	margin: 10px;
+	color: grey;
+	border-radius: 3px;
+}
+
 
 #description_container{
 	float: left;

@@ -1,7 +1,6 @@
 package Servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,8 +15,7 @@ import swe2013.dao.SqlLocationDAO;
 import swe2013.dao.SqlUserDAO;
 import swe2013.dao.UserDAO;
 import swe2013.location.Hotel;
-import swe2013.location.Review;
-import swe2013.user.Hotellier;
+import swe2013.user.User;
 
 /**
  * Servlet implementation class Hotellieransicht
@@ -37,83 +35,77 @@ public class Hotellieransicht extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		
-		HttpSession session = request.getSession();
-		
-		if(session.getAttribute("UserID")==null){
-			response.sendRedirect("nothotellier.jsp");
-			return;
-		}
-		
-		int userclass=0;
-		if(session.getAttribute("UserClass")==null){
-			response.sendRedirect("nothotellier.jsp");
-			return;
-		}
-		else
-		{
-			userclass = (Integer) session.getAttribute("UserClass");
-		}
-		
-		if(userclass!=2){
-			response.sendRedirect("nothotellier.jsp");
-			return;
-		}
-		else
-		{
-		System.out.println("userclass" + userclass);
-		
-		long hotellierID = (Long) session.getAttribute("UserID");
+		try
+		{	
+			System.out.println("Post");
+			HttpSession session = request.getSession();
+			long hotellierID = (Long) session.getAttribute("UserID");
+			System.out.println(hotellierID);
 			
-		LocationDAO ldao = new SqlLocationDAO();
-		UserDAO udao = new SqlUserDAO();
-		
-		Hotel hotel = ldao.getHotelbyOwner(hotellierID);
-		Hotellier hotellier = (Hotellier) udao.getUserbyID(hotellierID);
-		long hotelID = hotel.getHotelID();
-		String hotelName = hotel.getName();
-		int[] roomList = hotel.getNumberOfRooms();
-		int[] priceList= hotel.getPricesOfRooms();
-		int oneBedRoom=roomList[0];
-		int twoBedRoom=roomList[0];
-		int priceOneBedRoom=priceList[0];
-		int priceTwoBedRoom=priceList[1];
-		String email = hotellier.getEmail();
-		String street = hotellier.getStreet();
-		int zipCode = hotellier.getZipCode();
-		String city = hotellier.getCity();
-		String country = hotellier.getCountry();		
-		String telephone = hotellier.getTelephoneNumber();
-		
-		//ArrayList<Review> review = Review.getReviewsForHotel(hotelID);
-		/*System.out.println(review);
-		String reviewtext = review.getReviewText();
-		System.out.println(reviewtext);*/
 			
-		request.setAttribute("hotelID", hotelID);
-		request.setAttribute("hotelName", hotelName);
-		request.setAttribute("oneBedRoom", oneBedRoom);
-		request.setAttribute("twoBedRoom", twoBedRoom);
-		request.setAttribute("priceOneBedRoom", priceOneBedRoom);
-		request.setAttribute("priceTwoBedRoom", priceTwoBedRoom);
-		request.setAttribute("email", email);
-		request.setAttribute("telephone", telephone);
-		request.setAttribute("street", street);
-		request.setAttribute("zipCode", zipCode);
-		request.setAttribute("city", city);
-		request.setAttribute("country", country);
+			String 	hotelname 		= request.getParameter("hotelname");
+			
+			String 	username= request.getParameter("username");
+			String 	vorname	= request.getParameter("vorname");
+			String 	nachname= request.getParameter("nachname");
+			String 	email 	= request.getParameter("email");
+			String 	phone 	= request.getParameter("telephone");
+			boolean	sex		= (Integer.valueOf(request.getParameter("sex"))==1? true:false);
+			String 	street	= request.getParameter("street");
+			int 	zipCode	= Integer.valueOf(request.getParameter("zip"));
+			String 	city	= request.getParameter("city");
+			String 	country	= request.getParameter("country");
+			
+			String oldPW = request.getParameter("oldPW");
+			String newPW = request.getParameter("newPW");
+			String repeatPW = request.getParameter("repeatPW");
 
-		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/Hotellieransichtdetail.jsp");
-		dispatcher.forward(request, response);
+			
+			System.out.println("passt");
+			
+			LocationDAO ldao = new SqlLocationDAO();
+			UserDAO udao = new SqlUserDAO();
+			
+			User user = udao.getUserbyID(hotellierID);
+			
+			if(!user.checkPassword(oldPW))
+			{
+				response.sendRedirect("Hotellieransicht");
+				return;
+			}
+			
+			if(newPW!=null&& repeatPW!= null && newPW.equals(repeatPW))
+			{
+				String encodedPassword = user.encodePassword(newPW);
+				udao.updateUser(hotellierID, username, vorname,
+						nachname, email, phone, zipCode,
+						street, city, country, sex,
+						encodedPassword);
+				Hotel hotel = ldao.getHotelbyOwner(hotellierID);
+				
+				ldao.updateHotel(hotelname, hotel.getHotelID());
+			}
+			
+
+			response.sendRedirect("Hotellieransicht");
+
+			
 		}
+		catch (Throwable theException) 	    
+			{
+				System.out.println(theException); 
+			}
 	}
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		System.out.println("get");
 		
 		if(session.getAttribute("UserID")==null){
 			response.sendRedirect("nothotellier.jsp");
@@ -138,64 +130,41 @@ public class Hotellieransicht extends HttpServlet {
 		{
 		System.out.println("userclass" + userclass);
 		
-		long hotellierID = (Long) session.getAttribute("UserID");
-			
-		LocationDAO ldao = new SqlLocationDAO();
-		UserDAO udao = new SqlUserDAO();
-		
-		Hotel hotel = ldao.getHotelbyOwner(hotellierID);
-		Hotellier hotellier = (Hotellier) udao.getUserbyID(hotellierID);
-		long hotelID = hotel.getHotelID();
-		String hotelName = hotel.getName();
-		System.out.println("hotelName" + hotelName);
-		int[] roomList = hotel.getNumberOfRooms();
-		System.out.println("roomList" + roomList);
-		int[] priceList= hotel.getPricesOfRooms();
-		System.out.println("priceList" + priceList);
-		int oneBedRoom=roomList[0];
-		System.out.println("oneBedRoom" + oneBedRoom);
-		int twoBedRoom=roomList[0];
-		System.out.println("twoBedRoom" + twoBedRoom);
-		int priceOneBedRoom=priceList[0];
-		System.out.println("priceOneBedRoom" + priceOneBedRoom);
-		int priceTwoBedRoom=priceList[1];
-		System.out.println("priceTwoBedRoom" + priceTwoBedRoom);
-		String email = hotellier.getEmail();
-		System.out.println("email" + email);
-		String street = hotellier.getStreet();
-		int zipCode = hotellier.getZipCode();
-		String city = hotellier.getCity();
-		String country = hotellier.getCountry();		
-		String telephone = hotellier.getTelephoneNumber();
-		
 		//ArrayList<Review> review = Review.getReviewsForHotel(hotelID);
 		/*System.out.println(review);
 		String reviewtext = review.getReviewText();
 		System.out.println(reviewtext);*/
-			
-		request.setAttribute("hotelID", hotelID);
-		request.setAttribute("hotelName", hotelName);
-		request.setAttribute("oneBedRoom", oneBedRoom);
-		request.setAttribute("twoBedRoom", twoBedRoom);
-		request.setAttribute("priceOneBedRoom", priceOneBedRoom);
-		request.setAttribute("priceTwoBedRoom", priceTwoBedRoom);
-		request.setAttribute("email", email);
-		request.setAttribute("telephone", telephone);
-		request.setAttribute("street", street);
-		request.setAttribute("zipCode", zipCode);
-		request.setAttribute("city", city);
-		request.setAttribute("country", country);
-
-		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/Hotellieransichtdetail.jsp");
+		SqlUserDAO userDAO = new SqlUserDAO();
+		SqlLocationDAO locationDAO = new SqlLocationDAO();
+		
+		long hotellierID = (Long) session.getAttribute("UserID");
+		
+		User user = userDAO.getUserbyID(hotellierID);
+		Hotel hotel = locationDAO.getHotelbyOwner(hotellierID);
+		
+		request.setAttribute("username", user.getUsername());
+		request.setAttribute("vorname", user.getFirstName());
+		request.setAttribute("nachname", user.getLastName());
+		request.setAttribute("email", user.getEmail());
+		request.setAttribute("telephone", user.getEmail());
+		request.setAttribute("sex", user.getSex());
+		request.setAttribute("street", user.getStreet());
+		request.setAttribute("zip", user.getZipCode());
+		request.setAttribute("city", user.getCity());
+		request.setAttribute("country", user.getCountry());
+		
+		int[] rooms = hotel.getNumberOfRooms();
+		int[] cost = hotel.getPricesOfRooms();
+		
+		request.setAttribute("hotelname", hotel.getName());
+		request.setAttribute("oneBedRoom", rooms[0]);
+		request.setAttribute("twoBedRoom", rooms[1]);
+		request.setAttribute("priceOneBedRoom", cost[0]);
+		request.setAttribute("priceTwoBedRoom", cost[1]);
+		
+		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/Hotellieransicht.jsp");
 		dispatcher.forward(request, response);
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 }
