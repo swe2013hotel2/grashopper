@@ -70,10 +70,15 @@ public class TVBAnsicht extends HttpServlet {
 		
 		String cityname = city.getName();
 		String countryname = city.getCountry();
+<<<<<<< HEAD
 		int hotelanzahl = city.getHotels().size();
+=======
+		System.out.println(countryname);
+>>>>>>> 958ef75917fa97258819eb5e1a8ed71ed5f4533c
 		
 		Review review = Review.getReviewsForCity(cityname, countryname);
 		String reviewtext = review.getReviewText();
+<<<<<<< HEAD
 
 		String beginDateString = request.getParameter("von");
 		String endDateString = request.getParameter("bis");
@@ -104,11 +109,26 @@ public class TVBAnsicht extends HttpServlet {
 		
 		
 		Statistic statistic = new Statistic(city, beginDate, endDate);
+=======
+		System.out.println(reviewtext);
+		
+		
+		int hotelanzahl = city.getHotels().size();
+		System.out.println(hotelanzahl);
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+		
+		String statistic = null;
+		Date bd = null;
+		Date ed = null;
+		int bookings = 0;
+>>>>>>> 958ef75917fa97258819eb5e1a8ed71ed5f4533c
 		
 		request.setAttribute("cityname", cityname);
 		request.setAttribute("countryname", countryname);
 		request.setAttribute("reviewtext", reviewtext);
 		request.setAttribute("hotelanzahl", hotelanzahl);
+<<<<<<< HEAD
 		//request.setAttribute("bookings", bookings);
 		request.setAttribute("von", formatter.format(beginDate) );
 		request.setAttribute("bis", formatter.format(endDate));
@@ -116,6 +136,24 @@ public class TVBAnsicht extends HttpServlet {
 		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/TVBansichtdetail.jsp");
 		dispatcher.forward(request, response);
 
+=======
+		request.setAttribute("bookings", bookings);
+		request.setAttribute("bd", bd);
+		request.setAttribute("ed", ed);
+		request.setAttribute("statistic", statistic);
+		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/TVBansichtdetail.jsp");
+		dispatcher.forward(request, response);
+		}
+	}
+	
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+	
+>>>>>>> 958ef75917fa97258819eb5e1a8ed71ed5f4533c
 	}
 	
 }

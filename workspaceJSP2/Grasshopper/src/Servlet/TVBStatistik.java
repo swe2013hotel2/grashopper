@@ -22,14 +22,14 @@ import swe2013.location.Statistic;
 /**
  * Servlet implementation class TVBAnsicht2
  */
-@WebServlet("/TVBAnsicht2")
-public class TVBAnsicht2 extends HttpServlet {
+@WebServlet("/TVBStatistik")
+public class TVBStatistik extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TVBAnsicht2() {
+    public TVBStatistik() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -93,6 +93,11 @@ public class TVBAnsicht2 extends HttpServlet {
 		
 		
 		int hotelanzahl = city.getHotels().size();
+		
+		if(hotelanzahl<1){
+			response.sendRedirect("nohotels.jsp");
+			return;
+		}
 	
 		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 		
@@ -107,8 +112,8 @@ public class TVBAnsicht2 extends HttpServlet {
 			e1.printStackTrace();
 		}
 		
-		System.out.println("bd" + bd);
-		System.out.println("ed" + ed);
+		System.out.println("bd " + bd);
+		System.out.println("ed " + ed);
 		//Date anfang = null;
 		//Date ende = null;
 		
@@ -134,8 +139,8 @@ public class TVBAnsicht2 extends HttpServlet {
 		request.setAttribute("hotelanzahl", hotelanzahl);
 		request.setAttribute("bookings", bookings);
 		request.setAttribute("statistic", statistic);
-		request.setAttribute("bd", bd);
-		request.setAttribute("ed", ed);
+		request.setAttribute("bd", von);
+		request.setAttribute("ed", bis);
 		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/TVBansichtdetail.jsp");
 		dispatcher.forward(request, response);
 		}

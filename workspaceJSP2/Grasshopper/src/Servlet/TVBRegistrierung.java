@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import swe2013.dao.SqlLocationDAO;
 import swe2013.dao.SqlUserDAO;
 import swe2013.location.Review;
 import swe2013.user.TourismAssociation;
@@ -50,7 +51,20 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 
 			//System.out.print(sex);
 			if(!password.equals(passwordconfirmation)){
+<<<<<<< HEAD
 				response.sendRedirect("TVBRegistrierung.jsp?message=Passwoerter%20stimmen%20nicht%20ueberein");
+=======
+				response.sendRedirect("TVBRegistrierung.jsp");
+			
+			
+			SqlLocationDAO dao = new SqlLocationDAO();
+			Long taID = dao.getTAForCity(city, country);
+			if(taID!=null){
+				response.sendRedirect("citytaexists.jsp");
+				return;
+			}
+				
+>>>>>>> 958ef75917fa97258819eb5e1a8ed71ed5f4533c
 			}
 			else{
 			SqlUserDAO userDAO = new SqlUserDAO();
