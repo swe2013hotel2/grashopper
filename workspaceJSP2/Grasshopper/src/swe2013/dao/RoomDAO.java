@@ -2,7 +2,6 @@ package swe2013.dao;
 
 import java.util.ArrayList;
 
-import swe2013.location.Bookings;
 import swe2013.location.Room;
 
 public interface RoomDAO {

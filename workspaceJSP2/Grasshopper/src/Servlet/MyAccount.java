@@ -41,7 +41,7 @@ public class MyAccount extends HttpServlet {
 		Long userID = (Long) session.getAttribute("UserID");
 		
 		if(userID==null){
-			response.sendRedirect("invalidLogin.jsp?error=No%20User%20Logged%20in");
+			response.sendRedirect("errorPage.jsp?error=No%20User%20Logged%20in");
 			return;
 		}
 		
@@ -97,33 +97,38 @@ public class MyAccount extends HttpServlet {
 			
 			User user = udao.getUserbyID(hotellierID);
 			
-			if(!user.checkPassword(oldPW))
-			{
-				response.sendRedirect("MyAccount?status=error&message=Wrong%20Password");
-				return;
-			}
+			System.out.println(newPW.equals(""));
 			
-			if(newPW==null && repeatPW==null)
+			if( newPW.equals(repeatPW) && repeatPW.equals(""))
 			{
+				if(newPW.equals("") && (user.checkPassword(oldPW)||oldPW.equals("")))
+				{
 				udao.updateUser(hotellierID, username, vorname,
 						nachname, email, phone, zipCode,
 						street, city, country, sex,
 						user.getPassword());
+				}
+				else if(user.checkPassword(oldPW))
+				{
+						response.sendRedirect("MyAccount?message=Falsches%20Passwort");
+						return;				
+				}
+				else if(!newPW.equals(""))
+				{
+					udao.updateUser(hotellierID, username, vorname,
+							nachname, email, phone, zipCode,
+							street, city, country, sex,
+							user.encodePassword(newPW));
+					
+				}
 			}
-			
-			else if(newPW.equals(repeatPW))
+			else
 			{
-				String encodedPassword = user.encodePassword(newPW);
-				udao.updateUser(hotellierID, username, vorname,
-						nachname, email, phone, zipCode,
-						street, city, country, sex,
-						encodedPassword);
+
+					response.sendRedirect("MyAccount?message=Passwoerter%20nicht%20gleich");
+					return;
 			}
-			else{
-				response.sendRedirect("MyAccount?status=error&message=Passwords%20dont%20match");
-				return;
-			}
-			
+		
 			response.sendRedirect("MyAccount");	
 		}
 		catch (Throwable theException) 	    

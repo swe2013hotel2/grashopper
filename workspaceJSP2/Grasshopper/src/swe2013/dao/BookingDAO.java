@@ -1,5 +1,7 @@
 package swe2013.dao;
 
+import java.util.ArrayList;
+
 import swe2013.location.Bookings;
 
 public interface BookingDAO {
@@ -9,4 +11,6 @@ public interface BookingDAO {
 	public Bookings getBookingsForRoom(long hotelID, long roomID);
 	
 	public boolean userBookedHotel(long userID, long hotelID);
+	
+	public  ArrayList<String[]> bookingsForUser(long userID);
 }

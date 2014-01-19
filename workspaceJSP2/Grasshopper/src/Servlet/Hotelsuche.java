@@ -11,14 +11,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import swe2013.dao.LocationDAO;
-import swe2013.dao.RoomDAO;
 import swe2013.dao.SqlLocationDAO;
-import swe2013.dao.SqlRoomDAO;
-import swe2013.location.Hotel;
-import swe2013.location.Room;
 
 /**
  * Servlet implementation class Hotelsuche
@@ -42,13 +37,9 @@ public class Hotelsuche extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		try{
-			HttpSession session = request.getSession();
-			//Long userid = (Long) session.getAttribute("UserID");
-		
-			//String hotelid = request.getParameter("hotelid");
+
 			String von = request.getParameter("von");
 			String bis = request.getParameter("bis");
-			//String roomid = request.getParameter("roomnumber");
 			String ort = request.getParameter("ort");
 			String land = request.getParameter("land");
 			String personen = request.getParameter("personen");
@@ -60,6 +51,8 @@ public class Hotelsuche extends HttpServlet {
 				request.setAttribute("status", "Fehler eingegebene Daten nicht komplett");
 				RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/Hotelsuche.jsp");
 				dispatcher.forward(request, response);
+				
+				response.sendRedirect("/Hotelsuche.jsp?message=Fehler%20eingegebene%20Daten%20nicht%20komplett");
 				return;
 			}
 			

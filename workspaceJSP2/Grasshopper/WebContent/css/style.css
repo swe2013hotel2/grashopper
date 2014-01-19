@@ -334,6 +334,7 @@ footer a:hover {
   margin: 15px 0 0 0;
 }
 
+
 .form_settings p { 
   padding: 0 0 4px 0;
 }
@@ -387,6 +388,8 @@ footer a:hover {
 .form_settings select { 
   width: 310px;
 }
+
+
 
 .form_settings .checkbox { 
   margin: 4px 0; 
@@ -632,13 +635,7 @@ div.resultcolumn{
 	padding: 10px;
 }
 
-div#result_row div{
-	float: left;
-	width: 200px;
-	height: 120px;
-	color: #888;
-	padding: 0 0 0 0;
-}
+
 
 div#result_row ul {
 	height: 50px;
@@ -681,28 +678,21 @@ div#result_row ul {
 #detail_foto{
 	float: left;
 	height: 240px;
-	width: 350px;
+	width: 50%;
 	padding: 0 0 0 0 ;
-	margin: px;
 	margin-top: 20px;
 }
 
 #detail_foto img{
-	height: 180px;	
-	width: auto;
-	padding: 5px;
+	width: 80%;
+	height: auto;
+	padding:0 0 0 0;
 }
 
 #detail_summary{
 	float: left;
 	height: 240px;
-	margin-top: 20px;
-}
-
-#hotel_detail{
-	float: left;
-	width: 90%;
-	margin: 20px;
+	width: 50%;
 	margin-top: 20px;
 }
 
@@ -734,6 +724,13 @@ a.deactivatedbutton{
 	border-radius: 3px;
 }
 
+div.statistic_bar
+{
+	background-color: blue;
+	height: 15px;
+	padding-top:2px;
+	padding-bottom:2px;
+}
 
 #description_container{
 	float: left;

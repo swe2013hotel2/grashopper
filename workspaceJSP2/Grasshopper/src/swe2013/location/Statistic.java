@@ -4,9 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
-import swe2013.location.*;
 
 public class Statistic {
 	String nameOfLocation;
@@ -45,6 +43,7 @@ public class Statistic {
 			this.mergeWithStatistic(new Statistic(room, beginDate, endDate));
 		}
 	}
+	
 	
 	public Statistic(Room room, Date beginDate, Date endDate){
 		this.setStatisticBeginDate(beginDate);
@@ -159,10 +158,21 @@ public class Statistic {
 	public final Date[] getDateBookings() {
 		return dateBookings;
 	}
+	
+	/**
+	 * @return the dateBookings
+	 */
+	public final String getDateBookingsByID(int ID) {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+		return formatter.format(dateBookings[ID]);
+	}
+	
+	
 
 	/**
 	 * @param dateBookings the dateBookings to set
 	 */
+	@SuppressWarnings("unused")
 	private final void setDateBookings(Date[] dateBookings) {
 		this.dateBookings = dateBookings;
 	}
@@ -181,6 +191,7 @@ public class Statistic {
 	/**
 	 * @param amountBookings the amountBookings to set
 	 */
+	@SuppressWarnings("unused")
 	private final void setAmountBookings(int[] amountBookings) {
 		this.amountBookings = amountBookings;
 	}

@@ -162,7 +162,6 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 		Object[] hotel = SqlDAO.selectRecordsFromTable(hotel_for_hotelID_query, values, hotelOrder).get(0);
 		
 		RoomDAO roomDAO = new SqlRoomDAO();
-
 		
 		ArrayList<Room> rooms = roomDAO.getRoomsForHotel(hotelID);
 		
@@ -173,7 +172,12 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 	public Hotel getHotelbyOwner(long ownerID) {
 		Object[] values = {ownerID};
 		
-		Object[] hotel = SqlDAO.selectRecordsFromTable(hotel_for_owner_query, values, hotelOrder).get(0);
+		ArrayList<Object[]> hotels = SqlDAO.selectRecordsFromTable(hotel_for_owner_query, values, hotelOrder);
+		if(hotels.size()==0)
+			return null;
+		
+		Object[] hotel = hotels.get(0);
+		
 		RoomDAO roomDAO = new SqlRoomDAO();
 		long hotelID = (Long)hotel[0];
 		
@@ -183,17 +187,22 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 	}
 	
 	public ArrayList<Hotel> getHotelsFromCity(String cityname, String countryname){
+		
+		System.out.println("gethotelsfromcity");
 		Object[] values = {cityname, countryname};
+		
 		ArrayList<Hotel> result = new ArrayList<Hotel>();		
+		
 		ArrayList<Object[]> hotels = SqlDAO.selectRecordsFromTable(hotel_for_location_query, values, hotelOrder);
 		RoomDAO roomDAO = new SqlRoomDAO();
 		
 		for(int i=0; i<hotels.size();i++){
 			Object[] hotel = hotels.get(i);
-		long hotelID = (Long)hotel[0];
-		String hotelName = (String)hotel[1]; 
+			
+			long hotelID = (Long)hotel[0];
+			String hotelName = (String)hotel[1]; 
 		
-		ArrayList<Room> rooms = roomDAO.getRoomsForHotel(hotelID);
+			ArrayList<Room> rooms = roomDAO.getRoomsForHotel(hotelID);
 		
 		result.add(new Hotel(hotelName, rooms, hotelID));
 		}

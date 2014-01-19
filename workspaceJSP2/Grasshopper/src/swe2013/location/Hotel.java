@@ -3,8 +3,6 @@ package swe2013.location;
 import java.util.ArrayList;
 import java.util.Date;
 
-import swe2013.user.Customer;
-
 
 public class Hotel extends Location{
 	
@@ -182,6 +180,7 @@ public class Hotel extends Location{
 	 * @param ArrayList<Room> rooms the rooms to set
 	 */
 	public final void setRooms(ArrayList<Room> rooms) {
+		System.out.println("blaaaaaa");System.out.println("blaaaaaa");System.out.println("blaaaaaa");System.out.println("blaaaaaa");System.out.println("blaaaaaa");
 		this.rooms = rooms;
 	}
 	

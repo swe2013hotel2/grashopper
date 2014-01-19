@@ -1,6 +1,7 @@
 package swe2013.dao;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import swe2013.location.Bookings;
@@ -10,13 +11,20 @@ public class SqlBookingDAO implements BookingDAO {
 	static String insert_Booking = "INSERT INTO a1201759.Booking VALUES(?,?,?,?,?)";
 	static String bookings_for_Room_query = "SELECT * FROM a1201759.Booking WHERE HotelID=? AND RoomID=? ORDER BY BeginDate ASC";
 	static String user_Booked_Hotel_query = "SELECT * FROM a1201759.Booking WHERE Client=? AND HotelID=?";
-	static String bookings_for_User_query = "SELECT DISTINCT HID FROM a1201759.Booking WHERE Client=?";
+	static String bookings_for_User_query =  "SELECT hotelname, roomid, begindate, enddate "
+												 +"FROM a1201759.Booking "
+												 +"INNER JOIN a1201759.Hotel "
+												 +"ON Hotel.HID=Booking.HotelID "
+												 +"WHERE Client=? "
+												 +"ORDER BY begindate";
 
 	static String bookingClient = "Client";
 	static String bookingHotelID= "HotelID";
 	static String bookingRoomID = "RoomID";
 	static String bookingBeginDate = "BeginDate";
 	static String bookingEndDate = "EndDate";
+	
+	static String[] booking_order = {"hotelname","roomid","begindate","enddate"};
 	
 	static String[] order = {bookingClient, bookingHotelID, bookingRoomID, bookingBeginDate, bookingEndDate};
 	
@@ -62,11 +70,26 @@ public class SqlBookingDAO implements BookingDAO {
 		return (size > 0);
 	}
 
-	public Long[] bookedHotelsForUser(long userID) {
+	public ArrayList<String[]> bookingsForUser(long userID) {
 		Object[] values = {userID};
-		int size = SqlDAO.selectRecordsFromTable(bookings_for_User, values, order).size();
+		ArrayList<Object[]> results = SqlDAO.selectRecordsFromTable(bookings_for_User_query, values, booking_order);
+		ArrayList<String[]> objects = new ArrayList<String[]>();
 		
-		return (size > 0);
+		for(int i=0; i<results.size(); i++)
+		{
+			Object[] object = results.get(i);
+			String[] result = {object[0].toString(), object[1].toString(), dateToString((Date) object[2]),dateToString( (Date) object[3])};
+			objects.add(result);
+		}
+		
+		return objects;
+	}
+	
+	private String dateToString(Date date)
+	{
+		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+		
+		return formatter.format(date);
 	}
 	
 }

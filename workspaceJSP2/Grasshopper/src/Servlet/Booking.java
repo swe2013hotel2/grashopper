@@ -12,9 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import swe2013.dao.BookingDAO;
-import swe2013.dao.RoomDAO;
 import swe2013.dao.SqlBookingDAO;
-import swe2013.dao.SqlRoomDAO;
 
 /**
  * Servlet implementation class Booking
@@ -54,7 +52,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			
 			if(userid==null|| von==null || bis==null||hotelid==null||roomid==null)
 			{	
-				response.sendRedirect("Bookingfailed.jsp");
+				response.sendRedirect("errorPage.jsp?message=Buchung%20Fehlgeschlagen");
 				return;
 			}
 			
@@ -70,7 +68,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			
 			bookingDAO.saveBooking(Long.parseLong(hotelid), Long.parseLong(roomid), userid, bd, ed);
 			
-			response.sendRedirect("Bookingsuccess.jsp");
+			response.sendRedirect("succesPage.jsp?message=Buchung%20erfolgreich");
 			
 		}
 		catch (Throwable theException) 	    

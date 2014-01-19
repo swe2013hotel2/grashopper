@@ -50,17 +50,17 @@
 	            <%} %>
 			<%
 			} else if(UserClass.equals(1)){ %>
-	            <%if(activePage!=null && activePage.equals("MeineBuchungen")) {%> 
-	            	  <li><a href="MeineBuchungen" class="highlighted" >Meine Buchungen</a></li>
+	            <%if(activePage!=null && activePage.equals("MyBookings")) {%> 
+	            	  <li><a href="MyBookings" class="highlighted" >Meine Buchungen</a></li>
 	            <%}
 	            else{ %>
-	             	 <li><a href="MeineBuchungen" >Meine Buchungen</a></li>
+	             	 <li><a href="MyBookings" >Meine Buchungen</a></li>
 	            <%} %>
-	            <%if(activePage!=null && activePage.equals("MeineRezensionen")) {%> 
-	            	  <li><a href="MeineRezensionen" class="highlighted" >MeineRezensionen</a></li>
+	            <%if(activePage!=null && activePage.equals("MyReviews")) {%> 
+	            	  <li><a href="MyReviews" class="highlighted" >MeineRezensionen</a></li>
 	            <%}
 	            else{ %>
-	             	 <li><a href="MeineRezensionen" >MeineRezensionen</a></li>
+	             	 <li><a href="MyReviews" >MeineRezensionen</a></li>
 	            <%} %>
 			<%}
 			else if(UserClass.equals(2)){
@@ -92,7 +92,7 @@
             <%} %>
  <%-- ------------------------------------------------------------------------------------------------------ --%>
             
-           	<%if (UserClass==null) {
+           	<%if (UserClass!=null) {
 			%>
 				<%if(activePage!=null && activePage.equals("MyAccount")) {%> 
 	            	<li><a href="MyAccount" class="highlighted">Mein Account</a></li>
@@ -175,8 +175,8 @@
 
    <div class="content">
    
-   <%if(request.getParameter("error")!=null) {%>
-   <h2><%=request.getParameter("error") %> </h2>
+   <%if(request.getParameter("message")!=null) {%>
+   <h2><%=request.getParameter("message") %> </h2>
    <%} %>
      
      

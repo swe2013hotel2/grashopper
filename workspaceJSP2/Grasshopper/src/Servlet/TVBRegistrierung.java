@@ -50,7 +50,7 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 
 			//System.out.print(sex);
 			if(!password.equals(passwordconfirmation)){
-				response.sendRedirect("TVBRegistrierung.jsp");
+				response.sendRedirect("TVBRegistrierung.jsp?message=Passwoerter%20stimmen%20nicht%20ueberein");
 			}
 			else{
 			SqlUserDAO userDAO = new SqlUserDAO();

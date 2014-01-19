@@ -2,7 +2,6 @@ package swe2013.dao;
 
 import java.util.ArrayList;
 
-import swe2013.location.*;
 import swe2013.user.*;
 
 public class SqlUserDAO implements UserDAO {
@@ -149,17 +148,22 @@ public class SqlUserDAO implements UserDAO {
 			else if(userGroup==2)
 			{
 				user = new Hotellier(username, firstName, lastName, email, telephoneNumber, zipCode, street, city, country, sex, password);
+				/*
 				LocationDAO locationDAO = new SqlLocationDAO();
 				Hotel hotel = locationDAO.getHotelbyOwner(userID);
 				((Hotellier)user).setAssignedHotel(hotel);
+				*/
 			}
 			else if(userGroup==3)
 			{
 				user = new TourismAssociation(username, firstName, lastName, email, telephoneNumber, zipCode, street, city, country, sex, password);
+				/*
 				LocationDAO locationDAO = new SqlLocationDAO();
 				City result = locationDAO.getCityByAssignedTA(userID);
 				((TourismAssociation)user).setAssignedCity(result);	
+				*/
 			}
+			
 			user.setUserID(userID);
 			user.setPasswordDirect(encryptedPassword);
 		

@@ -3,8 +3,6 @@ package swe2013.management;
 import java.util.ArrayList;
 import java.util.Date;
 
-import swe2013.dao.BookingDAO;
-import swe2013.dao.SqlBookingDAO;
 import swe2013.dao.SqlUserDAO;
 import swe2013.dao.UserDAO;
 import swe2013.location.Hotel;

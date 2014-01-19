@@ -3,8 +3,6 @@ package swe2013.location;
 import java.util.ArrayList;
 import java.util.Date;
 
-import swe2013.user.Customer;
-
 public class Bookings {
 	ArrayList<Date> beginDates=null;
 	ArrayList<Date> endDates=null;
@@ -25,6 +23,7 @@ public class Bookings {
 	 */
 	public void bookForTimeFrame(long customerID, Date beginDate, Date endDate) throws IllegalArgumentException {
 		// Check if beginDate < endDate
+		
 		if (endDate.before(beginDate))
 			throw new IllegalArgumentException ("End date before Begin date.");
 		//do we already have bookings? if not, add current booking
@@ -38,19 +37,27 @@ public class Bookings {
 		if (!this.freeForTimeFrame(beginDate, endDate))
 			throw new IllegalArgumentException("Date is not available for booking.");
 		//add booking in the right order
-		for(Date date:beginDates){
-			if (date.before(beginDate)){ // if it is before one or some of the other bookings
-				int index=beginDates.indexOf(beginDate)-1;
-				this.beginDates.add(index, beginDate);
-				this.endDates.add(index, endDate);
-				this.customer.add(index, customerID);
-				return;
+		
+		for(int i=0; i<this.beginDates.size(); i++)
+		{
+			Date existingBeginDate = this.beginDates.get(i);
+			if(beginDate.after(existingBeginDate))
+			{
+				if(i+1<this.beginDates.size())
+				{
+					this.beginDates.add(i+1, beginDate);
+					this.endDates.add(i+1, endDate);
+					this.customer.add(i+1, customerID);
+				}
+				else
+				{
+					this.beginDates.add( beginDate);
+					this.endDates.add( endDate);
+					this.customer.add( customerID);
+				}
 			}
+			
 		}
-		// or add it at the end of the list, if it is the last item
-		this.beginDates.add(beginDate);
-		this.endDates.add(endDate);
-		this.customer.add(customerID);
 	}
 	
 	/**
@@ -61,42 +68,32 @@ public class Bookings {
 	 * @throws IllegalArgumentException if end date is before the begin date
 	 */
 	public boolean freeForTimeFrame(Date beginDate, Date endDate) throws IllegalArgumentException{
-		// Check if beginDate < endDate
-		if (endDate.before(beginDate))
-			throw new IllegalArgumentException ("End date before Begin date.");
-		// if there are no bookings available return true
-		if (beginDates.size()==0)
+		if(this.beginDates.size()==0)
 			return true;
-		// if there is only one booking available or the begin date is before the first available begin date, check for overlap
-		if (beginDates.size()==1 || beginDate.before(beginDates.get(0))){
-			Date otherBeginDate=beginDates.get(0);
-			Date otherEndDate=endDates.get(0);
-			if ((beginDate.before(otherBeginDate) && endDate.before(otherBeginDate)) ||
-					(beginDate.after(otherEndDate)))
-					return true;
-			else
+		
+		for(int i=0; i< this.beginDates.size(); i++)
+		{
+			Date existingBeginDate = this.beginDates.get(i);
+			Date existingEndDate = this.endDates.get(i);
+
+			if(beginDate.after(existingBeginDate) && beginDate.before(existingEndDate) 
+			 || beginDate.equals(existingBeginDate) && beginDate.equals(existingEndDate))
 				return false;
-		// if the end date is after the last available end date, check for overlap
-		}else if (endDate.after(endDates.get(endDates.size()-1))){
-			Date otherEndDate=endDates.get(endDates.size()-1);;
-			if (beginDate.after(otherEndDate))
-				return true;
-			else
+			if(endDate.after(existingBeginDate) && endDate.before(existingEndDate)
+			 || endDate.equals(existingBeginDate) && endDate.equals(existingEndDate))
 				return false;
-				
-		}else
-			for(Date date:beginDates)	{
-				if (date.after(endDate)){
-					int lastIndex=(endDates.indexOf(date)-1);
-					//Date previousBeginDate=beginDates.get(lastIndex);
-					Date previousEndDate=endDates.get(lastIndex);
-					//Date nextBeginDate=beginDates.get(lastIndex+1);
-					//Date nextEndDate=endDates.get(lastIndex+1);
-					if (beginDate.after(previousEndDate))
-						return true; //case 
-					else return false;
-				}
-			}
-		return false;
+			
+		}
+		return true;
+	}
+	
+	public String toString()
+	{
+		String result ="";
+		for(int i=0; i<this.beginDates.size();i++)
+		{
+			result += "von "+ this.beginDates.get(i).toString()+" bis "+this.endDates.get(i).toString()+"\n";
+		}
+		return result;
 	}
 }

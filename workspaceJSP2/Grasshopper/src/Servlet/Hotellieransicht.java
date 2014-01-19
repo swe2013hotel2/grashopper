@@ -1,6 +1,7 @@
 package Servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,6 +16,7 @@ import swe2013.dao.SqlLocationDAO;
 import swe2013.dao.SqlUserDAO;
 import swe2013.dao.UserDAO;
 import swe2013.location.Hotel;
+import swe2013.location.Review;
 import swe2013.user.User;
 
 /**
@@ -72,7 +74,7 @@ public class Hotellieransicht extends HttpServlet {
 			
 			if(!user.checkPassword(oldPW))
 			{
-				response.sendRedirect("Hotellieransicht");
+				response.sendRedirect("Hotellieransicht?message=Passwort%20falsch");
 				return;
 			}
 			
@@ -108,13 +110,13 @@ public class Hotellieransicht extends HttpServlet {
 		System.out.println("get");
 		
 		if(session.getAttribute("UserID")==null){
-			response.sendRedirect("nothotellier.jsp");
+			response.sendRedirect("errorPage.jsp?message=Nicht%20eingeloggt");
 			return;
 		}
 		
 		int userclass=0;
 		if(session.getAttribute("UserClass")==null){
-			response.sendRedirect("nothotellier.jsp");
+			response.sendRedirect("errorPage.jsp?message=Nicht%20eingeloggt");
 			return;
 		}
 		else
@@ -123,7 +125,7 @@ public class Hotellieransicht extends HttpServlet {
 		}
 		
 		if(userclass!=2){
-			response.sendRedirect("nothotellier.jsp");
+			response.sendRedirect("errorPage.jsp?message=Sie%20sind%20kein%20Hotellier");
 			return;
 		}
 		else
@@ -134,24 +136,13 @@ public class Hotellieransicht extends HttpServlet {
 		/*System.out.println(review);
 		String reviewtext = review.getReviewText();
 		System.out.println(reviewtext);*/
-		SqlUserDAO userDAO = new SqlUserDAO();
 		SqlLocationDAO locationDAO = new SqlLocationDAO();
 		
 		long hotellierID = (Long) session.getAttribute("UserID");
-		
-		User user = userDAO.getUserbyID(hotellierID);
+		System.out.print("hotellierid: "+ hotellierID);
 		Hotel hotel = locationDAO.getHotelbyOwner(hotellierID);
 		
-		request.setAttribute("username", user.getUsername());
-		request.setAttribute("vorname", user.getFirstName());
-		request.setAttribute("nachname", user.getLastName());
-		request.setAttribute("email", user.getEmail());
-		request.setAttribute("telephone", user.getEmail());
-		request.setAttribute("sex", user.getSex());
-		request.setAttribute("street", user.getStreet());
-		request.setAttribute("zip", user.getZipCode());
-		request.setAttribute("city", user.getCity());
-		request.setAttribute("country", user.getCountry());
+		ArrayList<Review> reviews = Review.getReviewsForHotel(hotel.getHotelID());
 		
 		int[] rooms = hotel.getNumberOfRooms();
 		int[] cost = hotel.getPricesOfRooms();
@@ -161,6 +152,7 @@ public class Hotellieransicht extends HttpServlet {
 		request.setAttribute("twoBedRoom", rooms[1]);
 		request.setAttribute("priceOneBedRoom", cost[0]);
 		request.setAttribute("priceTwoBedRoom", cost[1]);
+		request.setAttribute("reviews", reviews);
 		
 		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/Hotellieransicht.jsp");
 		dispatcher.forward(request, response);

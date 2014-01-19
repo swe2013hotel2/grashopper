@@ -94,7 +94,7 @@ public class Hotelregistrierung extends HttpServlet {
 			}
 			        
 			else 
-				response.sendRedirect("invalidLogin.jsp"); //error page 
+				response.sendRedirect("errorPage.jsp?message=Registrierung%20fehlgeschlagen"); //error page 
 			} 
 				
 				

@@ -48,7 +48,7 @@ public class Login extends HttpServlet {
 			if(user==null)
 			{
 				System.out.print("dsoifhidshgfds");
-				response.sendRedirect("invalidLogin.jsp?error=nouser");
+				response.sendRedirect("errorPage.jsp?message=User%20existiert%20nicht");
 			}
 			
 			if (user != null && user.checkPassword(password))
@@ -65,7 +65,7 @@ public class Login extends HttpServlet {
 			}
 			        
 			else 
-				response.sendRedirect("invalidLogin.jsp?error=wrongpassword"); //error page 
+				response.sendRedirect("errorPage.jsp?error=Falsches%20Passwort"); //error page 
 			} 
 				
 				

@@ -39,6 +39,8 @@ public class SqlDAO {
 			{
 				preparedStatement.setObject(i+1, (values[i]==null? Types.NULL : values[i]));
 			}
+			
+			System.out.println(preparedStatement.toString());
  
 			int rowsModified = preparedStatement.executeUpdate();
 			
@@ -90,6 +92,8 @@ public class SqlDAO {
 				preparedStatement.setObject(i+1, (values[i]==null? Types.NULL : values[i]));
 			}
  
+			System.out.println(preparedStatement.toString());
+			
 			rs = preparedStatement.executeQuery();
 			
 			while (rs.next()) {

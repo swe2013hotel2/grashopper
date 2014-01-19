@@ -45,7 +45,7 @@ public class Kundenregistrierung extends HttpServlet {
 			String password2 = request.getParameter("passwort2");
 			
 			if(!password.equals(password2)){
-				response.sendRedirect("Kundenregistrierung.jsp");
+				response.sendRedirect("Kundenregistrierung.jsp?message=Passwoerter%20stimmen%20nicht%20Ÿberein");
 			}
 			else{
 		
