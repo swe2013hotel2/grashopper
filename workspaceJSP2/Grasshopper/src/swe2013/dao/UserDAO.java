@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 import swe2013.user.User;
 
+/**
+ * User DAO
+ * Interface for storing and retrieval of user data 
+ * @author Anreiter Simon, Moser Victoria Dorothy, Kocman Andreas
+ */
 public interface UserDAO {
 
 	/**

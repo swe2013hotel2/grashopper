@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package swe2013.dao;
 
 import java.sql.Connection;
@@ -10,12 +8,12 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.Types;
 import java.util.ArrayList;
+
 /**
  * SQL DAO
  * @author Anreiter Simon, Moser Victoria Dorothy, Kocman Andreas
  * The sqlDAO Class handles SQL connection management
  */
-
 public class SqlDAO {
 	
 	private static final String DB_DRIVER = "com.mysql.jdbc.Driver";

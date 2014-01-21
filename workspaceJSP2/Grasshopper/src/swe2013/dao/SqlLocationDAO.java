@@ -1,3 +1,4 @@
+
 package swe2013.dao;
 
 import java.util.ArrayList;
@@ -5,6 +6,11 @@ import java.util.Date;
 
 import swe2013.location.*;
 
+/**
+ * SQL Location DAO
+ * Class for storing and retrieving location (city and hotel) related information from a sql database
+ * @author Anreiter Simon, Moser Victoria Dorothy, Kocman Andreas
+ */
 public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 
 	//--------------------------------------------------------------------------------

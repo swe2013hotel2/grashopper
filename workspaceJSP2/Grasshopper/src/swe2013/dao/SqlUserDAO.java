@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 import swe2013.user.*;
 
+/**
+ * SQL User DAO
+ * Class for storing and retrieving user related information from a sql database
+ * @author Anreiter Simon, Moser Victoria Dorothy, Kocman Andreas
+ */
 public class SqlUserDAO implements UserDAO {
 
 	static String insert_User_SQL = "INSERT INTO a1201759.User "
