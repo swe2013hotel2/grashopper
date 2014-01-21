@@ -9,7 +9,7 @@ import java.util.Date;
  * Statistic
  * Class for managing statistic information on hotels and cities
  * @author Anreiter Simon, Moser Victoria Dorothy, Kocman Andreas
- */ 
+ */  
 public class Statistic {
 	String nameOfLocation;
 	Date statisticBeginDate;

@@ -1,6 +1,6 @@
  
 package swe2013.location;
-
+ 
 /**
  * Location
  * Class for managing location (City and Hotel) information

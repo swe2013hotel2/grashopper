@@ -1,7 +1,7 @@
 package swe2013.location;
  
 import java.util.ArrayList;
-
+ 
 /**
  * City
  * Class for managing city information
