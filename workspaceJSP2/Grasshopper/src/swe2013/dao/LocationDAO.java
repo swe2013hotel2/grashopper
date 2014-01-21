@@ -113,6 +113,6 @@ public interface LocationDAO {
 	 * @param price the highest price
 	 * @return array of all hotel IDs with free rooms and the room IDs of these rooms 
 	 */
-	public String[][] freeHotelsSummary(String cityname, String countryname, Date beginDate, Date endDate, int beds,
-			int price);
+	public String[][] freeHotelsSummary(String cityname, String countryname, Date beginDate, Date endDate, Integer beds,
+			Integer price);
 }

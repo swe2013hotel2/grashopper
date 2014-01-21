@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-
+/**
+ * Statistic
+ * Class for managing statistic information on hotels and cities
+ * @author Anreiter Simon, Moser Victoria Dorothy, Kocman Andreas
+ */  
 public class Statistic {
 	String nameOfLocation;
 	Date statisticBeginDate;
@@ -14,21 +18,54 @@ public class Statistic {
 	public int[]  amountBookings;
 	public int bookingscounter=0;
 	
-	
+	/**
+	 * generates statistics for a specific city for a specific timeframe
+	 * @param city the city
+	 * @param beginDate the begin date for the statistic
+	 * @param endDate the end date for the statistic
+	 */
 	public Statistic (City city, Date beginDate, Date endDate){
 		this.setStatisticBeginDate(beginDate);
 		this.setStatisticEndDate(endDate);
 		this.setNameOfLocation(city.getName());  // <<< - CITY hat noch keinen Namen im Objekt
 		
 		ArrayList<Hotel> hotelList = city.getHotels();
-		if (hotelList==null || hotelList.size()==0)
-			throw new IllegalArgumentException("No Hotels in that city");
-		
-		for (Hotel hotel : hotelList){
-			this.mergeWithStatistic(new Statistic(hotel, beginDate, endDate));
+		if (hotelList==null || hotelList.size()==0){
+			System.out.println("No Hotels in that city");
+			setEmpty(  beginDate,  endDate);
+		}
+		else
+		{
+			for (Hotel hotel : hotelList){
+				this.mergeWithStatistic(new Statistic(hotel, beginDate, endDate));
+			}
 		}
 	}
 	
+	private void setEmpty( Date beginDate, Date endDate)
+	{
+		this.setStatisticBeginDate(beginDate);
+		this.setStatisticEndDate(endDate);
+		this.setNameOfLocation(null);
+
+		ArrayList<Date[]> dateList= this.getDayList(statisticBeginDate, statisticEndDate);
+		int i=0;
+		dateBookings	= new Date[dateList.size()];
+		amountBookings	= new int[dateList.size()];
+		for(Date[] day : dateList){
+			dateBookings[i]=day[0];
+			amountBookings[i]=0;
+			i++;
+		}	
+	}
+	
+
+	/**
+	 * generates statistics for a specific city for a specific timeframe
+	 * @param hotel the hotel
+	 * @param beginDate the begin date for the statistic
+	 * @param endDate the end date for the statistic
+	 */
 	public Statistic(Hotel hotel, Date beginDate, Date endDate)
 	{
 		this.setStatisticBeginDate(beginDate);
@@ -36,15 +73,24 @@ public class Statistic {
 		this.setNameOfLocation(hotel.getName());
 		
 		ArrayList<Room> roomList=hotel.getRooms();
-		if (roomList==null || roomList.size()==0)
-			throw new IllegalArgumentException("No Rooms in that hotel");
-		
-		for (Room room : roomList){
-			this.mergeWithStatistic(new Statistic(room, beginDate, endDate));
+		if (roomList==null || roomList.size()==0){
+			System.out.println("No Rooms in that Hotel");
+			setEmpty(  beginDate,  endDate);
+		}
+		else
+		{
+			for (Room room : roomList){
+				this.mergeWithStatistic(new Statistic(room, beginDate, endDate));
+			}
 		}
 	}
 	
-	
+	/**
+	 * generates statistics for a specific room
+	 * @param room the room
+	 * @param beginDate the begin date for the statistic
+	 * @param endDate the end date for the statistic
+	 */
 	public Statistic(Room room, Date beginDate, Date endDate){
 		this.setStatisticBeginDate(beginDate);
 		this.setStatisticEndDate(endDate);
@@ -64,6 +110,10 @@ public class Statistic {
 		}
 	}
 	
+	/**
+	 * merges this statistic with another statistic of a similar entity and an equal timeframe
+	 * @param statistic the statistic to merge with
+	 */
 	private void mergeWithStatistic(Statistic statistic){
 		if (this.getStatisticBeginDate() != statistic.getStatisticBeginDate() 
 				|| this.getStatisticEndDate()!= statistic.getStatisticEndDate()){
@@ -82,7 +132,12 @@ public class Statistic {
 		}	
 	}
 	
-	
+	/**
+	 * returns a list of all dates between two specific dates 
+	 * @param beginDate the begin date
+	 * @param endDate the end date
+	 * @return an ArrayList of dates between the two dates
+	 */
 	private ArrayList<Date[]> getDayList(Date beginDate, Date endDate){ 
 		ArrayList<Date[]> dateList = new ArrayList<Date[]>();
 		Date[] curDate = new Date[2];
@@ -101,6 +156,9 @@ public class Statistic {
 		return dateList;
 	}
 
+	/**
+	 * returns a string of the statistic
+	 */
 	public String toString(){
 		String outputString="";
 	
@@ -112,6 +170,10 @@ public class Statistic {
 		return outputString;
 	}
 	
+	/**
+	 * returns a html code snipplet of the statistic
+	 * @return
+	 */
 	public String toString2(){
 
 		String output2="";
@@ -125,35 +187,35 @@ public class Statistic {
 	
 	
 	/**
-	 * @return the statisticBeginDate
+	 * @return the statistic begin date
 	 */
 	public final Date getStatisticBeginDate() {
 		return statisticBeginDate;
 	}
 
 	/**
-	 * @param statisticBeginDate the statisticBeginDate to set
+	 * @param statisticBeginDate the statistic begin date to set
 	 */
 	private final void setStatisticBeginDate(Date statisticBeginDate) {
 		this.statisticBeginDate = statisticBeginDate;
 	}
 
 	/**
-	 * @return the statisticEndDate
+	 * @return the statistic end date
 	 */
 	public final Date getStatisticEndDate() {
 		return statisticEndDate;
 	}
 
 	/**
-	 * @param statisticEndDate the statisticEndDate to set
+	 * @param statisticEndDate the statistic end date to set
 	 */
 	private final void setStatisticEndDate(Date statisticEndDate) {
 		this.statisticEndDate = statisticEndDate;
 	}
 
 	/**
-	 * @return the dateBookings
+	 * @return the date bookings
 	 */
 	public final Date[] getDateBookings() {
 		return dateBookings;

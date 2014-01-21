@@ -4,6 +4,12 @@ import java.util.ArrayList;
 
 import swe2013.user.*;
 
+
+/**
+ * SQL User DAO
+ * Class for storing and retrieving user related information from a sql database
+ * @author Anreiter Simon, Moser Victoria Dorothy, Kocman Andreas
+ */
 public class SqlUserDAO implements UserDAO {
 
 	static String insert_User_SQL = "INSERT INTO a1201759.User "
@@ -91,13 +97,10 @@ public class SqlUserDAO implements UserDAO {
 		Object values[] = new Object[1];
 		values[0]=email;
 		
-		//System.out.print("khksdisdhu");
-		
 		 ArrayList<Object[]> results = SqlDAO.selectRecordsFromTable(queryString, values, standardOrder);
 		if(results.size()==0)
 			return null;
-		//System.out.print(rs);
-		//System.out.print("khksdhisuehfisdhu");
+
 		User user = this.userFromResultSet(results.get(0));
 
 		return user;
@@ -109,8 +112,9 @@ public class SqlUserDAO implements UserDAO {
 		Object values[] = new Object[1];
 		values[0]=userID;
 		
-		ArrayList<Object[]> results = SqlDAO.selectRecordsFromTable(queryString, values, standardOrder);
+		 ArrayList<Object[]> results = SqlDAO.selectRecordsFromTable(queryString, values, standardOrder);
 		if(results.size()==0) return null;
+
 		User user = null;
 		user = this.userFromResultSet(results.get(0));
 
@@ -135,29 +139,17 @@ public class SqlUserDAO implements UserDAO {
 		
 		
 		int zipCode = Integer.parseInt(zipCodeString);
-		//int userGroup = Integer.parseInt(userGroupString);
 
-			//Customer
 			if(userGroup==1){
 				user = new Customer(username, firstName, lastName, email, telephoneNumber, zipCode, street, city, country, sex, password);
 			}
 			else if(userGroup==2)
 			{
 				user = new Hotellier(username, firstName, lastName, email, telephoneNumber, zipCode, street, city, country, sex, password);
-				/*
-				LocationDAO locationDAO = new SqlLocationDAO();
-				Hotel hotel = locationDAO.getHotelbyOwner(userID);
-				((Hotellier)user).setAssignedHotel(hotel);
-				*/
 			}
 			else if(userGroup==3)
 			{
 				user = new TourismAssociation(username, firstName, lastName, email, telephoneNumber, zipCode, street, city, country, sex, password);
-				/*
-				LocationDAO locationDAO = new SqlLocationDAO();
-				City result = locationDAO.getCityByAssignedTA(userID);
-				((TourismAssociation)user).setAssignedCity(result);	
-				*/
 			}
 			
 			user.setUserID(userID);

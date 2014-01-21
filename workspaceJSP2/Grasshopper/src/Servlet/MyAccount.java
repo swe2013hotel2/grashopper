@@ -55,7 +55,7 @@ public class MyAccount extends HttpServlet {
 		request.setAttribute("vorname", user.getFirstName());
 		request.setAttribute("nachname", user.getLastName());
 		request.setAttribute("email", user.getEmail());
-		request.setAttribute("telephone", user.getEmail());
+		request.setAttribute("telephone", user.getTelephoneNumber());
 		request.setAttribute("sex", user.getSex());
 		request.setAttribute("street", user.getStreet());
 		request.setAttribute("zip", user.getZipCode());

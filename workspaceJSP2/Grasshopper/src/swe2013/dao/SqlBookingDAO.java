@@ -6,6 +6,11 @@ import java.util.ArrayList;
 
 import swe2013.location.Bookings;
 
+/**
+ * Sql Booking DAO
+ * @author Anreiter Simon, Moser Victoria Dorothy, Kocman Andreas
+ * Class for storing and retrieving booking related information from a sql database
+ */
 public class SqlBookingDAO implements BookingDAO {
 	
 	static String insert_Booking = "INSERT INTO a1201759.Booking VALUES(?,?,?,?,?)";

@@ -1,6 +1,5 @@
-/**
- * 
- */
+
+
 package swe2013.dao;
 
 import java.sql.Connection;
@@ -10,12 +9,12 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.Types;
 import java.util.ArrayList;
-/**
- * SQL DAO
- * @author Anreiter Simon, Moser Victoria Dorothy, Kocman Andreas
- * The sqlDAO Class handles SQL connection management
- */
 
+/**
+ * The SqlDAO Class handles SQL connection management
+ * @author AAnreiter Simon (1201759)
+ *
+ */
 public class SqlDAO {
 	
 	private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
@@ -25,12 +24,6 @@ public class SqlDAO {
 
 	Connection connection=null;
 	
-	/**
-	 * prepares and executes a INSERT query
-	 * @param insertString the INSERT query
-	 * @param values the values to be inserted
-	 * @return 1 if no lines were affected
-	 */
 	public static int executeQuery(String insertString, Object[] values )
 	{
 		Connection dbConnection = null;
@@ -81,13 +74,6 @@ public class SqlDAO {
 		return errorCode; 
 	}
 	
-	/**
-	 * returns Objects from the Database based on a given select query
-	 * @param queryString the select string
-	 * @param values the relevant values for the select statement
-	 * @param order the order of these statements
-	 * @return an object array of all returning objects for that select query
-	 */
 	public static ArrayList<Object[]> selectRecordsFromTable(String queryString, Object[] values, String[] order) {
 		 
 		Connection dbConnection = null;
@@ -145,9 +131,7 @@ public class SqlDAO {
 	}
  
 	
-	/**
-	 * Constructor, loads the JDBC driver on initialization of the DAO
-	 */
+	
 	public SqlDAO()
 	{
 		// Try to load jdbc Drivers (for Java 1.5 or below)

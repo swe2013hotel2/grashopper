@@ -9,7 +9,6 @@ import swe2013.location.Room;
  * @author Anreiter Simon, Moser Victoria Dorothy, Kocman Andreas
  * Interface for storing and retrieval of Room data 
  */
-
 public interface RoomDAO {
 	/**
 	 * generates and saves a new room

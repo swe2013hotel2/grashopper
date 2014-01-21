@@ -1,8 +1,12 @@
 package swe2013.location;
-
+ 
 import java.util.ArrayList;
 import java.util.Date;
-
+ 
+/**
+ * Hotel
+ * Class for managing hotel information
+ */
 
 public class Hotel extends Location{
 	

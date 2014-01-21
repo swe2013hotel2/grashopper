@@ -5,6 +5,12 @@ import java.util.Date;
 
 import swe2013.location.*;
 
+
+/**
+ * SQL Location DAO
+ * Class for storing and retrieving location (city and hotel) related information from a sql database
+ * @author Anreiter Simon, Moser Victoria Dorothy, Kocman Andreas
+ */
 public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 
 	//--------------------------------------------------------------------------------
@@ -42,31 +48,35 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 	static String hotelOwner = "Owner";
 		
 	static String queryFreeRooms = "SELECT r.RID, r.Hotel FROM a1201759.Room r "
-			+ "WHERE r.Hotel=? AND (r.Beds >= ?) AND (r.Price <= ?) AND r.RID "
+			+ "WHERE r.Hotel=? "
+			+ "AND (r.Beds >= ?) "
+			+ "AND (r.Price <= ?) "
+			+ "AND r.RID "
 			+ "NOT IN ( SELECT b.RoomID FROM a1201759.Booking b "
-							+ "WHERE NOT (b.EndDate < ?"
-							+ "OR b.BeginDate > ?)) ORDER BY Price ASC";
+			+ "WHERE NOT (b.EndDate < ?"
+			+ "OR b.BeginDate > ?)) ORDER BY Price ASC";
 	
 	static String queryFreeHotels = "SELECT DISTINCT r.HOTEL FROM a1201759.Room r "
 			+ "WHERE (r.Beds >= ?) AND (r.Price <= ?) AND r.RID "
 			+ "NOT IN ( SELECT b.RoomID FROM a1201759.Booking b "
-							+ "WHERE NOT (b.EndDate < ?"
-							+ "OR b.BeginDate > ?))";
+			+ "WHERE NOT (b.EndDate < ?"
+			+ "OR b.BeginDate > ?))";
 	
-	static String queryFreeHotelsSummary = "SELECT Hotel AS hotelid,HotelName AS hotelname ,RID AS roomid, cityname, countryname, Price AS roomcost, beds AS roomsize "
+	static String queryFreeHotelsSummary_begin = "SELECT Hotel AS hotelid,HotelName AS hotelname ,RID AS roomid, cityname, countryname, Price AS roomcost, beds AS roomsize "
 			+"FROM (a1201759.Room "
 			+"INNER JOIN a1201759.Hotel ON Room.Hotel=Hotel.Hid) "
-			+"WHERE (Beds >= ?) "
-			+"AND (Price <= ?) "
-			+"AND (cityname= ?) "
-			+"AND (countryname= ?) "
-			+"AND RID "
-			+"NOT IN ( SELECT b.RoomID FROM a1201759.Booking b "
-			+"WHERE NOT (b.EndDate < ? "
-			+"OR b.BeginDate > ?)) "
-			+"GROUP BY HOTEL "
-			+"HAVING MIN(Price)";
-	
+			+"WHERE ";
+			
+	static String searchBeds = "(Beds >= ?) AND ";
+	static String searchPrice = "(Price <= ?) AND ";
+	static String searchCity = "(cityname= ?) AND ";
+	static String searchCountry = "(countryname= ?) AND ";
+	static String queryFreeHotelsSummary_end = "RID NOT IN ( SELECT b.RoomID FROM a1201759.Booking b "
+												+"WHERE NOT (b.EndDate < ? "
+												+"OR b.BeginDate > ?)) "
+												+"GROUP BY HOTEL "
+												+"HAVING MIN(Price)";
+										
 	 
 	
 	
@@ -227,7 +237,7 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 	
 	public Long getTAForCity(String cityname, String countryname){
 		Object[] values = {cityname,countryname};
-		String queryString = query_City_begin +"WHERE cityname=? AND countryname=?";
+		String queryString = "SELECT AssignedTA FROM a1201759.City WHERE cityname=? AND countryname=?";
 		
 		
 		ArrayList<Object[]> cities = SqlDAO.selectRecordsFromTable(queryString, values, cityOrder);
@@ -237,6 +247,8 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 		Object[] city = cities.get(0);
 		
 		Long taId = (Long)city[4];
+		
+		System.out.println("TAID="+taId);
 		
 		return taId;
 	}
@@ -296,11 +308,40 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 		return hotelIDS;
 	}
 	
-	public String[][] freeHotelsSummary(String cityname, String countryname, Date beginDate, Date endDate, int beds,
-			int price)
+	public String[][] freeHotelsSummary(String cityname, String countryname, Date beginDate, Date endDate, Integer beds,
+			Integer price)
 	{
-		Object[] values = {beds,price,cityname,countryname, toSQLDate(beginDate), toSQLDate(endDate)};
-		ArrayList<Object[]> results = SqlDAO.selectRecordsFromTable(queryFreeHotelsSummary, values, summaryOrder);
+		
+		ArrayList<Object> values = new ArrayList<Object>();
+		//Object[] values = {beds,price,cityname,countryname, toSQLDate(beginDate), toSQLDate(endDate)};
+		String query = queryFreeHotelsSummary_begin;
+		if(beds!=null){
+			query+=searchBeds;
+			values.add(beds);
+		}
+		if(price!=null)
+		{
+			query+=searchPrice;
+			values.add(price);
+		}
+		if(cityname!=null){
+			query+=searchCity;
+			values.add(cityname);
+		}
+		if(countryname!=null){
+			query+=searchCountry;
+			values.add(countryname);
+		}
+		values.add(toSQLDate(beginDate));
+		values.add(toSQLDate(endDate));
+		
+		query+=queryFreeHotelsSummary_end;
+		
+		
+		
+		ArrayList<Object[]> results = SqlDAO.selectRecordsFromTable(query, values.toArray(), summaryOrder);
+		
+		
 		String[][] summaries = new String[results.size()][summaryOrder.length];
 		
 		for(int i=0; i<results.size();i++)
@@ -309,7 +350,7 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 			
 			for(int j=0;j<result.length;j++)
 			{
-				summaries[i][j]=result[j].toString();
+				summaries[i][j]=(result[j]==null?"":result[j].toString());
 			}
 		}
 		return summaries;

@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import swe2013.location.Bookings;
 import swe2013.location.Room;
 
+/**
+ * SQL Room DAO
+ * Class for storing and retrieving room related information from a sql database
+ * @author Anreiter Simon, Moser Victoria Dorothy, Kocman Andreas
+ */
 public class SqlRoomDAO implements RoomDAO{
 	static String insertRoom = "INSERT INTO a1201759.Room VALUES(?,?,?,?)";
 	static String queryRoom = "SELECT * FROM a1201759.Room WHERE Hotel=? AND RID=?";

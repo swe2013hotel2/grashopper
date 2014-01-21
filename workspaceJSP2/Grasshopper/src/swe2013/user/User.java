@@ -4,6 +4,11 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * User
+ * Class representing all attirbutes and methods for users
+ * @author Anreiter Simon, Moser Victoria Dorothy, Kocman Andreas
+ */
 public class User {
 	String username;
 	String firstName;
@@ -18,6 +23,20 @@ public class User {
 	String password;
 	long UserID;
 	
+	/**
+	 * generates a new User
+	 * @param username the user name
+	 * @param firstName the first name
+	 * @param lastName the last name 
+	 * @param email the email address 
+	 * @param telephoneNumber the telephone number
+	 * @param zipCode the ZIP code
+	 * @param street the street
+	 * @param city the city
+	 * @param country the country
+	 * @param sex the sex
+	 * @param password the password
+	 */
 	public User(String username, String firstName,	String lastName, String email, String telephoneNumber, int zipCode, String street,	String city, String country, boolean sex, String password){
 		
 		this.setUsername(username);
@@ -33,6 +52,10 @@ public class User {
 		this.setPassword(password);
 	}
 	
+	/**
+	 * sets the password directly without using the MD5 hashing first
+	 * @param password
+	 */
 	public void setPasswordDirect(String password){
 		this.password=password;
 	}

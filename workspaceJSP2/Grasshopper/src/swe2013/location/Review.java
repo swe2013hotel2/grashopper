@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import swe2013.dao.SqlBookingDAO;
 import swe2013.dao.SqlDAO;
 
+/**
+ * Review
+ * Class for managing reviews
+ * @author Anreiter Simon, Moser Victoria Dorothy, Kocman Andreas
+ */
 public class Review {
 	static String insert_Review_Hotel = "INSERT INTO a1201759.Review VALUES(?,?,?,?,?)";
 	static String review_City = "UPDATE a1201759.City SET ReviewText=?, Stars=?  WHERE AssignedTA=?";
@@ -42,6 +47,12 @@ public class Review {
 	String reviewText;
 	String creatorUsername;
 	
+	/**
+	 * generates a new review
+	 * @param text the text of the review
+	 * @param stars the amount of stars (1-5)
+	 * @param username the username of the author
+	 */
 	public Review(String text, int stars, String username)
 	{
 		this.reviewText=text;
@@ -49,31 +60,60 @@ public class Review {
 		this.creatorUsername=username;
 	}
 
+	/**
+	 * returns the amount of stars
+	 * @return amount of stars (1-5)
+	 */
 	public int getStars() {
 		return stars;
 	}
 
+	/**
+	 * sets the amount of stars for the review
+	 * @param stars the amount of stars (1-5)
+	 */
 	public void setStars(int stars) {
 		this.stars = stars;
 	}
 	
+	/**
+	 * returns the name of the autor
+	 * @return the username of the autor
+	 */
 	public String getUsername() {
 		return this.creatorUsername;
 	}
 
+	/**
+	 * sets the name of the autor
+	 * @param username the username of the autor
+	 */
 	public void setUsername(String username) {
 		this.creatorUsername = username;
 	}
+	
+	/**
+	 * returns the text of the review
+	 * @return the text of the review
+	 */
 	public String getReviewText() {
 		return reviewText;
 	}
 
+	/**
+	 * sets the text of the review
+	 * @param reviewText the text of the review
+	 */
 	public void setReviewText(String reviewText) {
 		this.reviewText = reviewText;
 	}
 
 
-	
+	/**
+	 * @param hotelID the ID of the hotel to be reviewed
+	 * @param reviewText the text of the review
+	 * @param stars the amount of stars for the review (1-5)
+	 */
 	public static void reviewHotel(long userID, long hotelID, String reviewText, int stars){
 		SqlBookingDAO bookingDAO = new SqlBookingDAO(); 
 		if(bookingDAO.userBookedHotel(userID, hotelID)){
@@ -82,11 +122,22 @@ public class Review {
 		}
 	}
 	
+	/**
+	 * allows TA to review their assigned city
+	 * @param userID the user ID of the TA
+	 * @param reviewText the review text
+	 * @param stars the amount of stars (1-5)
+	 */
 	public static void reviewCity(long userID, String reviewText, int stars){
 		Object[] values = {reviewText, stars, userID};
 		SqlDAO.executeQuery(review_City, values);
 	}
 	
+	/**
+	 * returns all reviews for a specific hotel
+	 * @param hotelID the ID of the hotel
+	 * @return an ArrayList of all reviews available for that hotel
+	 */
 	public static ArrayList<Review> getReviewsForHotel(long hotelID){
 		Object[] values= {hotelID};
 		ArrayList<Review> result = new ArrayList<Review>();
@@ -105,9 +156,14 @@ public class Review {
 		return result;
 	}
 	
+	/**
+	 * returns the review for a specific city
+	 * @param cityname the name of the city
+	 * @param countryname the name of the country the city is in
+	 * @return the review of the city
+	 */
 	public static Review getReviewsForCity(String cityname, String countryname){
 		Object[] values= {cityname, countryname};
-		
 		
 		ArrayList<Object[]> results = SqlDAO.selectRecordsFromTable(query_City, values, cityReviewOrder );
 	
@@ -133,10 +189,16 @@ public class Review {
 	}
 	*/
 	
+	
+	//TODO - ist das wirklich was die funktion macht?
+	/**
+	 * returns all bookings for a specific user
+	 * @param userid the user ID of the user
+	 * @return an array of strings describing all bookings
+	 */
 	public static String[][] usersBookings(long userid)
 	{
 		Object[] values = {userid};
-		
 		
 		ArrayList<Object[]> results = SqlDAO.selectRecordsFromTable(booked_hotels_and_reviews_for_customer, values, reviewOrder);
 		
@@ -145,7 +207,6 @@ public class Review {
 		for(int i=0; i<results.size();i++)
 		{
 			Object[] result = results.get(i);
-			
 			
 			for(int j=0;j<result.length;j++)
 			{
@@ -158,6 +219,13 @@ public class Review {
 		return summaries;
 	}
 	
+	
+	/**
+	 * Updates a specific review
+	 * @param reviewid the ID of the review
+	 * @param reviewText the text of the review
+	 * @param stars the amount of stars for the review (1-5)
+	 */
 	public static void updateReview(long reviewid, String reviewText, int stars)
 	{
 		Object[] values = {reviewText, stars, reviewid};

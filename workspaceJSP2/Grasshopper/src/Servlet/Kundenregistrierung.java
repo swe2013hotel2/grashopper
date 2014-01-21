@@ -54,7 +54,14 @@ public class Kundenregistrierung extends HttpServlet {
 				UserDAO.saveUser(customer);
 				        
 			    HttpSession session = request.getSession();	    
-			    session.setAttribute("username", customer.getFirstName()); 
+			   
+				if (customer != null)
+				{   
+					session.setAttribute("username", customer.getFirstName()); 
+					session.setAttribute("UserID", customer.getUserID());
+					session.setAttribute("UserClass", customer.getUserClass()); 		
+				}
+				
 			    response.sendRedirect("userLogged.jsp"); //logged-in page      		
 			}	
 		}	
