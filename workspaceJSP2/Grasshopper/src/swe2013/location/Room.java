@@ -1,5 +1,5 @@
 package swe2013.location;
-
+ 
 /**
  * Room
  * Class for managing room information
