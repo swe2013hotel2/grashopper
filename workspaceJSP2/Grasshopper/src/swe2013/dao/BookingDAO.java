@@ -7,7 +7,7 @@ import swe2013.location.Bookings;
 /**
  * Booking DAO
  * @author Anreiter Simon, Moser Victoria Dorothy, Kocman Andreas
- * Das Interface für die Buchungsverwaltung
+ * Interface for storing booking data
  */
 public interface BookingDAO {
 	

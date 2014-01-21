@@ -109,12 +109,8 @@ public class SqlUserDAO implements UserDAO {
 		Object values[] = new Object[1];
 		values[0]=userID;
 		
-		//System.out.print("khksdisdhu");
-		
-		 ArrayList<Object[]> results = SqlDAO.selectRecordsFromTable(queryString, values, standardOrder);
+		ArrayList<Object[]> results = SqlDAO.selectRecordsFromTable(queryString, values, standardOrder);
 		if(results.size()==0) return null;
-		//System.out.print(rs);
-		//System.out.print("khksdhisuehfisdhu");
 		User user = null;
 		user = this.userFromResultSet(results.get(0));
 
