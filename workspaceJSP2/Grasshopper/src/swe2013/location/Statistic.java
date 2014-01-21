@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-
+/**
+ * Statistic
+ * Class for managing statistic information on hotels and cities
+ * @author Anreiter Simon, Moser Victoria Dorothy, Kocman Andreas
+ */
 public class Statistic {
 	String nameOfLocation;
 	Date statisticBeginDate;
@@ -14,7 +18,12 @@ public class Statistic {
 	public int[]  amountBookings;
 	public int bookingscounter=0;
 	
-	
+	/**
+	 * generates statistics for a specific city for a specific timeframe
+	 * @param city the city
+	 * @param beginDate the begin date for the statistic
+	 * @param endDate the end date for the statistic
+	 */
 	public Statistic (City city, Date beginDate, Date endDate){
 		this.setStatisticBeginDate(beginDate);
 		this.setStatisticEndDate(endDate);
@@ -29,6 +38,12 @@ public class Statistic {
 		}
 	}
 	
+	/**
+	 * generates statistics for a specific city for a specific timeframe
+	 * @param hotel the hotel
+	 * @param beginDate the begin date for the statistic
+	 * @param endDate the end date for the statistic
+	 */
 	public Statistic(Hotel hotel, Date beginDate, Date endDate)
 	{
 		this.setStatisticBeginDate(beginDate);
@@ -44,7 +59,12 @@ public class Statistic {
 		}
 	}
 	
-	
+	/**
+	 * generates statistics for a specific room
+	 * @param room the room
+	 * @param beginDate the begin date for the statistic
+	 * @param endDate the end date for the statistic
+	 */
 	public Statistic(Room room, Date beginDate, Date endDate){
 		this.setStatisticBeginDate(beginDate);
 		this.setStatisticEndDate(endDate);
@@ -64,6 +84,10 @@ public class Statistic {
 		}
 	}
 	
+	/**
+	 * merges this statistic with another statistic of a similar entity and an equal timeframe
+	 * @param statistic the statistic to merge with
+	 */
 	private void mergeWithStatistic(Statistic statistic){
 		if (this.getStatisticBeginDate() != statistic.getStatisticBeginDate() 
 				|| this.getStatisticEndDate()!= statistic.getStatisticEndDate()){
@@ -82,7 +106,12 @@ public class Statistic {
 		}	
 	}
 	
-	
+	/**
+	 * returns a list of all dates between two specific dates 
+	 * @param beginDate the begin date
+	 * @param endDate the end date
+	 * @return an ArrayList of dates between the two dates
+	 */
 	private ArrayList<Date[]> getDayList(Date beginDate, Date endDate){ 
 		ArrayList<Date[]> dateList = new ArrayList<Date[]>();
 		Date[] curDate = new Date[2];
@@ -101,6 +130,9 @@ public class Statistic {
 		return dateList;
 	}
 
+	/**
+	 * returns a string of the statistic
+	 */
 	public String toString(){
 		String outputString="";
 	
@@ -112,6 +144,10 @@ public class Statistic {
 		return outputString;
 	}
 	
+	/**
+	 * returns a html code snipplet of the statistic
+	 * @return
+	 */
 	public String toString2(){
 
 		String output2="";
@@ -125,52 +161,50 @@ public class Statistic {
 	
 	
 	/**
-	 * @return the statisticBeginDate
+	 * @return the statistic begin date
 	 */
 	public final Date getStatisticBeginDate() {
 		return statisticBeginDate;
 	}
 
 	/**
-	 * @param statisticBeginDate the statisticBeginDate to set
+	 * @param statisticBeginDate the statistic begin date to set
 	 */
 	private final void setStatisticBeginDate(Date statisticBeginDate) {
 		this.statisticBeginDate = statisticBeginDate;
 	}
 
 	/**
-	 * @return the statisticEndDate
+	 * @return the statistic end date
 	 */
 	public final Date getStatisticEndDate() {
 		return statisticEndDate;
 	}
 
 	/**
-	 * @param statisticEndDate the statisticEndDate to set
+	 * @param statisticEndDate the statistic end date to set
 	 */
 	private final void setStatisticEndDate(Date statisticEndDate) {
 		this.statisticEndDate = statisticEndDate;
 	}
 
 	/**
-	 * @return the dateBookings
+	 * @return the date bookings
 	 */
 	public final Date[] getDateBookings() {
 		return dateBookings;
 	}
 	
 	/**
-	 * @return the dateBookings
+	 * @return the date bookings
 	 */
 	public final String getDateBookingsByID(int ID) {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 		return formatter.format(dateBookings[ID]);
 	}
 	
-	
-
 	/**
-	 * @param dateBookings the dateBookings to set
+	 * @param dateBookings the date bookings to set
 	 */
 	@SuppressWarnings("unused")
 	private final void setDateBookings(Date[] dateBookings) {
@@ -178,7 +212,7 @@ public class Statistic {
 	}
 
 	/**
-	 * @return the amountBookings
+	 * @return the amount of bookings
 	 */
 	public final int[] getAmountBookings() {
 		return amountBookings;
@@ -189,7 +223,7 @@ public class Statistic {
 	}
 
 	/**
-	 * @param amountBookings the amountBookings to set
+	 * @param amountBookings the amount of bookings to set
 	 */
 	@SuppressWarnings("unused")
 	private final void setAmountBookings(int[] amountBookings) {
@@ -197,14 +231,14 @@ public class Statistic {
 	}
 
 	/**
-	 * @return the nameOfLocation
+	 * @return the name of the location
 	 */
 	public final String getNameOfLocation() {
 		return nameOfLocation;
 	}
 
 	/**
-	 * @param nameOfLocation the nameOfLocation to set
+	 * @param nameOfLocation the name of the location to set
 	 */
 	private final void setNameOfLocation(String nameOfLocation) {
 		this.nameOfLocation = nameOfLocation;

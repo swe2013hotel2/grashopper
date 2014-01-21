@@ -3,11 +3,19 @@ package swe2013.location;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Bookings
+ * Class for managing booking information - each room stores bookings in a booking object
+ * @author Anreiter Simon, Moser Victoria Dorothy, Kocman Andreas
+ */
 public class Bookings {
 	ArrayList<Date> beginDates=null;
 	ArrayList<Date> endDates=null;
 	ArrayList<Long> customer=null;
 	
+	/** 
+	 * Constructor, creates the necessary ArrayLists for the booking information
+	 */
 	public Bookings(){
 		beginDates=new ArrayList<Date>();
 		endDates=new ArrayList<Date>();
@@ -87,6 +95,10 @@ public class Bookings {
 		return true;
 	}
 	
+	/**
+	 * generates a string of the booking information
+	 * @return string consisting of the most important booking information
+	 */
 	public String toString()
 	{
 		String result ="";

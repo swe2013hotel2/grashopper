@@ -3,13 +3,21 @@ package swe2013.location;
 import java.util.ArrayList;
 import java.util.Date;
 
-
+/**
+ * Hotel
+ * Class for managing hotel information
+ * @author Anreiter Simon, Moser Victoria Dorothy, Kocman Andreas
+ */
 public class Hotel extends Location{
 	
 	ArrayList<Room> rooms=null;
 	String name;
 	long hotelID;
 	
+	/**
+	 * Creates a new empty hotel based only on the name of the hotel
+	 * @param name
+	 */
 	public Hotel(String name) {
 		this.setName(name);
 		this.rooms=new ArrayList<Room>();
@@ -93,11 +101,21 @@ public class Hotel extends Location{
 		this.setRooms(roomList);
 	}
 		
-	
+	/**
+	 * returns an array list of all rooms in the hotel
+	 * @return an ArrayList of all rooms in the hotel
+	 */
 	public ArrayList<Room> getRooms(){
 		return rooms;
 	}
 	
+	/**
+	 * books a room in the hotel for a specific timeframe
+	 * @param customerID the customer ID of the user booking
+	 * @param persons the amount of persons the user is booking for
+	 * @param beginDate the arrival date
+	 * @param endDate the departure date
+	 */
 	public void bookRoomForTimeFrame(long customerID, int persons, Date beginDate, Date endDate){
 		for(Room room : this.rooms){
 			//System.out.println("Trying to book for" + persons + ": " +room.getSize() + ", available: " + room.bookings.freeForTimeFrame(beginDate, endDate) );
@@ -110,41 +128,50 @@ public class Hotel extends Location{
 		throw new IllegalStateException("No rooms available in the hotel for that time frame and amount of persons.");
 	}
 
+	/**
+	 * returns the number of rooms for each amount of beds
+	 * @return an int array consisting of all rooms divided into beds per room categories
+	 */
 	public int[] getNumberOfRooms(){
 		ArrayList<Room> roomList=this.getRooms();
 		int maxSize=0;
 		for(Room room : roomList)
 		{
-		 if (room.getSize()>maxSize)
-		maxSize=room.getSize();
+			if (room.getSize()>maxSize)
+				maxSize=room.getSize();
 		}
-		 int[] amountRooms=new int[maxSize];
-		 for (int i=0; i<maxSize; i++)
-		  amountRooms[i]=0;
-		 for (Room room : roomList){
-		 amountRooms[room.getSize()-1]++;
-		 }
-	return amountRooms;
-		 }
-		 
-		 public int[] getPricesOfRooms(){
+		int[] amountRooms=new int[maxSize];
+		for (int i=0; i<maxSize; i++)
+			amountRooms[i]=0;
+		for (Room room : roomList){
+			amountRooms[room.getSize()-1]++;
+		}
+		return amountRooms;
+	}
+	
+	/**
+	 * returns the Prices for each room category
+	 * @return an int array of the prices for each room category
+	 */
+	public int[] getPricesOfRooms(){
 		 ArrayList<Room> roomList=this.getRooms();
 		 int maxSize=0;
 		 for(Room room : roomList){
-		  if (room.getSize()>maxSize)
-		 maxSize=room.getSize();
+			 if (room.getSize()>maxSize)
+				 maxSize=room.getSize();
 		 }
 		 int[] amountRooms=new int[maxSize];
 		 for (int i=0; i<maxSize; i++)
-		  amountRooms[i]=0;
+			 amountRooms[i]=0;
 		 for (Room room : roomList){
-		  amountRooms[room.getSize()-1]=(int) room.getCostPerNight();
+			 amountRooms[room.getSize()-1]=(int) room.getCostPerNight();
 		 }
 		 return amountRooms;
-		 }
+	 }
 	
 	/**
-	 * @return the name
+	 * returns the name of the hotel
+	 * @return the name of the hotel
 	 */
 	public final String getName() {
 		return name;
@@ -184,6 +211,10 @@ public class Hotel extends Location{
 		this.rooms = rooms;
 	}
 	
+	/**
+	 * adds a given room to the hotel
+	 * @param room the room to add
+	 */
 	public final void addRoom(Room room){
 		rooms.add(room);
 	}
