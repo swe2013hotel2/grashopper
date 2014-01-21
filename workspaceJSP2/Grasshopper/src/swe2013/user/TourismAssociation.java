@@ -2,22 +2,28 @@ package swe2013.user;
 
 import swe2013.location.City;
 
+/**
+ * TourismAssociation
+ * Class representing all attirbutes and methods for TAs
+ * @author Anreiter Simon, Moser Victoria Dorothy, Kocman Andreas
+ */
 public class TourismAssociation extends User{
 
 	City assignedCity=null;
 	
 	/**
-	 * @param username
-	 * @param firstName
-	 * @param lastName
-	 * @param email
-	 * @param telephoneNumber
-	 * @param zipCode
-	 * @param street
-	 * @param city
-	 * @param country
-	 * @param sex
-	 * @param password
+	 * generates a new TA
+	 * @param username the username
+	 * @param firstName the first name
+	 * @param lastName the last name 
+	 * @param email the email address 
+	 * @param telephoneNumber the telephone number
+	 * @param zipCode the ZIP code
+	 * @param street the street
+	 * @param city the city
+	 * @param country the country
+	 * @param sex the sex
+	 * @param password the password
 	 */
 	public TourismAssociation(String username, String firstName, String lastName, String email, String telephoneNumber, int zipCode, String street, String city, String country, boolean sex, String password) {
 		super(username, firstName, lastName, email, telephoneNumber, zipCode, street, city, country, sex, password);
@@ -40,6 +46,9 @@ public class TourismAssociation extends User{
 		this.assignedCity = assignedCity;
 	}	
 	
+	/**
+	 * returns the user class for the TA (3)
+	 */
 	public Integer getUserClass(){
 		return 3;	
 	}
