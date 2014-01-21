@@ -9,7 +9,7 @@ import swe2013.location.Hotel;
 import swe2013.location.Review;
 import swe2013.location.Room;
 import swe2013.user.User;
-
+ 
 /**
  * User Management
  * Class for managing activities relevant for all user groups

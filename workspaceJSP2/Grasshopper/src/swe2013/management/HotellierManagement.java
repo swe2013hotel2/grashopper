@@ -9,7 +9,7 @@ import swe2013.location.Statistic;
 import swe2013.user.Hotellier;
 
 import java.util.ArrayList;
-
+ 
 /**
  * Hotellier Management
  * Class for managing hotellier related activities

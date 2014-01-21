@@ -5,7 +5,7 @@ import swe2013.location.City;
 import swe2013.location.Review;
 import swe2013.location.Statistic;
 import swe2013.user.TourismAssociation;
-
+ 
 /**
  * Tourism Association Management
  * Class for managing TA related activities

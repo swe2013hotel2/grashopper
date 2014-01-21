@@ -6,7 +6,7 @@ import java.util.Date;
 import swe2013.dao.SqlBookingDAO;
 import swe2013.dao.SqlRoomDAO;
 import swe2013.location.*;
-
+  
 /**
  * CustomerManagement
  * Class for managing customer related activities
