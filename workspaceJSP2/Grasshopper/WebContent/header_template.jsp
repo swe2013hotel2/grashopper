@@ -14,6 +14,20 @@
   <!-- modernizr enables HTML5 elements and feature detects -->
   <script type="text/javascript" src="js/modernizr-1.5.min.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js" type="text/javascript"></script>
+<script src="jquery-1.7.2.min.js" type="text/javascript"></script>
+<script src="jquery.validationEngine-de.js" type="text/javascript" charset="utf-8"></script>
+<script src="jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="validationEngine.jquery.css" type="text/css"/>
+
+
+<script>
+		jQuery(document).ready(function(){
+		jQuery("#form").validationEngine();
+		});
+
+</script>
+
 </head>
 
 <body>

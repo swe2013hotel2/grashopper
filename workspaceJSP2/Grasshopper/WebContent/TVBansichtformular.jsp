@@ -3,7 +3,7 @@
 
 
     
-    <form action="#" method="post">
+    <form form name="form" action="#" method="post">
       <div class="form_settings">
 
       <p><h2>Statistik suchen nach:</h2></p>
