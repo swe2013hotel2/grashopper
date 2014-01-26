@@ -3,15 +3,15 @@
 </jsp:include>
 
     <h2>Registrierung</h2>
-    <form name="form" action="Hotelregistrierung" method="post">
+    <form id="form" name="form" action="Hotelregistrierung" method="post">
       <div class="form_settings">
 		<h2>Ihre Daten</h2>
 
         <p><span>Ihr Username</span><input 	type="text" class="validate[required]" name="username" value="" required /></p>
         <p><span>Ihr Vorname</span><input 	type="text" class="validate[required,custom[onlyLetterSp]]"	name="vorname" value="" required /></p>
         <p><span>Ihr Nachname</span><input 	type="text" class="validate[required,custom[onlyLetterSp]]" name="nachname" value="" required /></p>
-        <p><span>Email Adresse</span><input type="text" class="validate[required,custom[email]]" name="email" value="" required /></p>
-        <p><span>Telefonnummer</span><input type="text" class="validate[required]" name="telephone" value="" required /></p>
+        <p><span>Email Adresse</span><input type="email" class="validate[required,custom[email]]" name="email" value="" required/></p>
+		<p><span>Telefonnummer</span><input type="text" class="validate[required]" name="telephone" value="" required /></p>
 		<p><span>Geschlecht</span><select id="id" name="sex">
           <option value="0">Männlich</option> 
           <option value="1">Weiblich</option>

@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * User
- * Class representing all attirbutes and methods for users
+ * Class representing all attributes and methods for users
  * @author Anreiter Simon, Moser Victoria Dorothy, Kocman Andreas
  */
 public class User {

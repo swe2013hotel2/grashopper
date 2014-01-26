@@ -22,11 +22,11 @@
 
 
 <script>
-		$(document).ready(function(){
-			 $("#form").validationEngine('attach');
-		});
-
-		
+<script>
+jQuery(document).ready(function(){
+    // binds form submission and fields to the validation engine
+    jQuery("#form").validationEngine('attach');
+});
 </script>
 
 </head>

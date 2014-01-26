@@ -8,8 +8,8 @@
 
    <form name="form" action="Hotelsuche" action="Hotelsuche" method="post">
 		<div class="form_settings">
-         <p><span>Von</span><input type="text" class="validate[custom[date],future[NOW]]" name="von" value="20.02.2014" /></p>
-		 <p><span>Bis</span><input type="text" class="validate[custom[date],future[NOW]]" name="bis" value="20.03.2014" /></p>
+         <p><span>Von</span><input type="date" class="validate[custom[date],future[NOW]]" name="von" value="20.02.2014" /></p>
+		 <p><span>Bis</span><input type="date" class="validate[custom[date],future[NOW]]" name="bis" value="20.03.2014" /></p>
        	 <p><span>Land</span><select id="id" name="land">
 			<option value="">-</option>
 			<%for(int i=0; i<countries.size(); i++) { %>
