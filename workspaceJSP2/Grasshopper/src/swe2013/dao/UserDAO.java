@@ -17,7 +17,7 @@ public interface UserDAO {
 	User getUserbyEmail(String email);
 	User getUserbyID(long userID);
 
-	long saveUser(User user) throws IllegalArgumentException;
+	int saveUser(User user) throws IllegalArgumentException;
 	
 
 	void deleteUser(User user) throws IllegalArgumentException;

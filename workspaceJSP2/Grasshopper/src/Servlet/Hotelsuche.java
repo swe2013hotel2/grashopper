@@ -34,8 +34,6 @@ public class Hotelsuche extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
 		try{
 			String von = request.getParameter("von");
 			String bis = request.getParameter("bis");
@@ -46,17 +44,9 @@ public class Hotelsuche extends HttpServlet {
 			
 			System.out.print("land ="+land);
 			if(von==null || bis== null || von.equals("") || bis.equals("")){
-				//request.setAttribute("status", "Fehler eingegebene Daten nicht komplett");
-				//RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/Hotelsuche.jsp");
-				//dispatcher.forward(request, response);
-				
 				response.sendRedirect("Hotelsuche.jsp?message=Fehler%20eingegebene%20Daten%20nicht%20komplett");
 				return;
 			}
-			
-			
-			//|| ort==null || land== null || personen==null || maxkosten==null ||
-			// || ort.equals("") || land.equals("") || personen.equals("") || maxkosten.equals("")
 			
 			LocationDAO locationDAO = new SqlLocationDAO();
 			SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
@@ -97,16 +87,21 @@ public class Hotelsuche extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		SqlLocationDAO ldao = new SqlLocationDAO();
-		
-		ArrayList<String> countries = ldao.availableCountries();
-		
-		request.setAttribute("countries", countries);
-		
-		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/Hotelsuche.jsp");
-		dispatcher.forward(request, response);
-		
+		try{
+			SqlLocationDAO ldao = new SqlLocationDAO();
+			
+			ArrayList<String> countries = ldao.availableCountries();
+			
+			request.setAttribute("countries", countries);
+			
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/Hotelsuche.jsp");
+			dispatcher.forward(request, response);
+		}
+		catch (Throwable theException) 	    
+		{
+			System.out.println(theException);
+			response.sendRedirect("errorPage.jsp?message=Unbekannter%20Fehler");
+		}	
 	}
 		
 }

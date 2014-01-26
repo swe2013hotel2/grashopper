@@ -19,7 +19,6 @@ import swe2013.user.User;
 /**
  * Servlet implementation class TVBRegistrierung
  */
-@SuppressWarnings("unused")
 @WebServlet("/TVBRegistrierung")
 public class TVBRegistrierung extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -31,8 +30,11 @@ public class TVBRegistrierung extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-    
-protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try
 		{	    
 			String username = request.getParameter("username");
@@ -50,7 +52,6 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 			String password = request.getParameter("passwort");
 			String passwordconfirmation = request.getParameter("passwort2");
 
-			//System.out.print(sex);
 			if(!password.equals(passwordconfirmation)){
 				response.sendRedirect("TVBRegistrierung.jsp?message=Passwoerter%20stimmen%20nicht%20ueberein");
 				return;
@@ -68,8 +69,20 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 				SqlUserDAO userDAO = new SqlUserDAO();
 				SqlLocationDAO locationDAO = new SqlLocationDAO();
 				
-				TourismAssociation ta = new TourismAssociation( username, firstname, lastname, email, phone, Integer.parseInt(zipCode),street, city, country, (sex.equals("2")?true:false), password);
-				userDAO.saveUser(ta);
+				User ta = userDAO.getUserbyEmail(email);
+				if(ta!=null)
+				{
+					response.sendRedirect("TVBRegistrierung.jsp?message=Registrierung%20fehlgeschlagen:%20Email%20schon%20vergeben"); //error page 
+					return;
+				}
+				
+				ta = new TourismAssociation( username, firstname, lastname, email, phone, Integer.parseInt(zipCode),street, city, country, (sex.equals("2")?true:false), password);
+				int status = userDAO.saveUser(ta);
+				if(status!=0)
+				{
+					response.sendRedirect("TVBRegistrierung.jsp?message=Registrierung%20fehlgeschlagen"); //error page 
+					return;
+				}
 				
 				City taCity = new City(city, country);
 				locationDAO.saveCity(taCity);
@@ -85,25 +98,10 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 			}	    
 
 		}
-				
-			catch (Throwable theException) 	    
-			{
-				System.out.println(theException); 
-			}
+		catch (Throwable theException) 	    
+		{
+			System.out.println(theException);
+			response.sendRedirect("errorPage.jsp?message=Unbekannter%20Fehler");
+		}
 }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
-
 }

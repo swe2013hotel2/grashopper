@@ -32,18 +32,23 @@ public class MyBookings extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		System.out.println("get");
-		
-		Long userID = (Long) session.getAttribute("UserID");
-		
-		SqlBookingDAO bdao = new SqlBookingDAO();
-		
-		ArrayList<String[]> bookings = bdao.bookingsForUser(userID);
-		
-		request.setAttribute("bookings", bookings);
-		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/MyBookings.jsp");
-		dispatcher.forward(request, response);
+		try{
+			HttpSession session = request.getSession();
+			Long userID = (Long) session.getAttribute("UserID");
+			
+			SqlBookingDAO bdao = new SqlBookingDAO();
+			
+			ArrayList<String[]> bookings = bdao.bookingsForUser(userID);
+			
+			request.setAttribute("bookings", bookings);
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/MyBookings.jsp");
+			dispatcher.forward(request, response);
+		}
+		catch (Throwable theException) 	    
+		{
+			System.out.println(theException);
+			response.sendRedirect("errorPage.jsp?message=Unbekannter%20Fehler");
+		}
 	}
 
 }

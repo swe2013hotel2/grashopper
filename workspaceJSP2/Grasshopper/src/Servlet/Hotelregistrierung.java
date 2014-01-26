@@ -35,13 +35,11 @@ public class Hotelregistrierung extends HttpServlet {
     }
 
 	/**
-	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try
 		{				
-
 			String 	password= "";
 			
 			String 	username= request.getParameter("username");
@@ -58,7 +56,6 @@ public class Hotelregistrierung extends HttpServlet {
 			if (request.getParameter("password1").equals(request.getParameter("password2"))){
 				password = request.getParameter("password1");
 			}
-			
 			
 			int[] rooms 	= new int[2];
 			double[] cost 	= new double[2];
@@ -78,9 +75,21 @@ public class Hotelregistrierung extends HttpServlet {
 			Hotel newHotel	= new Hotel(hotelname, rooms, cost);
 			City hotellocation = new City(hotelcity, hotelcountry);
 			
-			Hotellier user	= new Hotellier(username, vorname, nachname, email, phone, zipCode, street, city, country, sex, password, newHotel);
+			User user = UserDAO.getUserbyEmail(email);
 			
-			UserDAO.saveUser(user);
+			if(user!=null)
+			{
+				response.sendRedirect("Hotellierregistrierung.jsp?message=Registrierung%20fehlgeschlagen:%20Email%20schon%20vergeben"); //error page 
+				return;
+			}
+			user = new Hotellier(username, vorname, nachname, email, phone, zipCode, street, city, country, sex, password, newHotel);
+			
+			int status = UserDAO.saveUser(user);
+			if(status!=0)
+			{
+				response.sendRedirect("Hotellierregistrierung.jsp?message=Registrierung%20fehlgeschlagen"); //error page 
+				return;
+			}
 			locationDAO.saveHotel(newHotel, hotellocation, user.getUserID());
 			
 			
@@ -95,27 +104,12 @@ public class Hotelregistrierung extends HttpServlet {
 			        
 			else 
 				response.sendRedirect("errorPage.jsp?message=Registrierung%20fehlgeschlagen"); //error page 
-			} 
-				
-				
-			catch (Throwable theException) 	    
-			{
-				System.out.println(theException); 
-			}
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		}
+		catch (Throwable theException) 	    
+		{
+			System.out.println(theException);
+			response.sendRedirect("errorPage.jsp?message=Unbekannter%20Fehler");
+		}
 	}
 }
 

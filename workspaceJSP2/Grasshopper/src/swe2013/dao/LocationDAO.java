@@ -6,13 +6,16 @@ import java.util.Date;
 import swe2013.location.City;
 import swe2013.location.Hotel;
 
+
+
 /**
  * Location DAO
  * @author Anreiter Simon, Moser Victoria Dorothy, Kocman Andreas
  * Interface for storing and retrieval of location data (hotels and cities)
  */
 public interface LocationDAO {
-
+	
+	
 	/**
 	 * saves a new hotel
 	 * @param hotel the hotel object to be saved
@@ -20,7 +23,7 @@ public interface LocationDAO {
 	 * @param ownerID the ID of the account of the owner of the hotel
 	 * @return returns the ID of the saved hotel
 	 */
-	public long saveHotel(Hotel hotel, City city, long ownerID);
+	public int saveHotel(Hotel hotel, City city, long ownerID);
 	
 	/**
 	 * retrieves the hotel of a certain hotellier
@@ -71,7 +74,7 @@ public interface LocationDAO {
 	 * saves a new city
 	 * @param city a City object containing all relevant data of the city
 	 */
-	public void saveCity(City city) ;
+	public int saveCity(City city) ;
 	/**
 	 * deletes a city
 	 * @param city the City object of the city to be deleted

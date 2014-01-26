@@ -53,37 +53,37 @@ public class MyReviews extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		System.out.println("post");
-		
-		Long userID = (Long)session.getAttribute("UserID");
-		Long hotelid = Long.parseLong(request.getParameter("hotelid"));
-		String reviewText = request.getParameter("text");
-		String reviewIDString = request.getParameter("reviewid");
-		int stars = Integer.parseInt(request.getParameter("stars"));
-		
-		System.out.println("ReviewText "+ reviewText);
-		System.out.println("Reviewid "+ reviewIDString);
-		System.out.println("hotelid "+ request.getParameter("hotelid"));
-		System.out.println("Stars "+ request.getParameter("stars"));
-		
-		if(reviewIDString.equals(""))
-		{
-			if(!reviewText.equals("")){
-				System.out.println(request.getParameter("kjhgfeiewgfiekhf"));
-				Review.reviewHotel(userID, hotelid, reviewText, stars);
+		try{
+			HttpSession session = request.getSession();
+			
+			Long userID = (Long)session.getAttribute("UserID");
+			Long hotelid = Long.parseLong(request.getParameter("hotelid"));
+			String reviewText = request.getParameter("text");
+			String reviewIDString = request.getParameter("reviewid");
+			int stars = Integer.parseInt(request.getParameter("stars"));
+	
+			if(reviewIDString.equals(""))
+			{
+				if(!reviewText.equals("")){
+					System.out.println(request.getParameter("kjhgfeiewgfiekhf"));
+					Review.reviewHotel(userID, hotelid, reviewText, stars);
+				}
 			}
-		}
-		else
-		{
-			if(!reviewText.equals("")){
-				//updaten
-				System.out.println(request.getParameter("ksdjkhfiuwshdfhweihiuwehfewekhf"));
-				Long reviewid = Long.parseLong(request.getParameter("reviewid"));
-				Review.updateReview(reviewid, reviewText, stars);
+			else
+			{
+				if(!reviewText.equals("")){
+					//updaten
+					Long reviewid = Long.parseLong(request.getParameter("reviewid"));
+					Review.updateReview(reviewid, reviewText, stars);
+				}
 			}
+			response.sendRedirect("MyReviews");
 		}
-		response.sendRedirect("MyReviews");
+		catch (Throwable theException) 	    
+		{
+			System.out.println(theException);
+			response.sendRedirect("errorPage.jsp?message=Unbekannter%20Fehler");
+		}
 	}
 
 }

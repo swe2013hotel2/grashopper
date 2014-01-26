@@ -34,7 +34,6 @@ public class Booking extends HttpServlet {
  * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
  */
 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		try{
 			String von = request.getParameter("begindate");
 			String bis = request.getParameter("enddate");
@@ -74,6 +73,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		catch (Throwable theException) 	    
 		{
 			System.out.println(theException); 
+			response.sendRedirect("errorPage.jsp?message=Buchung%20Fehlgeschlagen");
 		}
 	}
 

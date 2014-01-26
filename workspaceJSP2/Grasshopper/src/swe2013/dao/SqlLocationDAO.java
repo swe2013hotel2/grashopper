@@ -84,7 +84,7 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 	static String[] hotelOrder = {hotelID, hotelName, hotelCityName ,hotelCountryName,hotelOwner};
 	//--------------------------------------------------------------------------------
 
-	public long saveHotel(Hotel hotel, City city, long ownerID) {
+	public int saveHotel(Hotel hotel, City city, long ownerID) {
 		saveCity(city);
 
 		String queryString = insert_Hotel_SQL;
@@ -95,7 +95,7 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 		values[3]=city.getCountry();
 		values[4]=ownerID;
 		
-		SqlDAO.executeQuery(queryString, values);
+		int status = SqlDAO.executeQuery(queryString, values);
 		values = new Object[0];
 		String[] order = {"HID"};
 				
@@ -112,7 +112,7 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 		
 		hotel.setHotelID(hotelID);
 		
-		return hotelID;
+		return status;
 	}
 
 	
@@ -135,7 +135,7 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 		SqlDAO.executeQuery(queryString, values);
 	}
 
-	public void saveCity(City city) {
+	public int saveCity(City city) {
 			//Check if exists
 			//if not create
 			String queryString = query_City_begin + "WHERE CityName=? AND CountryName=?";
@@ -154,8 +154,9 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 				values[3]=null;
 				values[4]=null;
 				
-				SqlDAO.executeQuery(queryString, values);
+				return SqlDAO.executeQuery(queryString, values);
 			}
+		return 1;
 	}
 	
 	public void deleteCity(City city){
@@ -261,10 +262,6 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 		{
 			Object[] values = {taID, cityname,countryname};
 			SqlDAO.executeQuery(assign_TA_Query, values);	
-		}
-		else
-		{
-			//return errormessage
 		}
 	}
 

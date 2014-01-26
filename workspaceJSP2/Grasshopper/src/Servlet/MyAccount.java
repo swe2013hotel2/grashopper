@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 import swe2013.dao.SqlUserDAO;
 import swe2013.dao.UserDAO;
 import swe2013.user.User;
@@ -35,35 +34,41 @@ public class MyAccount extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		System.out.println("get");
-		
-		Long userID = (Long) session.getAttribute("UserID");
-		
-		if(userID==null){
-			response.sendRedirect("errorPage.jsp?error=No%20User%20Logged%20in");
-			return;
+		try{
+			HttpSession session = request.getSession();
+			System.out.println("get");
+			
+			Long userID = (Long) session.getAttribute("UserID");
+			
+			if(userID==null){
+				response.sendRedirect("errorPage.jsp?error=No%20User%20Logged%20in");
+				return;
+			}
+			
+			
+			SqlUserDAO userDAO = new SqlUserDAO();
+	
+			User user = userDAO.getUserbyID(userID);
+	
+			request.setAttribute("username", user.getUsername());
+			request.setAttribute("vorname", user.getFirstName());
+			request.setAttribute("nachname", user.getLastName());
+			request.setAttribute("email", user.getEmail());
+			request.setAttribute("telephone", user.getEmail());
+			request.setAttribute("sex", user.getSex());
+			request.setAttribute("street", user.getStreet());
+			request.setAttribute("zip", user.getZipCode());
+			request.setAttribute("city", user.getCity());
+			request.setAttribute("country", user.getCountry());
+			
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/MyAccount.jsp");
+			dispatcher.forward(request, response);
 		}
-		
-		
-		SqlUserDAO userDAO = new SqlUserDAO();
-
-		User user = userDAO.getUserbyID(userID);
-
-		
-		request.setAttribute("username", user.getUsername());
-		request.setAttribute("vorname", user.getFirstName());
-		request.setAttribute("nachname", user.getLastName());
-		request.setAttribute("email", user.getEmail());
-		request.setAttribute("telephone", user.getEmail());
-		request.setAttribute("sex", user.getSex());
-		request.setAttribute("street", user.getStreet());
-		request.setAttribute("zip", user.getZipCode());
-		request.setAttribute("city", user.getCity());
-		request.setAttribute("country", user.getCountry());
-		
-		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/MyAccount.jsp");
-		dispatcher.forward(request, response);
+		catch (Throwable theException) 	    
+		{
+			System.out.println(theException);
+			response.sendRedirect("errorPage.jsp?message=Unbekannter%20Fehler");
+		}
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -103,15 +108,15 @@ public class MyAccount extends HttpServlet {
 			{
 				if(newPW.equals("") && (user.checkPassword(oldPW)||oldPW.equals("")))
 				{
-				udao.updateUser(hotellierID, username, vorname,
-						nachname, email, phone, zipCode,
-						street, city, country, sex,
-						user.getPassword());
+					udao.updateUser(hotellierID, username, vorname,
+							nachname, email, phone, zipCode,
+							street, city, country, sex,
+							user.getPassword());
 				}
 				else if(user.checkPassword(oldPW))
 				{
-						response.sendRedirect("MyAccount?message=Falsches%20Passwort");
-						return;				
+					response.sendRedirect("MyAccount?message=Falsches%20Passwort");
+					return;				
 				}
 				else if(!newPW.equals(""))
 				{
@@ -119,21 +124,20 @@ public class MyAccount extends HttpServlet {
 							nachname, email, phone, zipCode,
 							street, city, country, sex,
 							user.encodePassword(newPW));
-					
 				}
 			}
 			else
 			{
-
-					response.sendRedirect("MyAccount?message=Passwoerter%20nicht%20gleich");
-					return;
+				response.sendRedirect("MyAccount?message=Passwoerter%20nicht%20gleich");
+				return;
 			}
 		
 			response.sendRedirect("MyAccount");	
 		}
 		catch (Throwable theException) 	    
-			{
-				System.out.println(theException); 
-			}
+		{
+			System.out.println(theException);
+			response.sendRedirect("errorPage.jsp?message=Unbekannter%20Fehler");
+		}
 	}
 }

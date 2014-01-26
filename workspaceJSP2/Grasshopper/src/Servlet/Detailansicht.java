@@ -31,20 +31,21 @@ public class Detailansicht extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Long hotelid = Long.parseLong(request.getParameter("hotelid"));
-
-		
-		ArrayList<Review> reviews = Review.getReviewsForHotel(hotelid);
-		request.setAttribute("reviews", reviews);
-		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/Detailansicht.jsp");
-		dispatcher.include(request, response);
+		try{
+			Long hotelid = Long.parseLong(request.getParameter("hotelid"));
+	
+			
+			ArrayList<Review> reviews = Review.getReviewsForHotel(hotelid);
+			request.setAttribute("reviews", reviews);
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/Detailansicht.jsp");
+			dispatcher.include(request, response);
+		}
+		catch (Throwable theException) 	    
+		{
+			System.out.println(theException);
+			response.sendRedirect("errorPage.jsp?message=Unbekannter%20Fehler");
+		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
 
 }

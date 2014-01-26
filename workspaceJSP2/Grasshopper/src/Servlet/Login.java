@@ -57,22 +57,18 @@ public class Login extends HttpServlet {
 				session.setAttribute("UserID",user.getUserID());
 				session.setAttribute("UserClass",user.getUserClass());
 				session.setAttribute("username", user.getFirstName());
-				//session.setAttribute("userstreet", user.getStreet());
-				//session.setAttribute("usercity", user.getCity());
-				//session.setAttribute("usercountry", user.getCity());
-				
+
 				response.sendRedirect("userLogged.jsp");    		
 			}
 			        
 			else 
 				response.sendRedirect("errorPage.jsp?error=Falsches%20Passwort"); //error page 
-			} 
-				
-				
-			catch (Exception e) 	    
-			{
-				e.getMessage();
-			}
+		}
+		catch (Throwable theException) 	    
+		{
+			System.out.println(theException);
+			response.sendRedirect("errorPage.jsp?message=Unbekannter%20Fehler");
+		}
 		
 
 	}

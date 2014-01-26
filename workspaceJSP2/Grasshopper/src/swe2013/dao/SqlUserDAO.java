@@ -158,8 +158,11 @@ public class SqlUserDAO implements UserDAO {
 	}
 
 	@Override
-	public long saveUser(User user) throws IllegalArgumentException {
-		SqlDAO.executeQuery(insert_User_SQL, this.getUserDataArrayForSQL(user));
+	public int saveUser(User user) throws IllegalArgumentException {
+		int status = SqlDAO.executeQuery(insert_User_SQL, this.getUserDataArrayForSQL(user));
+		if(status!=0)
+			return status;
+		
 		String queryString = "SELECT MAX(UID) AS UID FROM a1201759.User";
 		
 		String[] order = {"UID"};
@@ -187,7 +190,7 @@ public class SqlUserDAO implements UserDAO {
 		}
 		*/
 		
-		return userID;
+		return status;
 	}
 
 

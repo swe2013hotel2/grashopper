@@ -96,9 +96,10 @@ public class Hotellieransicht extends HttpServlet {
 			
 		}
 		catch (Throwable theException) 	    
-			{
-				System.out.println(theException); 
-			}
+		{
+			System.out.println(theException);
+			response.sendRedirect("errorPage.jsp?message=Unbekannter%20Fehler");
+		}
 	}
 
 
@@ -106,57 +107,58 @@ public class Hotellieransicht extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		System.out.println("get");
-		
-		if(session.getAttribute("UserID")==null){
-			response.sendRedirect("errorPage.jsp?message=Nicht%20eingeloggt");
-			return;
+		try{
+			HttpSession session = request.getSession();
+			System.out.println("get");
+			
+			if(session.getAttribute("UserID")==null){
+				response.sendRedirect("errorPage.jsp?message=Nicht%20eingeloggt");
+				return;
+			}
+			
+			int userclass=0;
+			if(session.getAttribute("UserClass")==null){
+				response.sendRedirect("errorPage.jsp?message=Nicht%20eingeloggt");
+				return;
+			}
+			else
+			{
+				userclass = (Integer) session.getAttribute("UserClass");
+			}
+			
+			if(userclass!=2){
+				response.sendRedirect("errorPage.jsp?message=Sie%20sind%20kein%20Hotellier");
+				return;
+			}
+			
+			else
+			{
+				SqlLocationDAO locationDAO = new SqlLocationDAO();
+				
+				long hotellierID = (Long) session.getAttribute("UserID");
+				Hotel hotel = locationDAO.getHotelbyOwner(hotellierID);
+				
+				ArrayList<Review> reviews = Review.getReviewsForHotel(hotel.getHotelID());
+				
+				int[] rooms = hotel.getNumberOfRooms();
+				int[] cost = hotel.getPricesOfRooms();
+				
+				request.setAttribute("hotelname", hotel.getName());
+				request.setAttribute("oneBedRoom", rooms[0]);
+				request.setAttribute("twoBedRoom", rooms[1]);
+				request.setAttribute("priceOneBedRoom", cost[0]);
+				request.setAttribute("priceTwoBedRoom", cost[1]);
+				request.setAttribute("reviews", reviews);
+				
+				RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/Hotellieransicht.jsp");
+				dispatcher.forward(request, response);
+			}
+			
 		}
-		
-		int userclass=0;
-		if(session.getAttribute("UserClass")==null){
-			response.sendRedirect("errorPage.jsp?message=Nicht%20eingeloggt");
-			return;
-		}
-		else
+		catch (Throwable theException) 	    
 		{
-			userclass = (Integer) session.getAttribute("UserClass");
-		}
-		
-		if(userclass!=2){
-			response.sendRedirect("errorPage.jsp?message=Sie%20sind%20kein%20Hotellier");
-			return;
-		}
-		else
-		{
-		System.out.println("userclass" + userclass);
-		
-		//ArrayList<Review> review = Review.getReviewsForHotel(hotelID);
-		/*System.out.println(review);
-		String reviewtext = review.getReviewText();
-		System.out.println(reviewtext);*/
-		SqlLocationDAO locationDAO = new SqlLocationDAO();
-		
-		long hotellierID = (Long) session.getAttribute("UserID");
-		System.out.print("hotellierid: "+ hotellierID);
-		Hotel hotel = locationDAO.getHotelbyOwner(hotellierID);
-		
-		ArrayList<Review> reviews = Review.getReviewsForHotel(hotel.getHotelID());
-		
-		int[] rooms = hotel.getNumberOfRooms();
-		int[] cost = hotel.getPricesOfRooms();
-		
-		request.setAttribute("hotelname", hotel.getName());
-		request.setAttribute("oneBedRoom", rooms[0]);
-		request.setAttribute("twoBedRoom", rooms[1]);
-		request.setAttribute("priceOneBedRoom", cost[0]);
-		request.setAttribute("priceTwoBedRoom", cost[1]);
-		request.setAttribute("reviews", reviews);
-		
-		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/Hotellieransicht.jsp");
-		dispatcher.forward(request, response);
+			System.out.println(theException);
+			response.sendRedirect("errorPage.jsp?message=Unbekannter%20Fehler");
 		}
 	}
-
 }

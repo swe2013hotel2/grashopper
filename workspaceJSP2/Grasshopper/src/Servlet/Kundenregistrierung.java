@@ -28,7 +28,10 @@ public class Kundenregistrierung extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try{
 			String username = request.getParameter("username");
@@ -50,17 +53,34 @@ public class Kundenregistrierung extends HttpServlet {
 			else{
 		
 				SqlUserDAO UserDAO = new SqlUserDAO();
-				Customer customer = new Customer(username, vorname, nachname, email, telefon, Integer.parseInt(plz), strasse, ort, land, (anrede.equals("2")?true:false), password);
-				UserDAO.saveUser(customer);
-				        
+				
+				
+				User customer = UserDAO.getUserbyEmail(email);
+				if(customer!=null)
+				{
+					response.sendRedirect("Kundenregistrierung.jsp?message=Registrierung%20fehlgeschlagen:%20Email%20schon%20vergeben"); //error page 
+					return;
+				}
+				
+				customer = new Customer(username, vorname, nachname, email, telefon, Integer.parseInt(plz), strasse, ort, land, (anrede.equals("2")?true:false), password);
+				int status = UserDAO.saveUser(customer);
+				if(status!=0)
+				{
+					response.sendRedirect("Kundenregistrierung.jsp?message=Registrierung%20fehlgeschlagen"); //error page 
+					return;
+				}
 			    HttpSession session = request.getSession();	    
-			    session.setAttribute("username", customer.getFirstName()); 
+			    session.setAttribute("username", customer.getFirstName());
+			    session.setAttribute("UserId", customer.getUserID());
+			    session.setAttribute("UserClass", customer.getUserClass());
+			    
 			    response.sendRedirect("userLogged.jsp"); //logged-in page      		
 			}	
-		}	
+		}
 		catch (Throwable theException) 	    
 		{
-			System.out.println(theException); 
+			System.out.println(theException);
+			response.sendRedirect("errorPage.jsp?message=Unbekannter%20Fehler");
 		}
 	}
 
