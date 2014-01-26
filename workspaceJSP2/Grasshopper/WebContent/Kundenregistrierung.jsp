@@ -3,7 +3,7 @@
 </jsp:include>
 
 	<h2>Registrierung</h2>
-        <form name="form" action="Kundenregistrierung" method="post">
+        <form id="form" name="form" action="Kundenregistrierung" method="post">
           <div class="form_settings">
          	<p><span >Username</span><input type="text" class="validate[required]" name="username" value="" required/></p>
 			<p><span>Anrede</span><select id="id" class="validate[required]" name="anrede" required><option value="1">Frau</option><option value="2" >Herr</option></select></p>

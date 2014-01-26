@@ -24,11 +24,12 @@
 			
 	  		<div class="resultcolumn">
 				<h2>ab <%=hotel[6] %> EUR</h2><br>
-				<a class="actionbutton" href="Detailansicht?hotelid=<%=hotel[0] %>&hotelname=<%=hotel[1] %>&city=<%=hotel[2] %>&country=<%=hotel[3] %>&roomnumber=<%=hotel[4] %>&roomsize=<%=hotel[5] %>&roomcost=<%=hotel[6] %>&begindate=<%=hotel[7] %>&enddate=<%=hotel[8] %>">Ansehen</a>
-				<%if((Integer)session.getAttribute("UserClass")==1){ %>
-				<a class="actionbutton" href="Buchen.jsp?hotelid=<%=hotel[0] %>&hotelname=<%=hotel[1] %>&city=<%=hotel[2] %>&country=<%=hotel[3] %>&roomnumber=<%=hotel[4] %>&roomsize=<%=hotel[5] %>&roomcost=<%=hotel[6] %>&begindate=<%=hotel[7] %>&enddate=<%=hotel[8] %>">Buchen</a>
+				<a class="actionbutton" href="Detailansicht?hotelid=<%=hotel[0] %>&hotelname=<%=hotel[1] %>&city=<%=hotel[3] %>&country=<%=hotel[4] %>&roomnumber=<%=hotel[2] %>&roomsize=<%=hotel[5] %>&roomcost=<%=hotel[6] %>&begindate=<%=request.getParameter("von") %>&enddate=<%=request.getParameter("bis") %>">Ansehen</a>
+				<%if(session.getAttribute("UserClass")==null || (Integer)session.getAttribute("UserClass")!=1){ %>
+				<a class="deactivatedbutton" href="#">Buchen</a>				
 				<%}else{ %>
-				<a class="deactivatedbutton" href="#">Buchen</a>
+				<a class="actionbutton" href="Buchen.jsp?hotelid=<%=hotel[0] %>&hotelname=<%=hotel[1] %>&city=<%=hotel[3] %>&country=<%=hotel[4] %>&roomnumber=<%=hotel[2] %>&roomsize=<%=hotel[5] %>&roomcost=<%=hotel[6] %>&begindate=<%=request.getParameter("von") %>&enddate=<%=request.getParameter("bis") %>">Buchen</a>
+		
 				<%} %>
 			</div>
 			

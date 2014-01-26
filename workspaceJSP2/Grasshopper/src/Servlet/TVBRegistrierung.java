@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import swe2013.dao.SqlLocationDAO;
 import swe2013.dao.SqlUserDAO;
+import swe2013.location.City;
 import swe2013.location.Review;
 import swe2013.user.TourismAssociation;
 import swe2013.user.User;
@@ -51,36 +52,36 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 
 			//System.out.print(sex);
 			if(!password.equals(passwordconfirmation)){
-<<<<<<< HEAD
 				response.sendRedirect("TVBRegistrierung.jsp?message=Passwoerter%20stimmen%20nicht%20ueberein");
-=======
-				response.sendRedirect("TVBRegistrierung.jsp");
-			
+				return;
+			}
 			
 			SqlLocationDAO dao = new SqlLocationDAO();
 			Long taID = dao.getTAForCity(city, country);
+			
 			if(taID!=null){
-				response.sendRedirect("citytaexists.jsp");
+				response.sendRedirect("TVBRegistrierung.jsp?message=Stadt%20hat%20bereits%20Tourismusverband");
 				return;
-			}
 				
->>>>>>> 958ef75917fa97258819eb5e1a8ed71ed5f4533c
 			}
 			else{
-			SqlUserDAO userDAO = new SqlUserDAO();
-			TourismAssociation ta = new TourismAssociation( username, firstname, lastname, email, phone, Integer.parseInt(zipCode),street, city, country, (sex.equals("2")?true:false), password);
-			//TourismAssociation ta = new TorismAssociation();
-			//User user = UserDAO.s;
-			userDAO.saveUser(ta);
-			Review.reviewCity(ta.getUserID(), citydescription, Integer.parseInt(cityRating));
-			
-			HttpSession session = request.getSession();
-			session.setAttribute("username", ta.getFirstName());
-			
-			session.setAttribute("UserID", ta.getUserID());
-			session.setAttribute("UserClass", ta.getUserClass());
-			
-			response.sendRedirect("userLogged.jsp");
+				SqlUserDAO userDAO = new SqlUserDAO();
+				SqlLocationDAO locationDAO = new SqlLocationDAO();
+				
+				TourismAssociation ta = new TourismAssociation( username, firstname, lastname, email, phone, Integer.parseInt(zipCode),street, city, country, (sex.equals("2")?true:false), password);
+				userDAO.saveUser(ta);
+				
+				City taCity = new City(city, country);
+				locationDAO.saveCity(taCity);
+				locationDAO.assignTA(city, country, ta.getUserID());
+				Review.reviewCity(ta.getUserID(), citydescription, Integer.parseInt(cityRating));
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("username", ta.getFirstName());
+				session.setAttribute("UserID", ta.getUserID());
+				session.setAttribute("UserClass", ta.getUserClass());
+				
+				response.sendRedirect("userLogged.jsp");
 			}	    
 
 		}

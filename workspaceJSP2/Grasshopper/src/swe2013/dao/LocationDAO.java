@@ -1,5 +1,6 @@
 package swe2013.dao;
     
+import java.util.ArrayList;
 import java.util.Date;
 
 import swe2013.location.City;
@@ -113,6 +114,10 @@ public interface LocationDAO {
 	 * @param price the highest price
 	 * @return array of all hotel IDs with free rooms and the room IDs of these rooms 
 	 */
-	public String[][] freeHotelsSummary(String cityname, String countryname, Date beginDate, Date endDate, int beds,
-			int price);
+	public ArrayList<String[]> freeHotelsSummary(String cityname, String countryname, Date beginDate, Date endDate, Integer beds,
+			Integer price);	/**
+	 * returns all countries where hotels are available
+	 * @return array of all countrynames with hotels in them 
+	 */
+	public  ArrayList<String> availableCountries();
 }

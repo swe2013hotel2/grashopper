@@ -308,7 +308,7 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 		return hotelIDS;
 	}
 	
-	public String[][] freeHotelsSummary(String cityname, String countryname, Date beginDate, Date endDate, Integer beds,
+	public ArrayList<String[]> freeHotelsSummary(String cityname, String countryname, Date beginDate, Date endDate, Integer beds,
 			Integer price)
 	{
 		
@@ -340,20 +340,34 @@ public class SqlLocationDAO extends SqlDAO implements LocationDAO {
 		
 		
 		ArrayList<Object[]> results = SqlDAO.selectRecordsFromTable(query, values.toArray(), summaryOrder);
+		ArrayList<String[]> hoteldata = new ArrayList<String[]>();
 		
-		
-		String[][] summaries = new String[results.size()][summaryOrder.length];
-		
-		for(int i=0; i<results.size();i++)
+		for(int i=0;i<results.size();i++)
 		{
 			Object[] result = results.get(i);
+			String[] summary = new String[result.length];
 			
 			for(int j=0;j<result.length;j++)
 			{
-				summaries[i][j]=(result[j]==null?"":result[j].toString());
+				summary[j]=(result[j]==null?"":result[j].toString());
 			}
+			hoteldata.add(summary);		
 		}
-		return summaries;
+
+		return hoteldata;
 	}
 	
+	public ArrayList<String> availableCountries()
+	{
+		ArrayList<String> countries = new ArrayList<String>();
+		
+		Object[] values = {};
+		String[] order = {"countryname"};
+		ArrayList<Object[]> results = SqlDAO.selectRecordsFromTable("SELECT DISTINCT countryname FROM Hotel", values, order);
+		
+		for(int i=0; i<results.size(); i++)
+			countries.add(results.get(i)[0].toString());
+		
+		return countries;
+	}
 }

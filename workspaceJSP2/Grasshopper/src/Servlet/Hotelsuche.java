@@ -33,11 +33,10 @@ public class Hotelsuche extends HttpServlet {
 	/**
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
 		try{
-
 			String von = request.getParameter("von");
 			String bis = request.getParameter("bis");
 			String ort = request.getParameter("ort");
@@ -46,48 +45,68 @@ public class Hotelsuche extends HttpServlet {
 			String maxkosten = request.getParameter("maxkosten");
 			
 			System.out.print("land ="+land);
-			if(von==null || bis== null || ort==null || land== null || personen==null || maxkosten==null ||
-				von.equals("") || bis.equals("") || ort.equals("") || land.equals("") || personen.equals("") || maxkosten.equals("")){
-				request.setAttribute("status", "Fehler eingegebene Daten nicht komplett");
-				RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/Hotelsuche.jsp");
-				dispatcher.forward(request, response);
+			if(von==null || bis== null || von.equals("") || bis.equals("")){
+				//request.setAttribute("status", "Fehler eingegebene Daten nicht komplett");
+				//RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/Hotelsuche.jsp");
+				//dispatcher.forward(request, response);
 				
-				response.sendRedirect("/Hotelsuche.jsp?message=Fehler%20eingegebene%20Daten%20nicht%20komplett");
+				response.sendRedirect("Hotelsuche.jsp?message=Fehler%20eingegebene%20Daten%20nicht%20komplett");
 				return;
 			}
+			
+			
+			//|| ort==null || land== null || personen==null || maxkosten==null ||
+			// || ort.equals("") || land.equals("") || personen.equals("") || maxkosten.equals("")
 			
 			LocationDAO locationDAO = new SqlLocationDAO();
 			SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 			
-			Date bd;
-			Date ed;
-			
+			ort = (ort.equals("")?null:ort);
+			land = (land.equals("")?null:land);
+			personen = (personen.equals("")?null:personen);
+			maxkosten = (maxkosten.equals("")?null:maxkosten);
 
-			bd = formatter.parse(von);
-			ed = formatter.parse(bis);
+			Integer beds = (personen==null?null:Integer.parseInt(personen));
+			Integer price = (maxkosten==null?null:Integer.parseInt(maxkosten));
+			
+			Date bd = formatter.parse(von);
+			Date ed = formatter.parse(bis);
 			
 			
-			ArrayList<String[]> hotelData = new ArrayList<String[]>();
-			
-			String[][] summaries = locationDAO.freeHotelsSummary(ort, land, bd, ed, Integer.parseInt(personen),
-			Integer.parseInt(maxkosten));
+			ArrayList<String[]> summaries = locationDAO.freeHotelsSummary(ort, land, bd, ed, beds, price);
 
-			for(int i=0; i<summaries.length;i++){
-				//"hotelid","hotelname","roomid","cityname","countryname","roomcost","roomsize"
-				String[] summary = {summaries[i][0],summaries[i][1],summaries[i][3],summaries[i][4],summaries[i][2],summaries[i][6],summaries[i][5],von,bis};
-				hotelData.add(summary);
-			}
 
 			//request.setParameter("results",hotelData);
-			request.setAttribute("results", hotelData);
+			request.setAttribute("results", summaries);
+			request.setAttribute("von", von);
+			request.setAttribute("bis", bis);
+			
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/SearchResults.jsp");
 			dispatcher.forward(request, response);
 			
 		}	
 		catch (Throwable theException) 	    
 		{
-			System.out.println(theException); 
+			
+			System.out.println(theException.getMessage()); 
+			//response.sendRedirect("Hotelsuche.jsp?message=Fehler%20eingegebene%20Daten%20nicht%20komplett");
 		}
 	
 	}
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		SqlLocationDAO ldao = new SqlLocationDAO();
+		
+		ArrayList<String> countries = ldao.availableCountries();
+		
+		request.setAttribute("countries", countries);
+		
+		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/Hotelsuche.jsp");
+		dispatcher.forward(request, response);
+		
+	}
+		
 }

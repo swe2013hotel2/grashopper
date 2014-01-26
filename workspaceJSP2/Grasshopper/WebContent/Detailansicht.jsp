@@ -10,7 +10,7 @@
 	        <h4>Stadt:  <%=request.getParameter("city") %></h4><br>
 	        <h4>Land:   <%=request.getParameter("country") %></h4><br>
 	        <h4>Preis:  <%=request.getParameter("roomcost") %> EUR</h4><br>
-	         <%if((Integer)session.getAttribute("UserClass")==1){ %>
+	        <%if(session.getAttribute("UserClass")==null || (Integer)session.getAttribute("UserClass")!=1){ %>
   			<a class="actionbutton" href="Buchen.jsp?hotelid=<%=request.getParameter("hotelid") %>&hotelname=<%=request.getParameter("hotelname") %>&city=<%=request.getParameter("city") %>&country=<%=request.getParameter("country") %>&roomnumber=<%=request.getParameter("roomnumber") %>&roomsize=<%=request.getParameter("roomsize") %>&roomcost=<%=request.getParameter("roomcost") %>&begindate=<%=request.getParameter("begindate") %>&enddate=<%=request.getParameter("enddate") %>">Buchen</a>
   			<%} %>
   	</div>
