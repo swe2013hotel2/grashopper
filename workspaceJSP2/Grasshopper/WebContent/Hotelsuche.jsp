@@ -16,9 +16,9 @@
 			 	<option value="<%=countries.get(i) %>"><%=countries.get(i) %></option> 
 			<%} %>  
 			</select></p>
-      	 <p><span>Ort</span><input type="text" class="validate[custom[onlyLetterSp]]" name="ort" value="Linz" /></p>
-      	<p><span>Mindestens Betten</span><input type="text" class="validate[custom[integer]]" name="personen" value="1" /></p>
-         <p><span>Maximale Kosten</span><input type="text" class="validate[custom[integer]]" name="maxkosten" value="500" /></p>
+      	 <p><span>Ort</span><input type="text" class="validate[custom[onlyLetterSp]]" name="ort" value="" /></p>
+      	<p><span>Mindestens Betten</span><input type="text" class="validate[custom[integer]]" name="personen" value="" /></p>
+         <p><span>Maximale Kosten</span><input type="text" class="validate[custom[integer]]" name="maxkosten" value="" /></p>
          
         <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="name" value="Suchen" ></p>
      </div>

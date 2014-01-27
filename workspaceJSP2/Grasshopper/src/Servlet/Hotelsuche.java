@@ -49,7 +49,7 @@ public class Hotelsuche extends HttpServlet {
 			}
 			
 			LocationDAO locationDAO = new SqlLocationDAO();
-			SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			
 			ort = (ort.equals("")?null:ort);
 			land = (land.equals("")?null:land);
