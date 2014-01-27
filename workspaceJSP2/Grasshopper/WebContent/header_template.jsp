@@ -11,23 +11,22 @@
   <meta name="keywords" content="website keywords, website keywords" />
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
   <link rel="stylesheet" type="text/css" href="./css/style.css" />
+  <link rel="stylesheet" href="./css/validationEngine.jquery.css" type="text/css"/>
+  <link rel="stylesheet" href="./css/jquery-ui.css" type="text/css"/>
+  
   <!-- modernizr enables HTML5 elements and feature detects -->
-  <script type="text/javascript" src="js/modernizr-1.5.min.js"></script>
+<script type="text/javascript" src="js/modernizr-1.5.min.js"></script>
+<script src="./js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script src="./js/jquery.validationEngine-de.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/jquery-ui.js" type="text/javascript" charset="utf-8"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js" type="text/javascript"></script>
-<script src="js/jquery-1.7.2.min.js" type="text/javascript"></script>
-<script src="js/jquery.validationEngine-de.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
-<link rel="stylesheet" href="./css/validationEngine.jquery.css" type="text/css"/>
-
-
-<script>
-<script>
-jQuery(document).ready(function(){
-    // binds form submission and fields to the validation engine
-    jQuery("#form").validationEngine('attach');
-});
-</script>
+<style type="text/css">
+		.dp-highlight .ui-state-default {
+			background: #484;
+			color: #FFF;
+		}
+	</style>
 
 </head>
 

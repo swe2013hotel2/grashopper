@@ -70,9 +70,9 @@ public class Kundenregistrierung extends HttpServlet {
 					return;
 				}
 			    HttpSession session = request.getSession();	    
-			    session.setAttribute("username", customer.getFirstName());
-			    session.setAttribute("UserId", customer.getUserID());
-			    session.setAttribute("UserClass", customer.getUserClass());
+				session.setAttribute("UserID",customer.getUserID());
+				session.setAttribute("UserClass",customer.getUserClass());
+				session.setAttribute("username", customer.getFirstName());
 			    
 			    response.sendRedirect("userLogged.jsp"); //logged-in page      		
 			}	

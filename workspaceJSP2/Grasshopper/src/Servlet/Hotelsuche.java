@@ -44,12 +44,12 @@ public class Hotelsuche extends HttpServlet {
 			
 			System.out.print("land ="+land);
 			if(von==null || bis== null || von.equals("") || bis.equals("")){
-				response.sendRedirect("Hotelsuche.jsp?message=Fehler%20eingegebene%20Daten%20nicht%20komplett");
+				response.sendRedirect("Hotelsuche?message=Fehler%20eingegebene%20Daten%20nicht%20komplett");
 				return;
 			}
 			
 			LocationDAO locationDAO = new SqlLocationDAO();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 			
 			ort = (ort.equals("")?null:ort);
 			land = (land.equals("")?null:land);
