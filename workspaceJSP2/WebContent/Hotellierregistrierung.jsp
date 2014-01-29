@@ -35,10 +35,15 @@
 
 		<br>
 		
+<<<<<<< HEAD:workspaceJSP2/Grasshopper/WebContent/Hotellierregistrierung.jsp
          <p><span>Passwort:</span><input type="password" id="password1" class="validate[required,minsize[6]]" name="password1" value="" required /></p>
         <p><span>Passwort wiederholen:</span><input type="password"  class="validate[required,equals[password1]]" name="password2" value="" required /></p>
+=======
+         <p><span>Passwort:</span><input type="password" class="validate[required,minsize[6]]" name="password1" value="" required /></p>
+        <p><span>Passwort wiederholen:</span><input type="password" class="validate[required,equals[password1]]" name="password2" value="" required /></p>
+>>>>>>> 4f7c3a94c89023618e44bb539afb1d8720775d56:workspaceJSP2/WebContent/Hotellierregistrierung.jsp
         <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="name" value="Speichern" required /></p>
-      </div>
+      </div>  
     </form>
 
   
