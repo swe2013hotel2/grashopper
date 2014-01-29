@@ -49,46 +49,12 @@ public class Hotellieransicht extends HttpServlet {
 			
 			String 	hotelname 		= request.getParameter("hotelname");
 			
-			String 	username= request.getParameter("username");
-			String 	vorname	= request.getParameter("vorname");
-			String 	nachname= request.getParameter("nachname");
-			String 	email 	= request.getParameter("email");
-			String 	phone 	= request.getParameter("telephone");
-			boolean	sex		= (Integer.valueOf(request.getParameter("sex"))==1? true:false);
-			String 	street	= request.getParameter("street");
-			int 	zipCode	= Integer.valueOf(request.getParameter("zip"));
-			String 	city	= request.getParameter("city");
-			String 	country	= request.getParameter("country");
+			SqlLocationDAO ldao = new SqlLocationDAO();
 			
-			String oldPW = request.getParameter("oldPW");
-			String newPW = request.getParameter("newPW");
-			String repeatPW = request.getParameter("repeatPW");
+			Hotel hotel = ldao.getHotelbyOwner(hotellierID);
+			
+			ldao.updateHotel(hotelname, hotel.getHotelID());
 
-			
-			System.out.println("passt");
-			
-			LocationDAO ldao = new SqlLocationDAO();
-			UserDAO udao = new SqlUserDAO();
-			
-			User user = udao.getUserbyID(hotellierID);
-			
-			if(!user.checkPassword(oldPW))
-			{
-				response.sendRedirect("Hotellieransicht?message=Passwort%20falsch");
-				return;
-			}
-			
-			if(newPW!=null&& repeatPW!= null && newPW.equals(repeatPW))
-			{
-				String encodedPassword = user.encodePassword(newPW);
-				udao.updateUser(hotellierID, username, vorname,
-						nachname, email, phone, zipCode,
-						street, city, country, sex,
-						encodedPassword);
-				Hotel hotel = ldao.getHotelbyOwner(hotellierID);
-				
-				ldao.updateHotel(hotelname, hotel.getHotelID());
-			}
 			
 
 			response.sendRedirect("Hotellieransicht");

@@ -12,7 +12,7 @@
 		<%if(hotels!= null && hotels.size()!=0) {
 		for(int i=0; i<hotels.size();i++) { %>
 		<%String[] hotel = hotels.get(i); %>
-		<div class="result_row"> 
+		<div class="result_row" style="height:140px;"> 
 
 			<div class="resultcolumn">
 	        	<img src="bild.jpg" >
@@ -32,8 +32,10 @@
 		
 				<%} %>
 			</div>
+
 			
 		</div>
+		<div class="separator"></div>
   		<%}
 		}
 		else{ %>

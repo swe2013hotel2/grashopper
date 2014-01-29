@@ -32,13 +32,33 @@ public class Detailansicht extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
-			Long hotelid = Long.parseLong(request.getParameter("hotelid"));
-	
 			
-			ArrayList<Review> reviews = Review.getReviewsForHotel(hotelid);
+			String hotelid = request.getParameter("hotelid");
+			String hotelname = request.getParameter("hotelname");
+			String city = request.getParameter("city");
+			String country = request.getParameter("country");
+			String roomnumber = request.getParameter("roomnumber");
+			String roomsize = request.getParameter("roomsize");
+			String roomcost = request.getParameter("roomcost");
+			String begindate = request.getParameter("begindate");
+			String enddate = request.getParameter("enddate");
+			
+			ArrayList<Review> reviews = Review.getReviewsForHotel(Long.parseLong(hotelid));
 			request.setAttribute("reviews", reviews);
+			
+			request.setAttribute("hotelid", hotelid);
+			request.setAttribute("hotelname", hotelname);
+			request.setAttribute("city", city);
+			request.setAttribute("country", country);
+			request.setAttribute("roomnumber", roomnumber);
+			request.setAttribute("roomsize", roomsize);
+			request.setAttribute("roomcost", roomcost);
+			request.setAttribute("begindate", begindate);
+			request.setAttribute("enddate", enddate);
+			
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/Detailansicht.jsp");
-			dispatcher.include(request, response);
+			
+			dispatcher.forward(request, response);
 		}
 		catch (Throwable theException) 	    
 		{

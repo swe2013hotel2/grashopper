@@ -54,7 +54,7 @@ public class MyAccount extends HttpServlet {
 			request.setAttribute("vorname", user.getFirstName());
 			request.setAttribute("nachname", user.getLastName());
 			request.setAttribute("email", user.getEmail());
-			request.setAttribute("telephone", user.getEmail());
+			request.setAttribute("telephone", user.getTelephoneNumber());
 			request.setAttribute("sex", user.getSex());
 			request.setAttribute("street", user.getStreet());
 			request.setAttribute("zip", user.getZipCode());
@@ -104,26 +104,21 @@ public class MyAccount extends HttpServlet {
 			
 			System.out.println(newPW.equals(""));
 			
-			if( newPW.equals(repeatPW) && repeatPW.equals(""))
+			if(user.checkPassword(oldPW))
 			{
-				if(newPW.equals("") && (user.checkPassword(oldPW)||oldPW.equals("")))
+				if( newPW.equals(repeatPW) && !repeatPW.equals("") &&  !newPW.equals(""))
 				{
+
+						udao.updateUser(hotellierID, username, vorname,
+								nachname, email, phone, zipCode,
+								street, city, country, sex,
+								user.encodePassword(newPW));
+				}
+				else if(newPW.equals("") && repeatPW.equals("") ){
 					udao.updateUser(hotellierID, username, vorname,
 							nachname, email, phone, zipCode,
 							street, city, country, sex,
 							user.getPassword());
-				}
-				else if(user.checkPassword(oldPW))
-				{
-					response.sendRedirect("MyAccount?message=Falsches%20Passwort");
-					return;				
-				}
-				else if(!newPW.equals(""))
-				{
-					udao.updateUser(hotellierID, username, vorname,
-							nachname, email, phone, zipCode,
-							street, city, country, sex,
-							user.encodePassword(newPW));
 				}
 			}
 			else

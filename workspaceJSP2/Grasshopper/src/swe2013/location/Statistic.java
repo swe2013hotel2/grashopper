@@ -1,5 +1,5 @@
 package swe2013.location;
- 
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,14 +30,36 @@ public class Statistic {
 		this.setNameOfLocation(city.getName());  // <<< - CITY hat noch keinen Namen im Objekt
 		
 		ArrayList<Hotel> hotelList = city.getHotels();
-		if (hotelList==null || hotelList.size()==0)
-			throw new IllegalArgumentException("No Hotels in that city");
-		
-		for (Hotel hotel : hotelList){
-			this.mergeWithStatistic(new Statistic(hotel, beginDate, endDate));
+		if (hotelList==null || hotelList.size()==0){
+			System.out.println("No Hotels in that city");
+			setEmpty(  beginDate,  endDate);
+		}
+		else
+		{
+			for (Hotel hotel : hotelList){
+				this.mergeWithStatistic(new Statistic(hotel, beginDate, endDate));
+			}
 		}
 	}
 	
+	private void setEmpty( Date beginDate, Date endDate)
+	{
+		this.setStatisticBeginDate(beginDate);
+		this.setStatisticEndDate(endDate);
+		this.setNameOfLocation(null);
+
+		ArrayList<Date[]> dateList= this.getDayList(statisticBeginDate, statisticEndDate);
+		int i=0;
+		dateBookings	= new Date[dateList.size()];
+		amountBookings	= new int[dateList.size()];
+		for(Date[] day : dateList){
+			dateBookings[i]=day[0];
+			amountBookings[i]=0;
+			i++;
+		}	
+	}
+	
+
 	/**
 	 * generates statistics for a specific city for a specific timeframe
 	 * @param hotel the hotel
@@ -51,11 +73,15 @@ public class Statistic {
 		this.setNameOfLocation(hotel.getName());
 		
 		ArrayList<Room> roomList=hotel.getRooms();
-		if (roomList==null || roomList.size()==0)
-			throw new IllegalArgumentException("No Rooms in that hotel");
-		
-		for (Room room : roomList){
-			this.mergeWithStatistic(new Statistic(room, beginDate, endDate));
+		if (roomList==null || roomList.size()==0){
+			System.out.println("No Rooms in that Hotel");
+			setEmpty(  beginDate,  endDate);
+		}
+		else
+		{
+			for (Room room : roomList){
+				this.mergeWithStatistic(new Statistic(room, beginDate, endDate));
+			}
 		}
 	}
 	
@@ -196,15 +222,17 @@ public class Statistic {
 	}
 	
 	/**
-	 * @return the date bookings
+	 * @return the dateBookings
 	 */
 	public final String getDateBookingsByID(int ID) {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 		return formatter.format(dateBookings[ID]);
 	}
 	
+	
+
 	/**
-	 * @param dateBookings the date bookings to set
+	 * @param dateBookings the dateBookings to set
 	 */
 	@SuppressWarnings("unused")
 	private final void setDateBookings(Date[] dateBookings) {
@@ -212,7 +240,7 @@ public class Statistic {
 	}
 
 	/**
-	 * @return the amount of bookings
+	 * @return the amountBookings
 	 */
 	public final int[] getAmountBookings() {
 		return amountBookings;
@@ -223,7 +251,7 @@ public class Statistic {
 	}
 
 	/**
-	 * @param amountBookings the amount of bookings to set
+	 * @param amountBookings the amountBookings to set
 	 */
 	@SuppressWarnings("unused")
 	private final void setAmountBookings(int[] amountBookings) {
@@ -231,14 +259,14 @@ public class Statistic {
 	}
 
 	/**
-	 * @return the name of the location
+	 * @return the nameOfLocation
 	 */
 	public final String getNameOfLocation() {
 		return nameOfLocation;
 	}
 
 	/**
-	 * @param nameOfLocation the name of the location to set
+	 * @param nameOfLocation the nameOfLocation to set
 	 */
 	private final void setNameOfLocation(String nameOfLocation) {
 		this.nameOfLocation = nameOfLocation;

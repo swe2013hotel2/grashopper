@@ -49,6 +49,7 @@ public class Login extends HttpServlet {
 			{
 				System.out.print("dsoifhidshgfds");
 				response.sendRedirect("errorPage.jsp?message=User%20existiert%20nicht");
+				return;
 			}
 			
 			if (user != null && user.checkPassword(password))
@@ -58,11 +59,14 @@ public class Login extends HttpServlet {
 				session.setAttribute("UserClass",user.getUserClass());
 				session.setAttribute("username", user.getFirstName());
 
-				response.sendRedirect("userLogged.jsp");    		
+				response.sendRedirect("userLogged.jsp"); 
+				return;
 			}
 			        
-			else 
-				response.sendRedirect("errorPage.jsp?error=Falsches%20Passwort"); //error page 
+			else {
+				response.sendRedirect("errorPage.jsp?message=Falsches%20Passwort"); //error page
+				return;
+			}
 		}
 		catch (Throwable theException) 	    
 		{

@@ -115,6 +115,7 @@
 	             	<li><a href="MyAccount" >MeinAccount</a></li>
 	            <%} %>
 			<%}  %>
+            <li><a href="./doc/index.html" >JavaDoc</a></li>
             
             <li><a href="#">Dokumentation</a>
               <ul>
@@ -125,6 +126,7 @@
                     <li><a href="Anforderungsanalyse.pdf">Anforderungsanalyse</a></li>
 
                     <li><a href="designmodell.pdf">Designmodell</a></li>
+                    <li><a href="designmodell2.0-1.pdf">Designmodell v2</a></li>
                   </ul>
                 </li>
                 <li><a href="#">Präsentationen</a>
@@ -132,19 +134,13 @@
                     <li><a href="Presentation1.pdf">Präsentation 1</a></li>
                     <li><a href="Presentation2.pdf">Präsentation 2</a></li>
                     <li><a href="Presentation3.pdf">Präsentation 3</a></li>
+                    <li><a href="Presentation4.pdf">Präsentation 4</a></li>
+                    <li><a href="Abschlusspresentation.pdf">Abschlusspräsentation</a></li>
                   </ul>
                 </li>
                 <li><a href="#">JDoc</a></li>
               </ul>
- <%-- ------------------------------------------------------------------------------------------------------ --%>
-            
-            <%if(activePage!=null && activePage.equals("Teammitglieder")) {%> 
-            	  <li><a href="Teammitglieder.jsp" class="highlighted" >Team Mitglieder</a></li>
-            <%}
-            else{ %>
-             	 <li><a href="Teammitglieder.jsp" >Team Mitglieder</a></li>
-            <%} %>
- <%-- ------------------------------------------------------------------------------------------------------ --%>
+<%-- ------------------------------------------------------------------------------------------------------ --%>
             
              </ul> 
         </div>
@@ -172,6 +168,7 @@
             <li><a href="https://docs.google.com/spreadsheet/ccc?key=0AmtJOQ9DhchzdHJyaGRUaFpfZE9ydktJZmpzSjI2ZVE#gid=0">Projekt Tagebuch</a></li>
             <li><a href="https://github.com/swe2013hotel2/grashopper">GitHub</a></li>
             <li><a href="https://cewebs.cs.univie.ac.at/SWE/ws13/index.php?t=uebung">Cewebs</a></li>
+          	<li><a href="Teammitglieder.jsp" >Team Mitglieder</a></li>
           </ul>
         </div>
       </div>

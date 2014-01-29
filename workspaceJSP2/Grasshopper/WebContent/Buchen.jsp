@@ -26,7 +26,7 @@ String enddate = (request.getParameter("enddate")==null ? "":(String)request.get
       </form>
       <a class="actionbutton" href="Booking?hotelid=<%=request.getParameter("hotelid") %>&hotelname=<%=request.getParameter("hotelname") %>&city=<%=request.getParameter("city") %>&country=<%=request.getParameter("country") %>&roomnumber=<%=request.getParameter("roomnumber") %>&roomsize=<%=request.getParameter("roomsize") %>&roomcost=<%=request.getParameter("roomcost") %>&begindate=<%=request.getParameter("begindate") %>&enddate=<%=request.getParameter("enddate") %>">Buchen</a>
 
-  	<a class="actionbutton" href="Hotelsuche.jsp">Abbrechen</a>
+  	<a class="actionbutton" href="Hotelsuche">Abbrechen</a>
 
 
 <%@include file="footer_template.jsp" %>

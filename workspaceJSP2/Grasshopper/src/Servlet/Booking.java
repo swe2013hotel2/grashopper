@@ -57,7 +57,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			
 			BookingDAO bookingDAO = new SqlBookingDAO();
 			//RoomDAO roomDAO = new SqlRoomDAO();
-			SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+			SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 			
 			Date bd;
 			Date ed;
